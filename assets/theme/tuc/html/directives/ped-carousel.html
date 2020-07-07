@@ -1,0 +1,41 @@
+<div class="ped-carousel-container">
+    <div id="{{carouselId}}" class="ped-carousel pr">
+        <div class="arrow-right hidden-xs {{caruselPosition==1?'opacity0':''}}" ng-click="moveRight()">
+            <div class="icon icon-arrow-right-32x83"  >
+            </div>
+        </div>
+        <div class="arrow-left  hidden-xs {{caruselPosition==0?'opacity0':''}}" ng-click="moveLeft()">
+            <div class="icon icon-arrow-left-32x83" >
+            </div>
+        </div>
+        <div class="row__inner recentInner {{caruselPosition==1?'moveLeft':''}} {{activeVideo?'unhover':''}}">
+            <div class="tile {{activeVideo._id==video._id?'selected':''}}" ng-repeat="video in model" >
+                <div class="pr tile-content hand" style="background-image:url('{{getPosterH(video)}}')" ng-click="go('vod/'+video._id)" >
+                    <div class="pa {{subscriptionType(video.categories[0].name)}}">
+                        {{subscriptionType(video.categories[0].name) | uppercase}}
+                    </div>
+                    <div class="pa info">
+                        <div class="title">
+                            {{video.title}}
+                        </div>
+                        <span class="fll expiry">{{video.aired_date | date: 'MMMM dd, yyyy'}}</span>
+                        <span ng-hide="isInWatchlist(video._id)">
+                            <span class="flr mylist-span">My List</span>
+                            <span class="flr icon icon-add-purple-45x45" ng-click="addToList(video._id, $event)"></span>
+                        </span>
+                        <span ng-show="isInWatchlist(video._id)">
+                            <span class="flr mylist-span">Remove</span>
+                            <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(video._id, $event)"></span>
+                        </span>
+                        <!-- <span class="flr mylist-span" ng-hide="isInWatchlist(video._id)">My List</span>
+                        <span class="flr mylist-span" ng-show="isInWatchlist(video._id)">Remove</span>
+                        <span class="flr icon icon-add-purple-45x45 {{isInWatchlist(video._id)?'in-list':''}}" ng-click="addToList(video._id, $event)"></span> -->
+                        <div class="desc">
+                            {{video.description | limitTo:200}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,172 @@
+/* headerwrap */
+
+
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Styles
+================================================== */
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+ 
+
+    /* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {
+
+ 
+		
+		}
+		
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .header_resize {background:url(../images/header_bg2.png) no-repeat top center; }
+	
+	.prefooter{ width:100%;}
+	.prefooter_resize{ padding:30px 32px; width:91.7%;}
+	.col4.small{ width:21%;}
+	.prefooter .fcol{ width:26%; margin:0 8% 0 0;}
+	.col4.no_spacer{ width:24.8%;}
+	h1{ font-size:28px !important;}
+	h1 span{ font-size:12px !important;}
+	 .col4.small h2 a{ font-size:15px !important;}
+	 
+	.col2.small { width:40%;}
+    .col4{ margin-right:4%;}
+	 .sidebar.feture{ width:24%;}
+	 .centercol.last.percent{ width:73%;}
+	 .col3 a img{ width:169px;}
+	 .centercol.percent .col3{ width:33%;}
+ 
+	 .pic.port1 img{ width:481px;}
+	 .centercol4 { width:50%;}
+	 #slider-wrapper object { height: 315px; }
+ }
+	 
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {
+	#panel_setting_side { position:absolute !important; } 
+     #coment .podpis, #coment2 .podpis, #coment3 .podpis { float:none;}
+	 #coment2, #coment3{ margin:0px;}
+     .img_hover_box a.pic img.h { display: none !important;}
+	 .img_hover_box.pic a img.r_plus{ display:none !important;}
+	 .camera_caption > div { padding: 5px !important; font-size: 8px !important; line-height: 12px; }
+	 .main .comp{ display:none !important;}
+     .main .mob{ display:block !important;}
+     .fl,.fr{ float:none !important; margin:0px !important;}
+	 .fl.apply{ float:left !important;}
+	 .fr.apply{ float:right !important;}
+	 .col4.small,.prefooter .fcol,.col4.first{ width:100%; margin-right:0px; margin-bottom:20px;}
+	 .col4.no_spacer{ width:100%; margin-bottom:20px;}
+	 .prefooter_resize{ width:93%;}
+     h1{ font-size:15px !important;}
+	 .header .menu ul {display: none;}
+	 .header .menu select {display: block;}
+	 .logo{ padding-top:0px;}
+	 .header .logo span{ font-size:27px !important; top:0px; left:156px; position:absolute;}
+	 .header .logo p{ font-size:8px !important; top:45px; left:160px; position:absolute; color:#FF8D8D !important;}
+     .social{ float:none; padding-left:30%; padding-top:31%; height:21px;}
+	 .header_resize {background:url(../images/header_bg3.png) no-repeat top center; height:200px; }
+	 .search{ padding-top:27px; float:none; width:194px; margin:0 auto; padding-left:4%;}
+	 .col2.small { width:100%;}
+	 .col4{ width:100%; margin:0%;}
+	 .sidebar.last{ width:100%; float:none;}
+	 .centercol{ width:93%;}
+	  .centercol.last.percent{ width:100%;}
+	  .centercol.percent{ width:100%;}
+	  .sidebar.feture{ width:100%;}
+	  .col3{ width:51%; margin-bottom:20px;}
+	 .col4.no_spacer img,.col3.no_spacer img{ width:100% !important;}
+	  .centercol.percent .col3{ width:74%;}
+	   .all_block_hover_box.portfolio1 .pic.fl{ margin:0 3px 0 0;}
+	   .centercol2 { width:100%; float:left; }
+	   .centercol3 { width:100%;}
+	   .centercol4 { width:100%;}
+       .footer { }	
+#webstore-navigation li { float:none !important; margin: 5px 0 0 0 !important;}
+#catalogue .last-column > div { margin:5px 0 0 0 !important;}
+#catalogue .product { float:none !important; width: auto !important;}
+#webstore { min-width: auto !important;}
+
+ 
+
+ 
+	  
+
+		}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+
+ 		#slider-wrapper object { height: 240px; }
+
+		}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		 h1{ font-size:11px !important;}
+		 .prefooter_resize{ width:89.8%;}
+         .content_full_size{ width:94%;}
+		 .header .logo span{ left:109px; top:0px; font-size:21px !important;}
+		 .header .logo p{ left:113px; top:41px; font-size:6px !important;}
+		 .social{ padding-top:44%; padding-left:24%;}
+		 .search{ padding-left:10%;}
+		 .col4.no_spacer{ width:87.3%;}
+		 .col3{ width:72%;}
+		 .centercol.percent .col3{ width:100%;}
+		 .centercol.percent .col3 a img{ width:188px;}
+		 .col3 a img{ width:196px;}
+         #coment .podpis,#coment2 .podpis,#coment3 .podpis{ width:91%;}
+		 
+          .header_resize {background:url(../images/header_bg4.png) no-repeat top center;  }
+		 #slider-wrapper object { height: 160px; }
+	 
+ 
+ 
+ 
+ 
+	 
+	 
+ 
+	 
+	 
+	/*.works h2{ margin-left:70px;}
+*/		}
+		
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/

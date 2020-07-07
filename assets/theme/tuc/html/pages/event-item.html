@@ -1,0 +1,298 @@
+<div class="ppv-error-message" ng-if="!hasAccess()">
+    <h2 class="info-right" ng-hide="allowAccess || permission =='Subscribed'">You must be a Register to watch this event.</h2>
+    <h2 class="info-right" ng-show="permission =='Subscribed'">You must be a Subscriber to watch this event.</h2>
+</div>
+<div class="pay-per-view-item" ng-if="event._id && hasAccess()">
+
+    <div class="main-image {{eventIsLive?'event-live':'event-not-live'}}" style="background-image:url('{{mainImage | https}}')">
+        <div class="gradient">
+          
+
+            <div class="main-event-container" ng-if="hasAccess(event[0]) && eventIsLive">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="event-player">
+                            <pixellotplayer ng-if="mainEvent._id" video="mainEvent"  data-id="video-player"></pixellotplayer>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="title">{{mainEvent.title}}</div>
+                        <div class="description">
+                            {{mainEvent.description}}
+                        </div>
+                        <div class="live-now">
+                            LIVE NOW
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="tabs-area" ng-hide="showConfirmation">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-tabs nav-stacked" role="tablist">
+                        <li class="nav-item {{activeTab=='tickets'?'active':''}}">
+                            <a class="nav-link {{activeTab=='tickets'?'active':''}}" data-toggle="tab" href="pay-per-view#tickets" role="tab" ng-click="showActiveTab('tickets')">Schedule</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-md-9">
+  
+                    <div class="tab-content" ng-switch="activeTab">
+                        <div ng-switch-when="tickets" class="tab-pane active" id="tickets" role="tabpanel">
+                            <div class="tickets-container">
+                                <div class="row">
+
+                                    <div class="col-md-8 confirm-purchase" ng-hide="pay">
+                                        <div class="table-container">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{event.title}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding-bottom: 0px;">
+                                                            <div class="date">{{event[0].event_date | date: 'EEEE MMM d yyyy at h:mm a'}}</div>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-show="{{eventIsLive==false}}">
+                                                        <td>
+                                                            <div class="date">Inicio:</div>
+                                                            <div class="remaining-time">
+                                                                <div class="clock">
+                                                                    <div ng-if="remainingTime.total>=0" class="counter">
+                                                                        <div class="time">{{remainingTime.days}}</div>
+                                                                        <div class="smalltext">DIAS</div>
+                                                                    </div>
+                                                                    <div ng-if="remainingTime.total>=0" class="counter">
+                                                                        <div class="time">{{remainingTime.hours}}</div>
+                                                                        <div class="smalltext">HRS</div>
+                                                                    </div>
+                                                                    <div ng-if="remainingTime.total>=0" class="counter">
+                                                                        <div class="time">{{remainingTime.minutes}}</div>
+                                                                        <div class="smalltext">MNS</div>
+                                                                    </div>
+                                                                    <div ng-if="remainingTime.total>=0" class="counter">
+                                                                        <div class="time">{{remainingTime.seconds}}</div>
+                                                                        <div class="smalltext">SEG</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- <tr ng-repeat="session in event">
+                                                        <th>
+                                                            <div class="inner-table">
+                                                                <span><strong>{{session.title}}</strong></span>
+                                                                <br>
+                                                                <span class="date">{{session.event_date | date: 'MMMM dd yyyy - HH:mm'}}Hs.</span>
+
+                                                            </div>
+                                                        </th>
+
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button class="btn" ng-if="selectedPurchases.length >0 " ng-click="goToPayment()">COMPRA TUS TICKETS AHORA</button>
+                                        <div class="no-selected" ng-if="noSelected">
+                                            {{noSelected}}
+                                        </div>
+                                    </div>
+                                    <div class="billing-info" ng-show="pay">
+                                        <form name="billingInformation" ng-if="user.billingInfo && !newCard">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="number" style="display:block">Name on Card</label>
+                                                    <input type="text" class="form-control" style="width:49%;display:inline-block" name="first-number" ng-model="user.billingInfo.first_name" placeholder="First Name" autocomplete="first name" disabled>
+                                                    <input type="text" class="form-control" style="width:49%;display:inline-block" name="last-name" ng-model="user.billingInfo.last_name" placeholder="Last Name" autocomplete="last name" disabled>
+                                                    <label for="cardType">Card Type</label>
+                                                    <input type="text" class="form-control" id="cardType" name="cardType" ng-model="billingInfo.type" disabled style="text-transform: uppercase;">
+                                                    <label for="number">Card Number</label>
+                                                    <input type="text" class="form-control" id="number" name="number" ng-model="billingInfo.number" disabled>
+                                                    <label for="securityCode">Security Code</label>
+                                                    <input type="text" class="form-control" id="securityCode" name="securityCode" ng-model="billingInfo.security" disabled>
+                                                    <label for="exDate">Expiration Date</label>
+                                                    <input type="text" class="form-control" id="exDate" name="exDate" ng-model="billingInfo.exDate" disabled>
+                                                    <div class="loader" ng-if="buying"></div>
+                                                    <div class="purchase-error" ng-if="purchasingError">
+                                                        <img class="error-triangle" src="/assets/theme/tuc/images/red-triangle.png"> {{errorMessage}}
+                                                    </div>
+                                                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="buying">
+                                                        Your Transaction is being processed
+                                                    </div>
+                                                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="successfulPurchase">
+                                                        Your Transaction was successful please view your ticket on <a href="" ng-click="go('/account/tickets')">My Account</a>
+                                                    </div>
+                                                    <div class="purchase-error" ng-if="purchasingError">
+                                                        <img class="error-triangle" src="/assets/theme/tuc/images/red-triangle.png"> {{errorMessage}}
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary" ng-click="changeCard(billingInformation)" ng-hide="buying || successfulPurchase">CHANGE CREDIT CARD</button>
+                                                    <button type="button" class="btn btn-primary" ng-click="buyTicketByStoredCC()" ng-hide="buying || successfulPurchase">BUY TICKETS</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form name="billingForm" ng-show="newCard || !user.billingInfo">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <!-- <input type="checkbox" ng-model="billing.userIsCardHolder" ng-click="changeIsUserCardHolder(billing)" style="vertical-align: 1px;margin-right: 10px" /><label for="userIsCardHolder"> Check if Card Holder is the User</label> -->
+                                                    <label for="number" style="display:block">Name on Card</label>
+                                                    <input type="text" id="firstName" name="firstName" class="form-control {{submitted.billingForm && billingForm.firstName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="billing.firstName" placeholder="First Name" autocomplete="first name"
+                                                        required>
+                                                    <input type="text" id="lastName" name="lastName" class="form-control {{submitted.billingForm && billingForm.lastName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="billing.lastName" placeholder="Last Name" autocomplete="last name"
+                                                        required>
+                                                    <label for="cardType">Card Type</label>
+                                                    <select type="text" class="form-control {{submitted.billingForm && billingForm.cardType.$invalid?'error':''}}" id="cardType" name="cardType" ng-model="billing.pi_type" required>
+                                                        <option value="visa">Visa</option>
+                                                        <option value="mastercard">Mastercard</option>
+                                                        <option value="amex">Amex</option>
+                                                    </select>
+                                                    <label for="number">Card Number</label>
+                                                    <input type="text" class="form-control {{submitted.billingForm && billingForm.number.$invalid?'error':''}}" id="number" name="number" ng-model="billing.pi_number" required>
+                                                    <label for="securityCode">Security Code</label>
+                                                    <input type="text" class="form-control {{submitted.billingForm && billingForm.securityCode.$invalid?'error':''}}" id="securityCode" name="securityCode" ng-model="billing.security_code" required>
+                                                    <label for="exDate">Expiration Date</label>
+                                                    <div class="row">
+                                                        <select class="form-control exp-date {{submitted.billingForm && billingForm.CCMonth.$invalid?'error':''}}" name="CCMonth" id="CCMonth" ng-model="billing.pi_month" required>
+                                                            <option value="01">January</option>
+                                                            <option value="02">February</option>
+                                                            <option value="03">March</option>
+                                                            <option value="04">April</option>
+                                                            <option value="05">May</option>
+                                                            <option value="06">June</option>
+                                                            <option value="07">July</option>
+                                                            <option value="08">August</option>
+                                                            <option value="09">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                        <select class="form-control exp-date {{submitted.billingForm && billingForm.CCYear.$invalid?'error':''}}" name="CCYear" ng-model="billing.pi_year" required>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2029">2029</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="loader" ng-if="buying"></div>
+                                                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="buying">
+                                                        Your Transaction is being processed
+                                                    </div>
+                                                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="successfulPurchase">
+                                                        Your Transaction was successful please view your ticket on <a href="" ng-click="go('/account/tickets')">My Account</a>
+                                                    </div>
+                                                    <div class="purchase-error" ng-if="purchasingError">
+                                                        <img class="error-triangle" src="/assets/theme/tuc/images/red-triangle.png"> {{errorMessage}}
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" ng-click="buyTicket(billingForm)" ng-hide="buying || successfulPurchase">BUY TICKETS</button>
+                                                    <button type="button" class="btn btn-primary" ng-click="cancel(billingForm)" ng-hide="buying || successfulPurchase">CANCEL</button>
+                                                    <!-- <button type="button" class="btn btn-primary" ng-click="cancel(billingForm)" ng-if="successfulPurchase">BUY MORE TICKETS</button> -->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row purchased" ng-show="alreadyPurchased">
+                                    <h2>{{event.title}}</h2>
+                                    <div class="clock">
+                                        <div>
+                                            <h1 class="days">{{remainingTime.days}}</h1>
+                                            <div class="smalltext">Days</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="hours">{{remainingTime.hours}}</h1>
+                                            <div class="smalltext">Hours</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="minutes">{{remainingTime.minutes}}</h1>
+                                            <div class="smalltext">Minutes</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="seconds">{{remainingTime.seconds}}</h1>
+                                            <div class="smalltext">Seconds</div>
+                                        </div>
+                                    </div>
+                                    <div class="message">
+                                        <span>ALREADY PURCHASED!</span>
+                                        <p>Your Ticket is ready.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="line-up" class="tab-pane" id="line-up" role="tabpanel">
+                            <div class="row" style="margin: 0px 20px;">
+                                <div class="col-md-10 col-lg-8 line-up-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item {{lineup==1?'active':''}}" ng-click="lineup=1">
+                                            <div class="nav-link">Day 1 - 20.03.18</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==2?'active':''}}" ng-click="lineup=2">
+                                            <div class="nav-link">Day 2 - 21.03.18</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==3?'active':''}}" ng-click="lineup=3">
+                                            <div class="nav-link">Day 3 - 22.03.18</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==4?'active':''}}" ng-click="lineup=4">
+                                            <div class="nav-link">Day 4 - 23.03.18</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==5?'active':''}}" ng-click="lineup=5">
+                                            <div class="nav-link">Day 5 - 24.03.18</div>
+                                        </li>
+                                    </ul>
+                                    <div class="row line-up-header">
+                                        <div class="col-xs-3" style="padding: 0 2vw">
+                                            TIME
+                                        </div>
+                                        <div class="col-xs-7">
+                                            EVENT
+                                        </div>
+                                        <!-- <div class="col-xs-2">
+                                            STATUS
+                                        </div> -->
+                                    </div>
+                                    <div class="line-up-rows">
+                                        <div class="row line-up-row" ng-repeat="event in ppvDays['day'+lineup]">
+                                            <div class="col-xs-3 time">
+                                                {{event.Time}}
+                                            </div>
+                                            <div class="col-xs-7 event">
+                                                {{event.Event}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

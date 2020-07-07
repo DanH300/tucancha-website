@@ -1,0 +1,29 @@
+<div class="tvod-block col-xl-3 col-lg-4 col-sm-6 {{section}}">
+    <div class="block-bg" style="background-image: url({{video.PosterH.downloadUrl}})">
+        <div class="hover-info" ng-click="go('tvod/'+video._id)">
+            <div class="cast-span">
+                Cast: {{actors}}
+            </div>
+            <div class="rating-span">
+                Rating:
+            </div>
+            <div class="description-span mb16">
+                {{video.description}}
+            </div>
+            <div class="read-button">
+                More Info
+            </div>
+        </div>
+    </div>
+    <div class="" style="height: 57px;">
+        <div class="tvod-title">
+            {{video.title}}
+        </div>
+        <div class="tvod-date">
+            Aired: {{video.aired_date | date: 'MMM d, yyyy'}}
+        </div>
+        <div class="tvod-date">
+            <span ng-if="validUntil" >Valid Until: {{validUntil | date: 'MMM d, yyyy'}}</span>
+        </div>
+    </div>
+</div>

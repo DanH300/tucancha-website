@@ -1,0 +1,17 @@
+{
+    "short_name": "TuCancha App",
+    "name": "TuCancha Application",
+    "prefer_related_applications": true,
+    "related_applications": [{
+        "platform": "play",
+        "id": "com.univtec.onespotmedia"
+    }],
+    "icons": [{
+            "src": "/assets/theme/tuc/images/logo96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "display": "standalone",
+    "orientation": "landscape"
+}

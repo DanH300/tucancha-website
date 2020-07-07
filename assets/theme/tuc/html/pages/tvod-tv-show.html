@@ -1,0 +1,252 @@
+<div class="tvod-tv-show-page">
+    <div class="series-description" style="background-image: url('{{episode?episode.media.PosterH.downloadUrl:show.posterH.downloadUrl | https}}')">
+        <div class="purple-gradient"></div>
+        <div class="tv-show-loader" ng-if="loading"></div>
+        <div ng-if="!episode" class="tv-container about row" ng-hide="loading">
+            <div class="col-xs-12 col-sm-2">
+                <div class="poster" style="background-image: url('{{show.PosterV.downloadUrl | https }}')"></div>
+            </div>
+            <div class="col-xs-12 col-sm-5 pr show-info">
+                <div >
+                    <div class="show-title">
+                        {{show.title}}
+                    </div>
+                    <div ng-if="show" class="show-meta">
+                        <span ng-if="show.seasons.length">{{show.seasons.length}} Season{{show.seasons.length==1?"":"s"}} Available </span>
+                        <span ng-if="show.episodes">| {{show.episodes}} Episode{{show.episodes==1?"":"s"}} </span>
+                        <span ng-if="show.seasons[0].episodes[0].media.ratings[0].rating">| Rating: {{show.seasons[0].episodes[0].media.ratings[0].rating}}</span>
+                    </div>
+                    <div class="show-description">{{show.description}}</div>
+                    <div class="social">
+                        <span class="icon icon-facebook-logo-45x45" ng-click="facebookShare()"></span>
+                        <span class="icon icon-twitter-icon-45x45" ng-click="twitterShare()"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-3 pr ">
+                <div ng-show="!validUntil">
+                    <div class="rent-box" ng-repeat="offer in show.plans">
+                        <div class="price-box">
+                            US${{offer.price}}
+                        </div>
+                        <div class="duration-span">
+                            {{offer.length}} {{offer.units | uppercase}}{{offer.length!=1?'S':''}}
+                        </div>
+                        <div class="rent-btn" ng-click="startPurchase(offer)">
+                            RENT
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="validUntil" class="valid-until">
+                        Valid Until: <br/>
+                        <span>{{validUntil | date:"d.M.yyyy HH:mm"}}</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="episode" ng-hide="loding" class="tv-container about row">
+            <div class="col-sm-104 episode-info">
+                <jwplayer ng-if="episode && episode.media && episode.media.MezzanineVideo " video="episode.media" autoplay="true" data-id="video-player"></jwplayer>
+                <jwplayer ng-if="!episode || !episode.media || !episode.media.MezzanineVideo && (show.Trailer || show.mainTrailer) " video="show" autoplay="true" data-id="video-player"></jwplayer>
+                <div ng-if="(!episode || !episode.media || !episode.media.MezzanineVideo ) && !show.Trailer && !show.mainTrailer" style="background-image:url('{{episode.media.PosterH.downloadUrl}}')" class="episode-poster"></div>
+            </div>
+            <div class="col-sm-103 episode-info">
+                <div class="serie-title">
+                    {{show.title}}
+                </div>
+                <div class="episode-title">
+                    <span>{{episode.media.title}}</span> Season {{ show.seasons[seasonId].number}} Episode {{episode.number}}
+                </div>
+                <div ng-if="show.cast" class="video-cast">
+                    Cast: <!-- ADD cast to object -->
+                </div>
+                <div ng-if="show.rating" class="video-rating">
+                    Rating: <!-- ADD rating to object -->
+                </div>
+                <div class="video-date mb20">
+                    Aired: {{episode.media.aired_date | date: 'MMM d, yyyy'}}
+                </div>
+                <div class="video-desc">
+                    {{episode.media.description}}
+                </div>
+                <div class="social" >
+                    <span class="icon icon-facebook-logo-45x45" ng-click="facebookShare()"></span>
+                    <span class="icon icon-twitter-icon-45x45 ml10" ng-click="twitterShare()"></span>
+                </div>
+            </div>
+            <div class="col-sm-103">
+                <div ng-show="!validUntil">
+                    <div class="rent-box" ng-repeat="offer in show.plans">
+                        <div class="price-box">
+                            US${{offer.price}}
+                        </div>
+                        <div class="duration-span">
+                            {{offer.length}} {{offer.units | uppercase}}{{offer.length!=1?'S':''}}
+                        </div>
+                        <div class="rent-btn" ng-click="startPurchase(offer)">
+                            RENT
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="validUntil" class="valid-until">
+                        Valid Until: <br/>
+                        <span>{{validUntil | date:"d.M.yyyy HH:mm"}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content" id="mainContent" ng-hide="loading">
+        <div class="episodes tv-container">
+            <div class="episodes-choose ">
+                <div class="row" style="margin-bottom:20px;">
+                    <div class="col-sm-3 col-xs-6 season">
+                        <button type="button" class="season-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="title-span"> {{show.seasons[selectedSeason].title}} </div>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="season in show.seasons track by $index" ng-click="changeSeason($index)">
+                                {{season.title}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pages-count col-sm-9 col-xs-6">
+                        <div ng-if="show.seasons[selectedSeason].episodes.length > 12" class="pages">
+                            Page:
+                            <span class="{{page==0?'focus':''}}" ng-click="changePage(0)">1</span>
+                            <span class="{{page==12?'focus':''}}" ng-click="changePage(12)" ng-if="show.seasons[selectedSeason].episodes.length > 12">2</span>
+                            <span class="{{page==24?'focus':''}}" ng-click="changePage(24)" ng-if="show.seasons[selectedSeason].episodes.length > 24">3</span>
+                            <span class="{{page==36?'focus':''}}" ng-click="changePage(36)" ng-if="show.seasons[selectedSeason].episodes.length > 36">4</span>
+                            <span class="{{page==48?'focus':''}}" ng-click="changePage(48)" ng-if="show.seasons[selectedSeason].episodes.length > 48">5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="tile col-md-3 col-xs-12" ng-repeat="episode in show.seasons[selectedSeason].episodes | orderBy:'aired_date': true | limitTo:12:page ">
+                        <div class="pr tile-content hand" style="background-image:url('{{episode.media.PosterH.downloadUrl}}')" ng-click="go('/tvod/tv-show/'+showId+'/'+selectedSeason+'/'+episode.media._id)" >
+                        </div>
+                        <div class="info">
+                            <div class="title">
+                                {{show.title}}, Episode {{episode.number}}
+                            </div>
+                            <div class="date">
+                                {{episode.media.aired_date | date: 'MMMM dd, yyyy'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal tvodModal fade" id="purchaseTvod" tabindex="-1" role="dialog">
+    <div class="modal-dialog registration-complete-dialog {{successfulPurchase?'small':''}}">
+        <div class="modal-content">
+            <div class="close-btn pa" ng-click="closeModal()">
+                +
+            </div>
+            <div class="info-left" ng-show="!successfulPurchase">
+                <div class="tvod-poster" style="background-image: url('{{show.PosterH.url}}')">
+                </div>
+                <div class="tvod-title">
+                    {{show.title}}
+                </div>
+                <div class="line-white">
+                </div>
+                <div class="rent-data">
+                    <div class="time-period">
+                        {{selectedOffer.length}} {{selectedOffer.units | uppercase}}{{selectedOffer.length!=1?'S':''}}
+                    </div>
+                    <div class="price">
+                        US${{selectedOffer.price}}
+                    </div>
+                </div>
+            </div>
+            <div class="payment-right" ng-show="!successfulPurchase">
+                <div class="payment-header">
+                    PAYMENT INFORMATION
+                </div>
+                <form name="billingForm">
+                    <label for="number" style="display:block">Name on Card*</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control fll {{formSubmitted && billingForm.firstName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="billing.firstName" placeholder="First Name" autocomplete="first name" ng-disabled="user.billingInfo && !editingCard" required>
+                    <input type="text" id="lastName" name="lastName" class="form-control flr {{formSubmitted && billingForm.lastName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="billing.lastName" placeholder="Last Name" autocomplete="last name" ng-disabled="user.billingInfo && !editingCard" required>
+                    <label for="cardType">Card Type*</label>
+                    <select type="text" class="form-control {{formSubmitted && billingForm.cardType.$invalid?'error':''}}" id="cardType" name="cardType" ng-model="billing.pi_type" ng-disabled="user.billingInfo && !editingCard" required >
+                        <option value="" selected disabled>Card Type</option>
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">Mastercard</option>
+                        <option value="amex">Amex</option>
+                    </select>
+                    <label for="number">Card Number*</label>
+                    <input type="text" class="form-control {{formSubmitted && billingForm.number.$invalid?'error':''}}" id="number" name="number" maxlength="16" placeholder="Card Number" ng-disabled="user.billingInfo && !editingCard" ng-model="billing.pi_number" required>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="securityCode">Security Code*</label>
+                            <input type="text" class="form-control {{formSubmitted && billingForm.securityCode.$invalid?'error':''}}" id="securityCode" maxlength="3" name="securityCode" placeholder="CVV" ng-model="billing.security_code" ng-disabled="user.billingInfo && !editingCard" required>
+                        </div>
+                        <div class="col-sm-7 date-exp">
+                            <label for="exDate">Expiration Date*</label>
+                            <select class="form-control fll exp-date {{formSubmitted && billingForm.CCMonth.$invalid?'error':''}}" name="CCMonth" id="CCMonth" ng-model="billing.pi_month" ng-disabled="user.billingInfo && !editingCard" required>
+                                <option value="" selected disabled>Month</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select class="form-control flr exp-date {{formSubmitted && billingForm.CCYear.$invalid?'error':''}}" name="CCYear" ng-model="billing.pi_year" ng-disabled="user.billingInfo && !editingCard" required>
+                                <option value="" selected disabled>Year</option>
+                                <option ng-repeat="i in years track by $index" value="{{$index+year}}">{{$index+year}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="loader" ng-if="buying"></div>
+                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="buying">
+                        Your Transaction is being processed
+                    </div>
+                    <div class="please-wait" style="text-align: center; margin-top: 10px;" ng-if="successfulPurchase">
+                        Your Transaction was successful please view your video on <a href="" ng-click="go('/account/tickets')">My Account</a>
+                    </div>
+                    <div class="purchase-error" ng-if="purchasingError">
+                        {{errorMessage}}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" ng-if="user.billingInfo" class="purchse-btn" ng-click="editCard()" ng-hide="buying || successfulPurchase">{{editingCard?'Cancel':'Edit Card'}}</button>
+                        <button type="submit" class="purchse-btn" ng-click="buyTicket(billingForm)" ng-hide="buying || successfulPurchase">BUY NOW</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="payment-success" ng-show="successfulPurchase">
+                <div class="payment-header">
+                    Your payment was received<br/>
+                    and a receipt sent to your email.
+                </div>
+                <div class="payment-sub-header">
+                    ENJOY WATCHING
+                </div>
+                <div class="payment-success-title">
+                    {{show.title}}
+                </div>
+                <div class="payment-success-sub-title">
+                    TILL
+                </div>
+                <div class="payment-success-date">
+                    {{tvodExpiration | date:"dd.MM.yyyy hh:mm"}}
+                </div>
+                <div class="">
+                    <button class="purchse-btn" ng-click="showTVod();">See your TVOD</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

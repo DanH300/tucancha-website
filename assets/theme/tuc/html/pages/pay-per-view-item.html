@@ -1,0 +1,290 @@
+<div class="pay-per-view-item">
+  
+    <div class="main-image" style="background-image:url('{{mainImage | https}}')">
+        <div class="gradient">
+            <!-- <div class="performer-about" ng-hide="userHasAccess(event.event_sessions[0]) && eventIsLive">
+                <h1>{{event.title}}</h1>
+                <p>{{event.description}}</p>
+            </div> -->
+            <div class="info" ng-hide="userHasAccess(event.event_sessions[0]) && eventIsLive">
+                <div class="title">{{event.title}}</div>
+                <div class="date">{{event.event_sessions[0].event_date | date: 'EEEE MMM d | h:mm a'}}</div>
+                <!-- <div class="ppv-live">LIVE VIA PAY-PER-VIEW</div> -->
+                <!-- <div class="venue">FROM THE NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
+            </div>
+            <div class="main-event-container" ng-if="userHasAccess(event.event_sessions[0]) && eventIsLive">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="event-player">
+                            <rmpplayer ng-if="mainEvent._id" video="mainEvent" autoplay="true" data-id="video-player"></rmpplayer>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="title">{{mainEvent.title}}</div>
+                        <div class="description">
+                            {{mainEvent.description}}
+                        </div>
+                        <div class="live-now">
+                            LIVE NOW
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="tabs-area" ng-hide="showConfirmation">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-tabs nav-stacked" role="tablist">
+                        <li class="nav-item {{activeTab=='tickets'?'active':''}}">
+                            <a class="nav-link {{activeTab=='tickets'?'active':''}}" data-toggle="tab" href="pay-per-view#tickets" role="tab" ng-click="showActiveTab('tickets')">Tickets</a>
+                        </li>
+                        <li class="nav-item {{activeTab=='line-up'?'active':''}}">
+                            <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#line-up" role="tab" ng-click="showActiveTab('line-up')">Events Schedule</a>
+                        </li>
+                        <li ng-if="user.ppvTickets" class="nav-item {{activeTab=='videos'?'active':''}}">
+                            <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#videos" role="tab" ng-click="showActiveTab('videos')">Videos</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content" ng-switch="activeTab">
+                        <div ng-switch-when="tickets" class="tab-pane active" id="tickets" role="tabpanel">
+                            <div class="tickets-container">
+                                <div class="row">
+                                    <div class="col-md-8 confirm-purchase" ng-hide="pay">
+                                        <div class="table-container">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{event.title}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="ticket in event.tickets | filter: ticketIncluded" ng-show="offerHasStarted(ticket)">
+                                                        <th>
+                                                            <div class="inner-table">
+                                                                <span><strong>{{ticket.title}}</strong></span>
+                                                                <span class="date">{{ticket.date | date: 'MMMM dd - HH:mm'}}</span>
+                                                                <div class="sessions-included" ng-if="ticket.sessions_included.length > 1">
+                                                                    This ticket includes:
+                                                                    <ul>
+                                                                        <li ng-repeat="session in ticket.sessions_included">
+                                                                            {{session}}
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="inner-table ticket-price">
+                                                                ${{ ticket.price }}
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="{{userPurchased(ticket)?'purchased':'select'}} {{isInPurchases(ticket)?'focus':''}}" tabindex="{{$index}}" ng-click="select(ticket)">
+                                                                <span ng-show="userPurchased(ticket)">Already</br>Purchased</span>
+                                                                <span ng-hide="userPurchased(ticket)">
+                                                                    <span ng-if="showSelect(ticket)">Select</span>
+                                                                <span ng-if="!showSelect(ticket)">No disponible</span>
+                                                                </span>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button class="btn" ng-if="selectedPurchases.length >0 " ng-click="goToPayment()">COMPRA TUS TICKETS AHORA</button>
+                                        <div class="no-selected" ng-if="noSelected">
+                                            {{noSelected}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 billing-info" ng-show="pay && paymentType == 'none'">
+                                        
+                                        <div class="subscription_background">
+                                            <div class="button_section">
+                                                <button class="btn payment_button"  ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
+                                                    Pagar con wallet
+                                                </button>
+                                    
+                                                <button class="btn payment_button"  ng-click="payWithCreditCard()">
+                                                    Pagar con Tarjeta de Credito
+                                                </button>
+
+                                                <button class="btn payment_button"  ng-click="changeTicket()">
+                                                    Cambiar ticket seleccionado
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-8 billing-info" ng-show="paymentType == 'wallet'">
+                                        
+                                        <div class="wallet-payment">
+                                            <div style="padding:0;">
+                                                <div ng-if="enoghCredits()">
+                                                    <div class="saldo"><h2>Saldo actual: u$s{{wallet.credits}}</h2></div>
+                                                    <p>Esta a punto de comprar {{selectedTicket.title}} por u$s{{selectedTicket.price}}</p>
+                                                    <label class="accept-terms">
+                                                        <input type="checkbox" ng-model="$parent.payment.accept" name="accept" required>
+                                                        Acepto los<span style="cursor:pointer" ng-click="go('terms-and-conditions')">Terminos y Condiciones*</span>
+                                                    </label>
+                                                    <div class="loader" ng-if="subscribing"></div>
+                                                    <div class="subscription-error" ng-if="subscriptionError">
+                                                        <img class="error-triangle" src="/assets/theme/sht/images/red-triangle.png"> {{subscriptionError}}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="enoghCredits() == false">
+                                                    No tienes suficiente saldo para comprar este ticket.
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" ng-click="buyWithWallet()" ng-disabled="!payment.accept" ng-hide="subscribing">COMPRAR</button>
+                                                <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Cambiar metodo de pago</button>
+                                                <img style="width: 100%; margin-top: 30px;" src="/assets/theme/tuc/images/p2p-logo-default.png">
+                                                <a target="_blank" href="/assets/theme/tuc/images/LISTADO DE PREGUNTAS FRECUENTES PlacetoPay.pdf">Ver preguntas frecuentes</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row purchased" ng-show="alreadyPurchased">
+                                    <h2>{{event.title}}</h2>
+                                    <div class="clock">
+                                        <div>
+                                            <h1 class="days">{{remainingTime.days}}</h1>
+                                            <div class="smalltext">Days</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="hours">{{remainingTime.hours}}</h1>
+                                            <div class="smalltext">Hours</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="minutes">{{remainingTime.minutes}}</h1>
+                                            <div class="smalltext">Minutes</div>
+                                        </div>
+                                        <div class="separator">
+                                            <span>:</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="seconds">{{remainingTime.seconds}}</h1>
+                                            <div class="smalltext">Seconds</div>
+                                        </div>
+                                    </div>
+                                    <div class="message">
+                                        <span>ALREADY PURCHASED!</span>
+                                        <p>Your Ticket is ready.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="line-up" class="tab-pane" id="line-up" role="tabpanel">
+                            <div class="row" style="margin: 0px 20px;">
+                                <div class="col-md-10 col-lg-8 line-up-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item {{lineup==1?'active':''}}" ng-click="lineup=1">
+                                            <div class="nav-link">Day 1 - 08.06.19</div>
+                                        </li>
+                                        <!-- <li class="nav-item {{lineup==2?'active':''}}" ng-click="lineup=2">
+                                            <div class="nav-link">Day 2 - 27.03.19</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==3?'active':''}}" ng-click="lineup=3">
+                                            <div class="nav-link">Day 3 - 28.03.19</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==4?'active':''}}" ng-click="lineup=4">
+                                            <div class="nav-link">Day 4 - 29.03.19</div>
+                                        </li>
+                                        <li class="nav-item {{lineup==5?'active':''}}" ng-click="lineup=5">
+                                            <div class="nav-link">Day 5 - 20.03.19</div>
+                                        </li> -->
+                                    </ul>
+                                    <div class="row line-up-header">
+                                        <div class="col-xs-3" style="padding: 0 2vw">
+                                            TIME
+                                        </div>
+                                        <div class="col-xs-7">
+                                            EVENT
+                                        </div>
+                                        <!-- <div class="col-xs-2">
+                                            STATUS
+                                        </div> -->
+                                    </div>
+                                    <div class="line-up-rows">
+                                        <div class="row line-up-row" ng-repeat="event in ppvDays['day'+lineup]">
+                                            <div class="col-xs-3 time">
+                                                {{event.Time}}
+                                            </div>
+                                            <div class="col-xs-9 event" style="white-space: pre-line">
+                                                {{event.Event}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div ng-switch-when="performers" class="tab-pane" id="performers" role="tabpanel">
+                            <div class="performers-container">
+                                <div class="row__inner {{performersPosition==1?'moveDown':''}} {{performersPosition==2?'moveDownTwice':''}}">
+                                    <div class="row">
+                                        <div class="tile col-md-2" ng-repeat="performer in performers" >
+                                            <div class="img-container">
+                                                <img src="{{performer.img}}">
+                                            </div>
+                                            <div class="description">
+                                                <h3>{{performer.name}}</h3>
+                                                <p>{{performer.instrument}}</p>
+                                            </div>
+                                        </div>
+                                        <div ng-show="length(performers) > 4" class="arrow-down hidden-xs hidden-sm" ng-click="moveDown()">
+                                            <div class="icon icon-arrow-down-white" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div ng-switch-when="videos" class="tab-pane video video-tab" id="videos" role="tabpanel">
+                            <h2>{{activeVideo.title}}</h2>
+                            <rmpplayer ng-if="activeVideo" video="activeVideo" autoplay="true" data-id="video-player-2"></rmpplayer>
+                            <div class="Carousel row">
+                                <div class="tile col-md-4" ng-repeat="slide in event.event_videos">
+                                    <div class="pr tile-content hand" style="background-image:url('{{getPosterH(slide.content)}}')" ng-click="playVideo(slide)" onload="run()">
+                                        <div class="pa {{slide.categories[0].name | commerceCut}} {{slide.categories?'':'free'}}">
+                                            <span ng-if="!slide.categories || slide.categories[0].name == 'commerce_free_media'">FREE</span>
+                                            <span ng-if="slide.categories[0].name == 'commerce_members_media'">MEMBER</span>
+                                            <span ng-if="slide.categories[0].name == 'commerce_subscription_basic_media'">SUBSCRIBE</span>
+                                        </div>
+                                        <div class="pa my-list">
+                                            <span ng-hide="isInWatchlist(slide._id)">
+                                                <span class="flr mylist-span">My List</span>
+                                            <span class="flr icon icon-add-purple-45x45" ng-click="addToList(slide, $event)"></span>
+                                            </span>
+                                            <span ng-show="isInWatchlist(slide._id)">
+                                                <span class="flr mylist-span">Remove</span>
+                                            <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(slide, $event)"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <div class="title">
+                                            {{slide.title}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

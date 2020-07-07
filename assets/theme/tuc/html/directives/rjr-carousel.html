@@ -1,0 +1,31 @@
+<div class="tuc-carousel-container ">
+    <div class="tuc-carousel tuc-carousel-{{index}}">
+        <div class="tile" ng-repeat="slide in model">
+            <div class="pr tile-content hand" style="background-image:url('{{slide.PosterH.downloadUrl}}')" ng-click="go('vod/'+slide._id)" onload="run()">
+                <div class="pa {{slide.categories[0].name | commerceCut}} {{slide.categories?'':'free'}}">
+                    <span ng-if="!slide.categories || slide.categories[0].name == 'commerce_free_media'">FREE</span>
+                    <span ng-if="slide.categories[0].name == 'commerce_members_media'">MEMBER</span>
+                    <span ng-if="slide.categories[0].name == 'commerce_subscription_basic_media'">PREMIUM</span>
+                </div>
+                <div class="pa my-list">
+                    <span ng-hide="isInWatchlist(slide._id)">
+                        <span class="flr mylist-span" ng-click="addToList(slide, $event)">My List</span>
+                    <span class="flr icon icon-add-purple-45x45" ng-click="addToList(slide, $event)"></span>
+                    </span>
+                    <span ng-show="isInWatchlist(slide._id)">
+                        <span class="flr mylist-span" ng-click="removeFromList(slide, $event)">Remove</span>
+                    <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(slide, $event)"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="info">
+                <div class="title">
+                    {{slide.title}}
+                </div>
+                <div class="date">
+                    Aired: {{slide.aired_date | date: 'MMMM dd, yyyy'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

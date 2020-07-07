@@ -1,0 +1,10 @@
+<div class="left-slick col-xs-12 col-sm-6 col-md-5 col-lg-5" ng-attr-style="background-image:url('{{item.PosterH}}')">
+    <a class="back-btn" ng-click="back()">< Back</a></Back>
+</div>
+<div class="right-slick col-xs-12 col-sm-6 col-md-7 col-lg-7">
+    <div class="main-title {{item.products.length == 0 ?'vertical-center':''}}">{{item.title}}</div>
+    <h4 class="first-plan-title" ng-if="item.products.length > 0">Select your plan</h4>
+    <h4 class="select-plan-btn" ng-show="!showRows" ng-click="showPlans(true)">Please Select your plan</h4>
+    <h4 class="hide-plan-btn" ng-show="showRows" ng-click="showPlans(false)">Hide plans</h4>
+    <plans-block ng-repeat="plan in item.products" class="plans-block col-md-4 col-lg-4" item="plan"></plans-block>       
+</div>

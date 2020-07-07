@@ -1,0 +1,20 @@
+<div class="tournament-container {{activityItemId}} slider tournament-block">
+
+    <div ng-repeat="item in items" ng-show="showItem(item)" ng-click="go(item._id)">
+        <div class="tournament-block">
+            <div class="tile-content rounded-circle" title="{{item.title}}" style="margin: auto;"
+                ng-click="go(item._id)">
+                <div class="outer">
+                    <div class="middle">
+                        <div class="inner circle-background-image"
+                            style="background-image:url('{{item.PosterH || defaultPoster}}')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="transparent-black">
+                <h3 class="tournament-tittle elipsis-text"><strong>{{item.title|  uppercase}}</strong></h3>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<section id="contact" class="footer-tuc col-xs-12 col-sm-12 col-lg-12" ng-controller="FooterController">
+
+    <div class="container">
+       
+        
+        <div class="row">
+            <!-- <div class="navy-line"></div> -->
+            
+            
+            <div class="col-xs-12 col-sm-6 col-lg-6 footer-links">
+                <div class="col-xs-4 col-sm-4 col-lg-4">
+                    <ul class="left-nav">
+                        <li><span ng-click="go('')">Home</span></li>
+                        <li><span ng-click="go('events')">En vivo</span></li>
+                        <li><span ng-click="go('ppv')">Eventos PPV</span></li>
+                        <li><span ng-click="go('tournaments')">Torneos</span></li>
+                        <li ng-repeat="activity in activities"><a href="" ng-click="go('activity/'+ activity._id)">{{activity.title}}</a></li>
+                        <li><span>Noticias</span></li>
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-lg-4">
+                    <ul class="right-nav">
+                        <!-- <li><span ng-click="go('support')">FAQ's</span></li> -->
+                        <li><span ng-click="go('about')">Acerca de nosotros</span></li>
+                        <li><span ng-click="go('privacy-policy')">Privaciad</span></li>
+                        <li><span ng-click="go('terms-and-conditions')">Terminos y condiciones</span></li>
+                    </ul>
+                </div>
+                <!-- <div class="ccol-xs-4 col-sm-4 col-lg-4">
+                        <ul class="right-nav">
+                            <li><span><a href="https://radarsports.co.za/contact-us/" target="_blank">Stream with us</a></span></li>
+                            <li><span><a href="https://radarsports.co.za/contact-us/" target="_blank">Advertise with us</a></span></li>
+                        </ul>
+                </div> -->
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-6 text-center">
+                <div class="col-xs-12 col-sm-6 col-lg-6">
+                    <p class="social-message">Siguenos</p>
+                    <ul class="list-inline social-icon">
+                        <li class="list-inline-item"><a href="https://twitter.com/tucanchaec" target="_blank"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/tucancha.ec" target="_blank"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="https://www.instagram.com/tucanchaec" target="_blank"><i class="fa fa-instagram" target="_blank"></i></a>
+                        </li>
+                    </ul>
+                </div> 
+                <div class="col-xs-12 col-sm-6 col-lg-6">
+                    <h1>Contáctanos</h1>
+                    <a href="mailto:admin@tucancha.ec" class="btn btn-primary">Envíanos un mail</a>
+                </div>
+            </div>
+        </div>
+         
+        <div class="row">
+            <div class="col-lg-12 text-center m-t-lg m-b-lg">
+                <p><strong>© 2019 TuCancha.</strong> Todos los derechos reservados</p>
+            </div>
+        </div>
+    </div>
+</section>

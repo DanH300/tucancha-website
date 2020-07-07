@@ -1,0 +1,570 @@
+.tv-shows-page{
+    .tv-container{
+        padding: 0px 6vw;
+        margin: auto;
+        width: 100%;
+    }
+    .series-description{
+        position: relative;
+        height: 60vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+        //background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(78,24,109,1) 100%); /* FF3.6-15 */
+        //background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(78,24,109,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        //background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(78,24,109,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#4e186d',GradientType=0 ); /* IE6-9 */
+        .purple-gradient {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+        }
+        @media (max-width: @screen-xs-max) {
+            /*height: 50vh;*/
+            height: 55vh;
+        }
+
+        .about {
+            position: relative;
+            display: -webkit-flex;
+            display: flex;
+            top:11%;
+            height: 80%;
+            color: #efefef;
+            overflow: hidden;
+            @media (max-width: @screen-xs-max) {
+                /*height: 45vh;*/
+                height: 50vh;
+                top: 8%;
+            }
+            .description-area{
+                @media (max-width: @screen-xs-max) {
+                    padding-left: 15px;
+                }
+                .subscribe, .free, .member {
+                    font-size: 22px;
+                    text-align: center;
+                    padding: 0 26px;
+                    margin-left: 3vw;
+                    margin-bottom: 0.8vw;
+                    @media (max-width: @screen-sm-max) {
+                        font-size: 10px;
+                        padding: 0 6px;
+                        position: relative;
+                        right: 0;
+                    }
+                }
+                .free {
+                    background-color: #49b543;
+                }
+                .member {
+                    background-color: #2087e0;
+                }
+                .subscribe {
+                    background-color: #fb3440;
+                }
+            }
+            .poster{
+                background-position: left;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+    .title-area{
+        line-height: 4.2vh;
+        max-height: 8.4vh;
+        margin-bottom: 10px;
+        width: 75%;
+        overflow: hidden;
+        @media (max-width: @screen-sm-max) {
+            margin-top: 10px;
+            line-height: initial;
+            width: 100%;
+        }
+    }
+    .title {
+        font-size: 4vh;
+        font-weight: bold;
+        @media (max-width: @screen-lg-min) {
+            font-size: 4vh;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 16px;
+        }
+    }
+    .description {
+        margin: 20px 0;
+        padding-left: 0px;
+        /*font-size: 16px;*/
+        font-size: 1.8vh;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @media (max-width: @screen-lg-min) {
+            /*font-size: 18px;*/
+            font-size: 1.8vh
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 10px;
+            line-height: 10px;
+            height: 40px;
+        }
+    }
+    .meta{
+        /*font-size: 18px;*/
+        font-size: 2vh;
+        /*padding-bottom: 5px;*/
+        span{
+            margin-left: 5px;
+            font-weight: 300;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 10px;
+            padding-bottom: 0;
+        }
+    }
+    .live-on{
+        /*font-size: 16px;*/
+        font-size: 1.8vh;
+        padding-bottom: 20px;
+        @media (max-width: @screen-xs-max) {
+            font-size: 10px;
+        }
+        .channel{
+            width: 60px;
+            @media (max-width: @screen-xs-max) {
+                width: 40px;
+            }
+        }
+    }
+    .social{
+        .icon{
+            cursor: pointer;
+            display: inline-block;
+        }
+    }
+    .share{
+        cursor: pointer;
+        font-size: 16px;
+        span{
+            font-size: 26px;
+            margin-left: 15px;
+            @media (max-width: @screen-xs-max) {
+                font-size: 12px;
+            }
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 10px;
+        }
+    }
+    .my-list{
+        margin-top: 10px;
+        .icon {
+            cursor: pointer;
+            display: inline-block;
+        }
+        .mylist-span {
+            font-size: 18px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .icon-add-purple-45x45 {
+            -ms-transform: rotate(0deg) scale(0.7); /* IE 9 */
+            -webkit-transform: rotate(0deg) scale(0.7); /* Safari */
+            transform: rotate(0deg) scale(0.7); /* Standard syntax */
+            &.in-list{
+                -ms-transform: rotate(45deg) scale(0.7); /* IE 9 */
+                -webkit-transform: rotate(45deg) scale(0.7); /* Chrome, Safari, Opera */
+                transform: rotate(45deg) scale(0.7);
+            }
+            &:hover {
+              cursor: pointer;
+              box-shadow: 0px 0px 5px 0px #000;
+              border-radius: 50%;
+              &.icon-add-purple-45x45{
+                  background-position:-138px -3px;
+              }
+            }
+            &:active{
+              box-shadow: inset 0px 0px 5px 0px #000;
+              border-radius: 50%;
+            }
+        }
+    }
+    .episodes{
+      background-color: #eeeeee;
+      height: 100%;
+      transition-timing-function: linear;
+      .table{
+        width: 40vw;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        @media (max-width: @screen-xs-max) {
+          width: 100%;
+        }
+        @media (max-width: @screen-sm-max) {
+          font-size: 20px;
+        }
+        tr{
+          th{
+            border-bottom: none;
+            font-weight: normal;
+            color: #211e1f;
+            h2{
+              margin: 0;
+              opacity: 0.5;
+              text-align: center;
+              width: 100px;
+              @media (max-width: @screen-xs-max) {
+                font-size: 16px;
+              }
+              &:hover{
+                border-bottom: solid 3px #7a49ae;
+                opacity: 1;
+                cursor: pointer;
+              }
+              &.focus{
+                border-bottom: solid 3px #7a49ae;
+                opacity: 1;
+                cursor: pointer;
+              }
+              &:active{
+                border-bottom: solid 3px #7a49ae;
+                opacity: 1;
+                cursor: pointer;
+              }
+            }
+            h1{
+              margin: 0;
+              @media (max-width: @screen-xs-max) {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .episodes-choose {
+        padding-top: 25px;
+      @media (max-width: @screen-xs-max) {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+      .pages-count{
+          padding: 15px;
+          .pages{
+              float:right;
+              font-size: 18px;
+              font-weight: bold;
+              span{
+                  cursor: pointer;
+                  padding: 0 5px;
+                  font-weight: 300;
+                  &.focus{
+                      font-weight: bold;
+                  }
+              }
+              @media (max-width: @screen-xs-max) {
+                  font-size: 16px;
+              }
+          }
+      }
+      .season-btn {
+          //height: 54px;
+          background-color: transparent;
+          border-bottom: none;
+          width: initial;
+          font-size: 1.25vw;
+          color: black;
+          font-weight: bold;
+          border: 2px solid black;
+          border-radius: 5px;
+          text-align: left;
+          padding: 0.8vw;
+          width: 100%;
+          @media (max-width: @screen-xs-max) {
+              font-size: 12px;
+              line-height: 12px;
+              padding: 10px;
+          }
+          .title-span {
+              display: inline-block;
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              @media (max-width: @screen-xs-max) {
+                width: 80%;
+              }
+          }
+        .caret{
+            float: right;
+            border-top: 0.5vw dashed;
+            border-top: 4px solid \9;
+            border-right: 0.5vw solid transparent;
+            border-left: 0.5vw solid transparent;
+            vertical-align: baseline;
+            // margin-left: 10px;
+            margin-top: 0.5vw;
+            @media (max-width: @screen-xs-max) {
+              border-top: 8px dashed;
+              border-right: 6px solid transparent;
+              border-left: 6px solid transparent;
+              //margin-left: 10px;
+          }
+        }
+      }
+      .season-watching {
+        margin-bottom: 20px;
+        .open {
+          .dropdown-menu {
+            color: #eeeeec;
+            background-color: rgba(236, 9, 175, 0.8);
+            width: 74%;
+            font-size: 24px;
+            color: #eeeeec;
+            text-align: center;
+            padding: 10px 38px 10px 40px;
+            @media (max-width: @screen-xs-max) {
+                font-size: 18px;
+            }
+          }
+        }
+        .season-watching-btn {
+          background-color: #666666;
+          width: 66.6%;
+          font-size: 24px;
+          color: #eeeeec;
+          text-align: center;
+          padding: 10px 34px 10px 20px;
+        }
+        .toggle-btn {
+          background-color: #666666;
+          width: 15%;
+          color: #eeeeec;
+          padding: 14px 14px 12px 14px;
+          .caret {
+            border-top: 14px dashed;
+            border-top: 4px solid \9;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            vertical-align: baseline;
+            margin-left: 0;
+          }
+        }
+        &:hover {
+          border: none;
+        }
+      }
+    }
+    .dropdown-toggle{
+      &:hover{
+        border-radius: 0;
+      }
+      &:active{
+        border-radius: 0;
+      }
+      &:focus{
+        border-radius: 0;
+      }
+    }
+    .season {
+        .dropdown-menu{
+          top: initial;
+          left: initial;
+          margin-top:0;
+        }
+        &.open {
+          .dropdown-menu {
+            color: #eeeeec;
+            background-color: rgba(236, 9, 40, 0.8);
+            width: 90%;
+            font-size: 1.25vw;
+            color: #eeeeec;
+            text-align: left;
+            padding: 1vw;
+            @media (max-width: @screen-xs-max) {
+                font-size: 10px;
+                padding: 10px;
+            }
+            li{
+                // padding: 15px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                height: 2vw;
+                @media (max-width: @screen-xs-max) {
+                  height: 25px;
+                }
+              &:hover{
+                cursor: pointer;
+                color:#000000;
+              }
+            }
+          }
+        }
+    }
+
+    .main-player {
+        background-color: @mainBackgroundColor;
+        padding: 60px 6vw;
+        h2{
+            text-align: center;
+        }
+        a{
+            color: rgba(122,73,174,1);
+            &:hover{
+                color: #4e186d;
+                cursor: pointer;
+                text-decoration: none;
+            }
+        }
+        .info-right {
+            color: #efefef;
+            .video-title {
+                font-weight: bold;
+                font-size: 40px;
+                margin-bottom: 10px;
+                @media (max-width: @screen-xs-max) {
+                  font-size: 20px;
+                }
+            }
+            .episode-season {
+                margin-bottom: 20px;
+                font-size: 30px;
+            }
+            .episode-info {
+                margin-bottom: 10px;
+                font-size: 24px;
+                @media (max-width: @screen-xs-max) {
+                  font-size: 16px;
+                }
+                span {
+                    padding-right: 16px;
+                    border-right: 3px solid #efefef;
+                }
+                :last-child {
+                    padding-right: 0px;
+                    border-right: 0px solid #efefef;
+                }
+                .subscription-btn {
+                    padding: 4px 20px;
+                    text-transform: uppercase;
+                    &.commerce_members_media {
+                        background-color: #2087e0
+                    }
+                    &.commerce_free_media {
+                        background-color: #49b543
+                    }
+                    &.commerce_subscription_basic_media {
+                        background-color: #fb3440
+                    }
+                }
+            }
+            .episode-desc {
+                font-weight: 300;
+                margin-bottom: 10px;
+                font-size: 18px;
+                @media (max-width: @screen-xs-max) {
+                  font-size: 16px;
+                }
+            }
+            .share-span {
+                .icon {
+                    cursor: pointer;
+                    display: inline-block;
+                }
+                .mylist-span {
+                    font-size: 20px;
+                    display: inline-block;
+                    margin-top: 8px;
+                    margin-left: 10px;
+                }
+                .icon-add-purple-45x45 {
+                    -ms-transform: rotate(0deg); /* IE 9 */
+                    -webkit-transform: rotate(0deg); /* Safari */
+                    transform: rotate(0deg); /* Standard syntax */
+                    &.in-list{
+                        -ms-transform: rotate(45deg); /* IE 9 */
+                        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+                        transform: rotate(45deg);
+                    }
+                    &:hover {
+                      cursor: pointer;
+                      box-shadow: 0px 0px 5px 0px #000;
+                      border-radius: 50%;
+                      &.icon-add-purple-45x45{
+                          background-position:-138px -3px;
+                      }
+                    }
+                    &:active{
+                      box-shadow: inset 0px 0px 5px 0px #000;
+                      border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+
+    .player{
+      background-color: #eeeeee;
+      transition: all ease 2s;
+      position: relative;
+      // padding-top: 40px;
+      height:100%;
+      transition: all ease 2s;
+      h2{
+          font-weight: bold;
+          text-align: center;
+      }
+      a{
+          color: rgba(122,73,174,1);
+          &:hover{
+              color: #4e186d;
+              cursor: pointer;
+              text-decoration: none;
+          }
+      }
+      &.ng-hide-add, &.ng-hide-remove {
+        transition: all ease 2s;
+
+      }
+    }
+    .recommended{
+      background-color: #003264;
+      h2{
+        font-weight: bold;
+        color: white;
+        margin: 20px 15px 30px 15px;
+      }
+
+    }
+    .jwp-container{
+      transition: all ease 2s;
+    }
+    .jwplayer{
+      transition: all ease 2s;
+      &.jw-flag-aspect-mode {
+        transition: all ease 2s;
+      }
+    }
+    .tv-show-loader{
+        margin: auto;
+        border: 5px solid #898c8d;
+        border-radius: 50%;
+        border-top: 5px solid #666666;
+        width: 60px;
+        height: 60px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 1s linear infinite;
+        position: absolute;;
+        top:50%;
+        right: 50%;
+    }
+}

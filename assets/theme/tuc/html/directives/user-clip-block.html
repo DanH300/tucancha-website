@@ -1,0 +1,13 @@
+<div class="user-clip-block tile">
+    <div class="pr tile-content hand ppv" ng-attr-style="background-image:url('{{video.PosterH}}')" ng-click="go(video._id)">
+
+    </div>
+    <div class="info {{transparent?'transparent':''}}">    
+        <div class="title" title="{{video.title}}">
+            {{video.title}}
+        </div>
+        <div class="date col-xs-12 col-sm-12 col-lg-12">
+            Created: {{video.added | date: 'MMM dd, yyyy. HH:mm'}} Hs.
+        </div>
+    </div>
+</div>

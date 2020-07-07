@@ -1,0 +1,139 @@
+@hoover:   #cccccc;
+
+.footer-tuc{
+
+    background-color: #30414d;
+    padding: 10px 0 0 0;
+    color: #ffffff;
+    font-family: 'Roboto';
+    border-top: @secondaryColor solid 0.5px;
+
+    .navy-line{    
+        width: 60px;
+        height: 1px;
+        margin: 20px auto 0;
+        border-bottom: 2px solid #666666;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+
+    .payment-logos{
+        height: 120px;
+        border-bottom: 0.5px solid #666666;
+        margin-bottom: 30px;
+
+        @media(max-width: @screen-xs-max){
+            height: 320px
+        }
+
+
+        .payment-logo{
+            height: 100px;
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+
+            @media(max-width: @screen-xs-max){
+                margin-bottom: 10px;
+            }
+        }
+
+        .visa{
+            background-size: 55% auto;
+            background-image: url(/assets/theme/tuc/images/logos/visa.png);
+   
+        }
+        .visa-verify{
+            background-size: 55% auto;
+            background-image: url(/assets/theme/tuc/images/logos/verify-visa.png);
+  
+        }
+        .mastercard{
+            background-size: auto 75%;
+            background-image: url(/assets/theme/tuc/images/logos/mastercard.png);
+
+        }
+        .mastercard-sc{
+            background-size: 65% auto;
+            background-image: url(/assets/theme/tuc/images/logos/mastercard-sc.png);
+
+        }
+        .dpo{
+            background-size: 65% auto;
+            background-image: url(/assets/theme/tuc/images/logos/dpo.png);
+    
+        }
+    }
+
+
+    .footer-links{
+        padding-top: 30px;
+    }
+
+    .left-nav li{
+        color: #cccccc;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .left-nav li:hover{
+        color: #ffffff;
+    }
+
+    .right-nav li{
+        color: #cccccc;
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        a{
+            color: #cccccc;
+            text-decoration: none;
+        }
+
+        a:hover{
+            text-decoration: none;
+        }
+    }
+
+    .right-nav li:hover{
+        color: #ffffff;
+    }
+
+    .btn-primary{
+        background-color: #fff;
+        color: @mainBackgroundColor;
+        font-size: 14px;
+        padding: 10px 20px;
+        font-weight: 600;
+        margin: 20px 0px
+    }
+
+    .btn-primary:hover{
+        background-color : @hoover;
+    }
+    
+    .social-icon{
+        margin-bottom: 3rem;
+    }
+
+    .social-message{
+        color: #cccccc;
+        margin: 20px 0;
+    }
+
+    .social-icon a{    
+        background: @secondaryColor;
+        color: @mainBackgroundColor;
+        padding: 5px 8px;
+        height: 28px;
+        width: 28px;
+        display: block;
+        border-radius: 50px;
+    }
+    
+    .social-icon a:hover{
+        background-color: @hoover;
+    }
+}

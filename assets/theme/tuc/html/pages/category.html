@@ -1,0 +1,121 @@
+<div class="category-page">
+    <div class="category-header">
+    </div>
+    <div class="category-container">
+        <div class="row page-content">
+            <div class="col-sm-3 col-md-2 hidden-xs navigation-left">
+                <div class="category-menu" id="CategoryMenu">
+                    <div class="header-nav">
+                        Categories
+                    </div>
+                    <div class="categories-nav">
+                        <div ng-click="selectCategory(category.id)" class="single-category {{selectedCategory==category.id?'selected':''}}" ng-repeat="category in categories">
+                            {{category.title}}
+                            <div class="triangle-border" ng-if="selectedCategory == category.id"></div>
+                        </div>
+                    </div>
+                    <div class="header-nav">
+                        Channels
+                    </div>
+                    <div class="categories-nav">
+                        <div ng-click="selectChannel(channel.title)" class="single-category {{selectedChannel == channel.title?'selected':''}}" ng-repeat="channel in channels | limitTo: 4 track by $index">
+                            {{channel.title | uppercase}}
+                            <div class="triangle-border" ng-if="selectedChannel == channel.title"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-menu visible-xs pr">
+                <div class="menu {{showMenu?'active':''}}">
+                    <div class="menu-btn pa hand" ng-click="showMenu=!showMenu">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </div>
+                    <div class="menu-title">Category Filter</div>
+                    <div class="menu-filter">
+                        <div class="filter-title">
+                            Categories
+                        </div>
+                        <div class="filter pr">
+                            <div class="filter-btn hand" type="button" id="catfilterddm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{selectedCategory?selectedCategory:'ALL'}}
+                                <span class="fa fa-angle-down flr"></span>
+                            </div>
+                            <ul class="filter-menu dropdown-menu" aria-labelledby="catfilterddm">
+                                <li ng-click="selectCategory(category.id)" class="filter-row" ng-repeat="category in categories">{{category.title | uppercase}}
+                                </li>
+                                <li ng-if="geo && geo.countryCode == 'JM'" ng-click="selectCategory(worldCup)">WORLD CUP
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-filter">
+                        <div class="filter-title">
+                            Channels
+                        </div>
+                        <div class="filter pr">
+                            <div class="filter-btn hand" type="button" id="channelsfilterddm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{selectedChannel?selectedChannel:'ALL'}}
+                                <span class="fa fa-angle-down flr"></span>
+                            </div>
+                            <ul class="filter-menu dropdown-menu" aria-labelledby="channelsfilterddm">
+                                <li ng-click="selectChannel(channel.title)" class="filter-row {{selectedChannel == channel.title1?'selected':''}}" ng-repeat="channel in channels | limitTo: 4">{{channel.title | uppercase}}
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="menu-filter">
+                        <div class="filter-title">
+                            From
+                        </div>
+                        <div class="filter">
+                            <input class="filter-input" type="date" ng-model="dtFrom" />
+                        </div>
+                    </div>
+                    <div class="menu-filter">
+                        <div class="filter-title">
+                            To
+                        </div>
+                        <div class="filter">
+                            <input class="filter-input" type="date" class="" ng-model="dtTo" />
+                        </div>
+                    </div>
+                    <div class="clear-filter" ng-click="clearMenu();">Clear</div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-10 col-xs-12" style="background-color: #1D2124;">
+                <div class="row hidden-xs" style="padding-left: 6%; padding-right: 6%;">
+                    <div class="date-filter">
+                        <div class="date-input">
+                            <span class="title ">By Date: <p>From </p>
+                            <input type="text" class="" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFrom" is-open="dateFromOpen" close-text="Close"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="calander-icon" ng-click="openDateFrom()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            </span>
+                        </div>
+                        <div class="date-input">
+                            <span class="title"><p>To </p>
+                            <input type="text" class="" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtTo"
+                                   is-open="dateToOpen" close-text="Close"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="calander-icon" ng-click="openDateTo()"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="videos-cont">
+                    <div class="row">
+                        <clip-block class="col-x-12 col-sm-6 col-lg-4" ng-repeat="video in videos" video="video" ng-if="isAllowed(video)"></clip-block>
+
+                    </div>
+                    <div class="loader" ng-if="loading">
+                    </div>
+                    <div class="col-xs-12 more hand" ng-if="showMore" ng-click="nextPage()">Mas <span class="icon icon-arrow-down-white"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

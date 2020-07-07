@@ -1,0 +1,38 @@
+.activity-block {
+  color: white;
+  vertical-align: middle;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition-delay: 0ms;
+  -webkit-transition: 500ms all;
+  transition: 500ms all;
+
+  .tile-content {
+    height: 14vw;
+    background-position: center;
+    background-size: cover;
+    transition: 0.5s;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+
+  }
+
+  &:hover {
+    z-index: 1;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+    @media (max-width: @screen-xs-max) {
+      -webkit-transform: none;
+      -moz-transform: none;
+      -o-transform: none;
+      transform: none;
+    }
+
+  }
+}

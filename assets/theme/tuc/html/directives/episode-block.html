@@ -1,0 +1,28 @@
+<div class="episode-block tile">
+    <div class="pr tile-content hand" ng-attr-style="background-image:url('{{video.PosterH.downloadUrl ||getPosterH(video.content) | https}}')" ng-click="go(link +'/'+ video._id);">
+
+        <div class="pa my-list">
+            <span ng-hide="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="addToList(video, $event)">Add to my List</span>
+            <span class="flr icon icon-add-purple-45x45" ng-click="addToList(video, $event)"></span>
+            </span>
+            <span ng-show="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="removeFromList(video, $event)">Remove</span>
+            <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(video, $event)"></span>
+            </span>
+        </div>
+    </div>
+    <div class="info {{transparent?'transparent':''}}">
+        <div class="cce {{video.categories[0].name | commerceCut}} {{video.categories?'':'free'}}">
+            <span ng-if="!video.categories || video.categories[0].name == 'commerce_free_media'">FREE</span>
+            <span ng-if="video.categories[0].name == 'commerce_members_media'">MEMBER</span>
+            <span ng-if="video.categories[0].name == 'commerce_subscription_basic_media'">PREMIUM</span>
+        </div>
+        <div class="title" title="{{video.title}}">
+            {{video.title}}
+        </div>
+        <div class="date">
+            {{video.aired_date | date: 'MMMM dd, yyyy'}}
+        </div>
+    </div>
+</div>

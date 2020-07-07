@@ -1,0 +1,36 @@
+<div class="clip-block tile">
+    <div class="pr tile-content hand" ng-attr-style="background-image:url('{{video.PosterH}}')" ng-click="go(video._id)">
+        <div class="info">
+            <div class="title" title="{{video.title}}">
+                {{video.title}}
+            </div>
+        </div>
+        <div class="pa my-list">
+            <span ng-hide="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="addToList(video, $event)">Add to my List</span>
+            <span class="flr icon icon-add-purple-45x45" ng-click="addToList(video, $event)"></span>
+            </span>
+            <span ng-show="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="removeFromList(video, $event)">Remove</span>
+            <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(video, $event)"></span>
+            </span>
+        </div>
+        <div class="info-details">
+            <div class="date col-xs-3 col-sm-3 col-lg-3">
+                {{video.aired_date | date: 'dd MMM'}}<br>
+                {{video.aired_date | date: 'yyyy'}}
+            </div>
+            <div class="info-teams col-xs-6 col-sm-6 col-lg-6" title="{{video.eventTeams.homeTeam}} VS. {{video.eventTeams.awayTeam}}">
+                <div ng-if="video.eventTeams.homeTeam">{{video.eventTeams.homeTeam}} VS.</div>
+                <div ng-if="video.eventTeams.awayTeam">{{video.eventTeams.awayTeam}}</div>
+            </div>
+            <div class="info-commerce col-xs-3 col-sm-3 col-lg-3">
+                <span ng-if="!video.categories || video.categories.length == 0 || video.categories[0].name == 'commerce_free_media'">FREE</span>
+                <span ng-if="video.categories[0].name == 'commerce_members_media'">MEMBER</span>
+                <span ng-if="video.categories[0].name == 'commerce_subscription_basic_media' || video.categories[0].name == 'commerce_subscription_identity_media'">PREMIUM</span>
+            </div>
+        </div>
+        
+    </div>
+   
+</div>

@@ -1,0 +1,1150 @@
+.account{
+  background-color: @mainBackgroundColor;
+
+  label{
+    font-weight: normal!important;
+  }
+  .tabs-area{
+    padding: 5vh 8vw;
+    h1{
+      font-size: 32px;
+      font-weight: bold;
+      color: @mainColor;
+      margin-bottom: 20px;
+      padding: 15px;
+    }
+  }
+  a {
+    font-size: 18px;
+    color: @mainColor;
+    @media (max-width: @screen-lg-min) {
+      font-size: 14px;
+    }
+    @media (max-width: @screen-xs-max) {
+      font-size: 12px;
+    }
+  }
+  .nav-stacked{
+    li {
+      //padding-right: 2vw;
+      @media (max-width: @screen-xs-max) {
+        padding-right: 0;
+        float: left;
+      }
+    }
+  }
+  .nav-tabs{
+    border-bottom: none;
+    li {
+      &.active {
+        a {
+          border: none;
+          color: #ffffff;
+          background-color: @mainColor;
+          border-radius: 3px;
+    
+        }
+      }
+      .logout {
+        background-color: transparent;
+        color: #ffffff;
+        padding: 10px 12px 10px 12px;
+        text-align: center;
+        border: 1px solid #ffffff;
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 160px;
+        font-size: 20px;
+        @media (max-width: @screen-xs-max) {
+          width: 100%;
+        }
+        &:active{
+          outline: none;
+          background-color: @mainColor;
+          border-color: @mainColor;
+          box-shadow: inset 0px 0px 5px 0px #000;
+        }
+      }
+    }
+  }
+}
+.tab-content {
+  border-left: solid 3px #ffffff;
+  @media (max-width: @screen-xs-max) {
+    border-left: none;
+  }
+  padding-top: 15px;
+  position: relative;
+  form {
+    position: relative;
+    font-size: 16px;
+    .form-group {
+      height: 46px;
+      font-size: 16px;
+    }
+    label {
+      font-size: 16px;
+      color: @mainColor;
+    }
+    .form-control {
+      font-size: 18px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+  }
+  .btn {
+    background-color: @mainColor;
+    color: #ffffff;
+    padding: 10px 12px 10px 12px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    //margin-top: 60px;
+    &:hover {
+      box-shadow: 0px 0px 5px 0px #000;
+    }
+    &:active {
+      outline: none;
+      background-color: @mainColor;
+      border-color: @mainColor;
+      box-shadow: inset 0px 0px 5px 0px #000;
+    }
+    &:focus {
+      outline: none;
+    }
+    &.cancel-btn {
+        border: 2px solid @mainColor;
+        background-color: @mainColor;
+        color: #ffffff;
+    }
+  }
+  .logout {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 10px 12px 10px 12px;
+    text-align: center;
+    border: 1px solid @mainColor;
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    left: -12vw;
+    font-size: 20px;
+    @media (max-width: @screen-sm-max) {
+      position: initial;
+      margin-top: 60px;
+      width: 25%;
+    }
+    @media (max-width: @screen-xs-max) {
+      width: 100%;
+    }
+    &:active{
+      outline: none;
+      background-color: @mainColor;
+      border-color: @mainColor;
+      box-shadow: inset 0px 0px 5px 0px #000;
+    }
+  }
+
+  .profile {
+    margin-top: -50px;
+    margin-left: 40px;
+    @media (max-width: @screen-xs-max) {
+      margin-top: 0;
+      margin-left: 20px;
+    }
+    form {
+      .row {
+        margin-top: 30px;
+      }
+      .profile-picture {
+        img {
+          width: 100%;
+          object-fit: cover;
+          cursor: pointer;
+          border-radius: 50%;
+        }
+      }
+      .error-message {
+        margin-top: 25px;
+        span {
+          color: @mainColor;
+          font-weight: bold;
+        }
+      }
+      .line {
+        width: 48%;
+        border-top: solid 1px #d0d0d0;
+        margin: 0px 15px 20px 15px;
+      }
+      .btn {
+        margin-top: 60px;
+      }
+    }
+  }
+  .subscription {
+    margin-top: -20px;
+    margin-left: 40px;
+    padding-bottom: 160px;
+    @media (max-width: @screen-xs-max) {
+      margin-top: 0;
+      margin-left: 0;
+    }
+
+    .cancel-subscription-msg{
+        padding-left: 15px;
+        padding-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        .here-btn {
+            color: #ffffff;
+            cursor: pointer;
+        }
+    }
+    form {
+      .btn {
+        margin-top: 60px;
+        font-size: 1.2vw;
+        @media (max-width: @screen-sm-max) {
+          font-size: 16px;
+        }
+        &.cancel {
+          background-color: transparent;
+          color: #ffffff;
+          padding: 10px 12px 10px 12px;
+          text-align: center;
+          border: 1px solid @mainColor;
+        }
+      }
+    }
+    .subscription-back{
+        margin-top: 20px;
+        width: 30%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .subscription-error{
+        background-color: red;
+        color: white;
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 20px;
+
+        span{
+            color: @mainColor;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    .subscription-success{
+        color: @mainColor;
+        font-size: 18px;
+        font-weight: bold;
+
+        span{
+            cursor: pointer;
+            color: @mainColor;
+        }
+
+    }
+  }
+  .billing-info{
+    margin-top: -20px;
+    margin-left: 40px;
+    padding-bottom: 60px;
+    .exp-date{
+      width: 46%;
+    }
+    @media (max-width: @screen-sm-max) {
+      margin-top: 0;
+      margin-left: 0;
+    }
+    .btn{
+      font-size: 1.2vw;
+      margin-top: 60px;
+      @media (max-width: @screen-sm-max) {
+        font-size: 16px;
+      }
+    }
+    .row{
+      margin-left: 0px;
+    //   select{
+    //     width: 46%;
+    //   }
+    }
+    .form-control{
+        display: inline;
+       background-color: transparent;
+      &.error{
+        border: #a94442;
+        box-shadow :inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
+      }
+    }
+  }
+  .tickets{
+    .no-tickets{
+      margin-left: 40px;
+      padding-bottom: 300px;
+      @media (max-width: @screen-xs-max) {
+        margin-top: 20px;
+        margin-left: 0;
+        padding-bottom: 10px;
+      }
+      h2{
+        font-size: 24px;
+        color: @mainColor;
+      }
+      a{
+        font-size: 24px;
+        color: @mainColor;
+        &:hover {
+          color: @mainColor;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .title{
+        font-size: 40px;
+        padding: 0 27px;
+    }
+    .table {
+      margin-left: 40px;
+      @media (max-width: @screen-xs-max) {
+        margin-top: 20px;
+        margin-left: 0;
+      }
+      thead {
+        tr {
+          th {
+            font-weight: normal;
+            padding-top: 0;
+            font-size: 28px;
+            color: #ffffff;
+            border-bottom: none;
+          }
+        }
+      }
+      tbody{
+        tr {
+          border-top: solid 20px #eeeeee;
+          background-color: #efefef;
+          font-size: 16px;
+          border: none;
+          @media (max-width: @screen-lg-min) {
+            font-size: 14px;
+          }
+          th {
+            padding:5px;
+            font-weight: normal;
+            background-color: @mainBackgroundColor;
+            &.first{
+              padding-left: 26px;
+              background-color: @mainBackgroundColor;
+              @media (max-width: @screen-lg-min) {
+                padding-left: 2px;
+              }
+            }
+            &.cost{
+              vertical-align: middle;
+              text-align: center;
+              .already-purchased{
+                font-size: 16px;
+                color: #ffffff;
+                margin: 0;
+                @media (max-width: @screen-lg-min) {
+                  font-size: 14px;
+                }
+              }
+            }
+            &.buy{
+              padding:0;
+              height: 100%;
+            }
+            .title{
+              color: @mainColor;
+              margin: 0;
+              font-weight: bold;
+              font-size: 22px;
+              @media (max-width: @screen-lg-min) {
+                font-size: 18px;
+              }
+            }
+            .date{
+            font-size: 16px;
+              margin: 0;
+              color: #ffffff;
+            }
+            button{
+              padding: 14px 12px 14px 12px;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .devices, .wallet{
+    margin-left: 40px;
+    padding-bottom: 200px;
+    @media (max-width: @screen-xs-max) {
+      margin-top: 20px;
+      margin-left: 20px;
+      padding-bottom: 10px;
+    }
+    .table {
+      margin-left: 40px;
+      @media (max-width: @screen-xs-max) {
+        margin-top: 20px;
+        margin-left: 0;
+      }
+      thead {
+        tr {
+          padding-top: 18px;
+          padding-bottom: 18px;
+          th {
+            font-weight: normal;
+            padding-top: 0;
+            padding-bottom: 20px;
+            font-size: 18px;
+            color: @mainColor;
+            border-bottom: none;
+          }
+        }
+      }
+      tbody{
+        tr {
+         
+          background-color: @mainBackgroundColor;
+          font-size: 18px;
+          @media (max-width: @screen-lg-min) {
+            font-size: 14px;
+          }
+          th {
+            padding-top: 18px;
+            padding-bottom: 18px;
+            font-weight: normal;
+            h4{
+              color: @mainColor;
+              margin: 0;
+              font-size: 22px;
+              @media (max-width: @screen-lg-min) {
+                font-size: 18px;
+              }
+            }
+          }
+          span{
+            color: @mainColor;
+            font-size: 20px;
+            @media (max-width: @screen-lg-min) {
+              font-size: 16px;
+            }
+          }
+          a{
+            color: #e31924;
+            &:hover {
+              color: #9b9b9b;
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+    .button-more{
+        margin-left: 50%;
+        font-size: 1.2vw;
+        background-color: transparent;
+        color: #ffffff;
+        padding: 10px 50px;
+        text-align: center;
+        border: 1px solid @mainColor;
+        @media (max-width: @screen-sm-max) {
+          font-size: 16px;
+        }
+
+    }
+  }
+
+  .deleteDevice{
+      cursor:pointer;
+  }
+  .change-password{
+    margin-left: 40px;
+    padding-bottom: 100px;
+    @media (max-width: @screen-xs-max) {
+      margin-top: 20px;
+      margin-left: 20px;
+      padding-bottom: 10px;
+    }
+    .btn{
+      margin-top: 20px;
+    }
+
+    .pass-message{
+        /*color: white;*/
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 20px;
+        &.success-message{
+            /*background-color: #7a49ae;*/
+            color: #7a49ae;
+        }
+        &.error-message{
+            /*background-color: red;*/
+            color: red;
+        }
+    }
+  }
+  .phone-validation-page{
+      padding: 40px 0;
+      background-color: transparent;
+      .validated{
+          color: #4e186d;
+        font-size: 28px;
+        text-transform: uppercase;
+      }
+  }
+}
+.subscription-tab {
+  color: white;
+  text-align: center;
+  .sub-header {
+      padding: 0 0 70px 0px;
+      color: #7a49ae;
+      font-size: 40px;
+      @media (max-width: @screen-xs-max) {
+          font-size: 26px;
+          padding: 70px 15px;
+      }
+  }
+
+  .sub-plans {
+      .col-sm-3 {
+          background: linear-gradient(to bottom, #4e186d 0%,#4e186d 50%,#eee 50%,#eee 100%);
+      }
+      .campaign_active {
+          /*background: linear-gradient(to bottom, #E80202 0%,#E80202 50%,#eee 50%,#eee 100%);*/
+          .pricircle {
+              color: #E80202 !important;
+              border-color: #E80202 !important;
+          }
+      }
+      .plan-period {
+          position: relative;
+          font-size: 16px;
+          .plan_info{
+            margin-top: 15px;
+            height: 95px;
+            >.time-span {
+                margin-bottom: 6px;
+                font-size: 24px;
+            }
+            > .plan_campain{
+              font-weight: bold;
+              font-size: 1.25vw;
+              @media (max-width: @screen-xs-max) {
+                  font-size: 24px;
+              }
+            }
+          }
+          .time-span {
+              margin-top: 16px;
+              margin-bottom: 6px;
+              font-size: 24px;
+          }
+          .plan_campain{
+            font-weight: bold;
+            font-size: 1.6vw;
+            @media (max-width: @screen-xs-max) {
+                font-size: 24px;
+            }
+          }
+          .pricircle {
+              font-size: 28px;
+              padding-top: 30px;
+              font-weight: bold;
+              color: #7a49ae;
+              width: 130px;
+              height: 130px;
+              margin-left: ~"calc(50% - 65px)";
+              margin-left: ~"-webkit-calc(50% - 65px)";
+              margin-left: ~"-moz-calc(50% - 65px)";
+              background-color: #efefef;
+              border: 4px solid #4e186d;
+              border-radius: 50%;
+              //margin-top: 30px;
+              .text-fs16 {
+                  color: #9b9b9b;
+              }
+          }
+      }
+      .under-circle {
+          margin-top: 12px;
+          color: #211e1f;
+          font-size: 20px;
+          .mb12 {
+              &.month12 {
+                  color: #E80202;
+              }
+          }
+          .buy-btn {
+              cursor: pointer;
+              width: 130px;
+              background-color: #2087e0;
+              border-radius: 3px;
+              color: white;
+              padding: 6px;
+              margin-left: ~"calc(50% - 65px)";
+              margin-left: ~"-webkit-calc(50% - 65px)";
+              margin-left: ~"-moz-calc(50% - 65px)";
+          }
+      }
+  }
+  .sub-details {
+      padding-bottom: 100px;
+      color: #211e1f;
+      margin-top: 70px;
+      font-size: 28px;
+      div {
+          padding: 20px 0px;
+          border-bottom: 1px solid #fcb134;
+          &:last-child {
+              border-bottom: 0px solid #fcb134;
+          }
+      }
+
+  }
+  .payment{
+      .payment-header {
+          h1 {
+              text-align: left;
+              color: @commonText;
+              margin: 0px -15px;
+              padding: 20px 0px;
+
+          }
+      }
+      // .plan{
+      //     background-color: #e0e0e0;
+      //
+          .sub-plans {
+              .sub-info {
+                  padding-bottom: 20px;
+                  margin-bottom: 30px;
+                  background-color: #4e186d;
+              }
+              .under-circle {
+                  color: #efefef;
+                  font-size: 16px;
+                  background-color: green;
+                  .description{
+                      padding: 15px;
+                      border-bottom: solid 1px #e0e0e0;
+                      &.no-border{
+                          border:none;
+                      }
+                  }
+              }
+          }
+
+          .month_container{
+              padding-left: 0px;
+              padding-right: 0px;
+              margin-bottom: 65px;
+              @media (max-width: @screen-sm-max) {
+                  padding-left: 30px;
+                  padding-right: 30px;
+              }
+              &.campaign_active{
+                  .subscription_background{
+                      .month_title{
+                          background: @secondaryColor;
+                      }
+                      .price_container{
+                           .price_section{
+                              color: rgb(0,119,159);
+                           }
+                      }
+                      .subscription_desc{
+                          padding-top: 0px;
+                      }
+                      .button_section{
+                          background: white;
+                          .buy_button{
+                              background: @secondaryColor;
+                              
+                          }
+                      }
+                  }
+              }
+              .subscription_background{
+                  box-shadow: 0px 10px 28px -5px rgba(0,0,0,0.5);
+                  background: rgb(233,234,235);
+                  border: 1px solid rgb(222,223,224);
+                  border-radius: 5px;
+                  overflow: hidden;
+                  @media (max-width: @screen-md-max) {
+                      font-size: 40px;
+                  }
+                  .month_title{
+                      background: @secondaryColor;
+                      height: 4vw;
+                      font-family: 'Open-Sans-Condensed';
+                      font-weight: 300;
+                      font-style: normal;
+                      font-size: 1.6vw;
+                      padding-top: 0.9vw;
+                      @media (max-width: @screen-md-max) {
+                          height: 80px;
+                          font-size: 30px;
+                          padding-top: 18px;
+                      }
+                  }
+                  .price_container{
+                      padding: 15px;
+                      border-bottom: 1px solid rgb(222,223,224);
+                      position: relative;
+                      .price_section{
+                          color: rgb(130,131,132);
+                          .price_us{
+                              font-size: 1.6vw;
+                              font-family: 'Open-Sans-Condensed';
+                              font-weight: 300;
+                              font-style: normal;
+                              vertical-align: 0.9vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 30px;
+                                  vertical-align: 16px;
+                              }
+                          }
+                          .price_amount{
+                              font-size: 3vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 55px;
+                              }
+                          }
+                      }
+                      .price_desc{
+                          color: rgb(162,163,164);
+                          font-size: 0.9vw;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 18px;
+                          }
+                      }
+                      .old_price{
+                          position: absolute;
+                          font-family: 'Open-Sans-Condensed';
+                          color: rgba(236,0,1, .5);
+                          font-weight: bold;
+                          font-size: 1.15vw;
+                          right: 0.9vw;
+                          top: 0.2vw;
+                          text-decoration: line-through;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 22px;
+                              right: 18px;
+                              top: 6px;
+                          }
+                      }
+                  }
+                  .subscription_desc{
+                      padding: 20px;
+                      text-align: left;
+                      background: white;
+                      .sub_desc_item{
+                          &:not(:last-child){
+                              border-bottom: 1px solid rgb(222,223,224);
+                          }
+                          &.red{
+                              color: rgb(236,0,1);
+                              font-weight: bold;
+                              font-size: 1.25vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 24px;
+                              }
+                          } 
+                          .fa-circle{
+                              font-size: 0.5vw;
+                              vertical-align: 0.2vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 10px;
+                                  vertical-align: 5px;
+                              }
+                          }
+                          color: rgb(162,163,164);
+                          font-size: 1.05vw;
+                          line-height: 2.5;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 20px;
+                          }
+                      }
+                  }
+                  .button_section{
+                      padding: 20px;
+                      .buy_button{
+                          background: @secondaryColor;
+                          font-size: 1.25vw;
+                          padding: 6px 15px;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 24px;
+                          }
+                      }
+                      .payment_button{
+                        background: @secondaryColor;
+                        font-size: 1.25vw;
+                        padding: 6px 15px;
+                        width: 100%;
+                        margin: 5px 0;
+                        @media (max-width: @screen-md-max) {
+                            font-size: 24px;
+                        }
+                    }
+                  }
+              }   
+          }
+          .modify{
+              outline: none;
+              padding: 10px;
+              width: 100%;
+              color: #ffffff;
+              background-color: transparent;
+              border: solid 2px #ffffff;
+              margin-bottom: 30px;
+              &:hover {
+                  box-shadow: 0px 0px 5px 0px #000;
+              }
+              &:active {
+                  outline: none;
+                  background-color: rgba(122, 73, 174, 0.8);
+                  border-color: rgba(122, 73, 174, 0.8);
+              }
+          }
+          .payment-form{
+              padding: 0px 60px;
+              @media (max-width: @screen-sm-max) {
+                  padding: 0px 20px;
+              }
+              @media (max-width: @screen-xs-max) {
+                  padding: 0px 0px;
+              }
+          }
+          form, .wallet-payment{
+              text-align: left;
+              .form-group {
+                  height: 46px;
+                  font-size: 16px;
+              }
+              label {
+                  font-size: 16px;
+                  color: @commonText;
+                  span{
+                      font-size: 14px;
+                      font-weight: normal;
+                      color: @commonText;
+                      margin-left: 10px;
+                  }
+              }
+              .form-control {
+                  font-size: 18px;
+                  height: 50px;
+                  margin-bottom: 20px;
+                  &.error{
+                      border: #a94442;
+                      box-shadow :inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
+                  }
+              }
+              .row{
+                  margin-left: 0px;
+                  select{
+                      width: 25%;
+                      @media (max-width: @screen-xs-max) {
+                          width: 48%;
+                      }
+                  }
+              }
+              .btn {
+                  background-color: #666666;
+                  color: #eeeeee;
+                  padding: 10px 12px 10px 12px;
+                  text-align: center;
+                  width: 100%;
+                  font-size: 20px;
+                  margin-top: 20px;
+                  &:hover {
+                      box-shadow: 0px 0px 5px 0px #000;
+                  }
+                  &:active {
+                      outline: none;
+                      background-color: rgba(122, 73, 174, 0.8);
+                      border-color: rgba(122, 73, 174, 0.8);
+                  }
+                  &:focus {
+                      border-color: rgba(122, 73, 174, 0.8);
+                      outline: none;
+                  }
+              }
+              .accept-terms{
+                  span{
+                      font-size: 16px;
+                      font-weight: bold;
+                      color: #666666;
+                  }
+                  margin-top: 40px;
+              }
+          }
+      // }
+  }
+  .campain_subscription_success{
+    text-align: left;
+    color: #211e1f;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 0;
+  }
+  .campain_subscription_description{
+    text-align: left;
+    color: #ffffff;
+    font-size: 18px;
+    background-color: rgba(33, 30, 31, 0.8);
+    padding: 15px;
+    margin-top: 10px;
+  }
+  .campain_form{
+    > form{
+      text-align: left;
+      margin-top: 10px;
+      > .row{
+        .form-group{
+          height: auto;
+          margin-bottom: 0px;
+          label{
+            margin-bottom: 0px;
+            .red_star{
+              color: red;
+            }
+            .campain_phone_span{
+              font-size: 14px;
+
+              font-weight: normal;
+            }
+          }
+          .form-control{
+            border: 1px solid #211e1f;
+            border-radius: 2px;
+            background-color: #eeeeee;
+            height: 35px;
+          }
+        }
+        .btn{
+            width: auto;
+            background-color: #51597c;
+            padding: 0px 10px;
+            border-radius: 2px;
+            &:first-child{
+              margin-right: 30px;
+            }
+        }
+      }
+    }
+  }
+  .subscription_plans{
+      padding-bottom: 15px;
+      .subscription_header{
+          padding: 10px 0px;
+          color: @commonText;
+          font-size: 70px;
+          font-family: 'Open-Sans-Condensed';
+          font-weight: 300;
+          font-style: normal;
+          @media (max-width: @screen-xs-max) {
+              /*font-size: 26px;
+              padding: 70px 15px;*/
+          }
+          .subscription_sub_header{
+              font-size: 30px;
+          }
+      }
+      .row{
+          .month_container{
+              margin-bottom: 20px;
+
+              &.campaign_active{
+                  .subscription_background{
+                      margin-top: 0px;
+                      .month_title{
+                          background: @secondaryColor;
+                          height: 4vw;
+                          font-family: 'Open-Sans-Condensed';
+                          font-weight: 300;
+                          font-style: normal;
+                          font-size: 1.5vw;
+                          padding-top: 1vw;
+                          @media (max-width: @screen-md-max) {
+                              height: 100px;
+                              font-size: 40px;
+                              padding-top: 20px;
+                          }
+                      }
+                      .price_container{
+                          padding: 20px;
+                           .price_section{
+                              color: rgb(0,119,159);
+                              .price_us{
+                                  font-size: 1.5vw;
+                                  vertical-align: 1vw;
+                                  @media (max-width: @screen-md-max) {
+                                      font-size: 40px;
+                                      vertical-align: 28px;
+                                  }
+                              }
+                              .price_amount{
+                                  font-size: 3vw;
+                                  line-height: 3vw;
+                                  @media (max-width: @screen-md-max) {
+                                      font-size: 80px;
+                                      line-height: 90px;
+                                  }
+                              }
+                           }
+                          .price_desc{
+                              font-size: 1vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 26px;
+                              }
+                          }
+                      }
+                      .subscription_desc{
+                          padding-top: 0px;
+                      }
+                      .button_section{
+                          background: white;
+                          .buy_button{
+                              background: @secondaryColor;
+                              
+                          }
+                      }
+                  }
+              }
+              .subscription_background{
+                  box-shadow: 0px 10px 28px -5px rgba(0,0,0,0.5);
+                  background: rgb(233,234,235);
+                  border: 1px solid rgb(222,223,224);
+                  border-radius: 5px;
+                  overflow: hidden;
+                  margin-top: 2.1vw;
+                  @media (max-width: @screen-md-max) {
+                      font-size: 40px;
+                  }
+                  .month_title{
+                      background: @secondaryColor;
+                      height: 3vw;
+                      font-family: 'Open-Sans-Condensed';
+                      font-weight: 300;
+                      font-style: normal;
+                      font-size: 1vw;
+                      padding-top: 0.8vw;
+                      @media (max-width: @screen-md-max) {
+                          height: 80px;
+                          font-size: 30px;
+                          padding-top: 18px;
+                      }
+                  }
+                  .price_container{
+                      padding: 15px;
+                      border-bottom: 1px solid rgb(222,223,224);
+                      position: relative;
+                      .price_section{
+                          color: rgb(130,131,132);
+                          .price_us{
+                              font-size: 1vw;
+                              font-family: 'Open-Sans-Condensed';
+                              font-weight: 300;
+                              font-style: normal;
+                              vertical-align: 0.7vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 30px;
+                                  vertical-align: 16px;
+                              }
+                          }
+                          .price_amount{
+                              font-size: 2vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 55px;
+                              }
+                          }
+                      }
+                      .price_desc{
+                          color: rgb(162,163,164);
+                          font-size: 0.8vw;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 18px;
+                          }
+                      }
+                      .old_price{
+                          position: absolute;
+                          font-family: 'Open-Sans-Condensed';
+                          color: rgba(236,0,1, .5);
+                          font-weight: bold;
+                          font-size: 1vw;
+                          right: 0.9vw;
+                          top: 0.2vw;
+                          text-decoration: line-through;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 22px;
+                              right: 18px;
+                              top: 6px;
+                          }
+                      }
+                  }
+                  .subscription_desc{
+                      padding: 20px;
+                      text-align: left;
+                      background: white;
+                      .sub_desc_item{
+                          &:not(:last-child){
+                              border-bottom: 1px solid rgb(222,223,224);
+                          }
+                          &.red{
+                              color: rgb(236,0,1);
+                              font-weight: bold;
+                              font-size: 1vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 24px;
+                              }
+                          } 
+                          .fa-circle{
+                              font-size: 0.5vw;
+                              vertical-align: 0.2vw;
+                              @media (max-width: @screen-md-max) {
+                                  font-size: 10px;
+                                  vertical-align: 5px;
+                              }
+                          }
+                          color: rgb(162,163,164);
+                          font-size: 0.7vw;
+                          line-height: 2.5;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 20px;
+                          }
+                      }
+                  }
+                  .button_section{
+                      padding: 20px;
+                      .buy_button{
+                          background: @secondaryColor;
+                          font-size: 1vw;
+                          padding: 6px 30px;
+                          @media (max-width: @screen-md-max) {
+                              font-size: 24px;
+                          }
+                      }
+                  }
+              }
+              
+          }
+      }
+  }
+}

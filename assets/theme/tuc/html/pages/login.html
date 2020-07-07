@@ -1,0 +1,42 @@
+<div class="login-page" ng-controller="LoginController">
+    <div class="login-header">
+        LOGIN
+    </div>
+    <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
+            Login with Facebook
+    </div>
+    <div class="or-line">
+        <span class="or-span">
+            or
+        </span>
+    </div>
+    <div class="credentials-span">
+        Enter your credentials
+    </div>
+    <div class="inputs-cont">
+        <form ng-submit="loginUser()">
+            <input type="email" name="" ng-model="userRegister.email" placeholder="Email" autocomplete="email" required>
+            <input type="password" name="" ng-model="userRegister.password" placeholder="Password" autocomplete="password" required>
+            <div class="remember-me">
+                <input type="checkbox" name="remember-me" ng-model="userRegister.rememberMe" style="width:20px;" /><label style="color:#4a4a4a;" for="remember-me">Remember Me</label>
+            </div>
+            <div class="login-error" ng-show="loginError">{{loginError}}<img class="error-triangle" src="/assets/theme/tuc/images/red-triangle.png" /></div>
+            <div class="loader" ng-if="logging">
+            </div>
+            <input type="submit" class="login-btn" value="LOGIN" ng-hide="logging"></form>
+        </form>
+    </div>
+    <div class="forgot-span" ng-hide="logging">
+        Forgot your Password? <span class="hand" ng-click="forgotPassword()">Click here</span>
+    </div>
+    <div class="or-line">
+    </div>
+    <div class="forgot-span">
+        Don’t have an account?
+    </div>
+    <div class="create-cont">
+        <div class="create-btn" ng-click="go('register')">
+            CREATE NEW ACCOUNT
+        </div>
+    </div>
+</div>

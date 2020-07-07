@@ -1,0 +1,166 @@
+.plans-block{
+
+    @media(max-width: @screen-xs-min){
+        padding: 0!important;
+      }
+
+      @media(max-width: @screen-xs-max){
+        display: none;
+      }
+
+
+    .plan-item{
+ 
+        cursor: pointer;
+        transition-delay: 0ms;
+        transition: 0.5s;
+
+        @media(max-width: @screen-xs-min){
+            padding: 30px 15px 20px 25px;
+        }
+    }
+    
+    .stamp{
+        background: #222222;
+        border-left: 2px dotted @mainColor;
+        border-right: 2px dotted @mainColor;
+        box-sizing: border-box;
+        height: 160px;
+        padding: 2px 12px 4px;
+        position: relative;
+        width: 100%;
+        &::before, &::after{
+            background: @mainColor;
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 45px;
+            position: absolute;
+            width: 45px;
+        }
+        &::before{
+            left: -28px;
+            top: 57px;
+        }
+        &::after{
+            right: -28px;
+            top: 57px;
+        }
+
+        @media(max-width: @screen-xs-max){
+           margin-bottom: 20px
+        }
+    }
+
+    .inner{
+        background: transparent;
+        height: 90%;
+        width: 90%;
+        border: 1.5px solid @mainColor;
+        margin: 11px auto;
+        border-radius: 15px;
+
+        h3{
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin: 10px 0 0 0;
+            
+            @media(max-width: @screen-md-max){
+                font-size: 1.7rem;
+            }
+
+            @media(max-width: @screen-sm-max){
+                font-size: 2.5rem;
+                margin-top: 20px;
+            }
+        }
+
+        .win{
+            color: #fff;
+            font-size: 2.5rem;
+            text-align: center;
+            width: 100%;
+            margin: 12px auto 15px;
+            font-weight: bold;
+        }
+
+        // .ticket-logo{
+        //     height: 25px;
+        //     width: 50%;
+        //     margin: auto;
+        //     background: url('/assets/theme/tuc/images/logo.png');
+        //     background-repeat: no-repeat;
+        //     background-size: auto 65%;
+        //     background-position: center;
+
+        //     @media(max-width: @screen-xs-min){
+        //         width: 65%;
+        //       }
+        // }
+    }
+
+    .ticket-info{
+        text-align: center;
+        font-size: 1.5vw;
+
+        @media(max-width: @screen-xs-min){
+            padding: 0px;
+        }
+
+        p{
+            font-size: 15px;
+
+            @media(max-width: @screen-md-max){
+                font-size: 1vw;
+                margin-bottom: 20px;
+            }
+
+            @media(max-width: @screen-sm-max){
+                font-size: 2vw;
+                margin-bottom: 20px;
+            }
+
+            @media(max-width: @screen-xs-max){
+                font-size: 3vw;
+                margin-bottom: 20px;
+            }
+        }
+
+        .buy-btn{
+            background-color: #222222;
+            color: #fff;
+            width: 200px;
+            border-radius: 14px;
+            margin: 8px auto 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 10px 9px;
+
+            @media(max-width: @screen-xs-min){
+                width: 200px;
+            }
+
+        }
+    }
+}
+
+.plan-row-content{
+
+    margin-top: 30px;
+
+    .plan-row{
+        background-color: #222222;
+        color: #fff;
+        font-size: 2rem;
+        padding: 10px 0 10px 40px;
+        margin: 6px 0;
+        cursor: pointer;
+    }
+
+    @media(min-width: @screen-sm-max){
+        display: none;
+    }
+
+}
+

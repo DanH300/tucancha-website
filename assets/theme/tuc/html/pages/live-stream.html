@@ -1,0 +1,112 @@
+<div class="live">
+    <div class="live-stream">
+        <div class="row jw-player">
+            <div class="col-sm-8" style="padding:0;">
+                <div class="loader" ng-if="loading" ng-attr-style="position: absolute;top: 50%;right: 50%;"></div>
+                <div class="" ng-hide="loading">
+                    <div ng-if="!user || !user._id" class="block">
+                        You must be a
+                        <span class="not-logged-in" ng-click="openLoginModel()">
+                            {{(geo && (geo.countryCode == 'JM'))?'registered':'subscribed'}} user
+                        </span> to watch live content
+                    </div>
+                    <div ng-if="(user._id && geo.countryCode != 'JM' && !user.subscriptionPlan)" class="block">You must be a <span class="not-logged-in" ng-click="(user && user._id)?go('/account/subscription'):openLoginModel()">subscriber</span> to watch live content</div>
+
+                    <!-- <aniview class="col-xs-12" ng-if="hasPermission() && activeVideo._id" video="activeVideo" autoplay="true" data-id="video-player" style="padding-left: 0; padding-right: 0;"></aniview> -->
+
+                    <jwplayerlive ng-if="hasPermission() && activeVideo._id" video="activeVideo" autoplay="true" data-id="video-player"></jwplayerlive>
+                </div>
+            </div>
+            <div class="col-sm-4" style="padding:0">
+                <div class="all-channels">
+                    <div class="all-channels-header">Now on</div>
+                    <div class="all-channels-list">
+                        <div ng-repeat="channel in channels" class="channel-{{channel._id}}">
+                            <div class="row now-on-channel {{epgId == channel._id?'active':''}}" ng-attr-style="margin: 0;">
+                                <div ng-click="go_live(channel._id);" class="col-xs-4" ng-attr-style="padding:0">
+                                    <div class="logo {{epgId != channel._id?'opacity':''}}" ng-attr-style="background-image: url('{{channel.ChannelLogoSmall.downloadUrl | https}}');"> </div>
+                                </div>
+                                <div class="col-sm-8 col-xs-8 channel-info" id="{{epgId == channel._id?'active':''}}">
+                                    <div class="" ng-repeat="show in channel.timeline | filter: showIsOnFilter">
+                                        <div ng-click="go_live(channel._id);" class="program-title">{{show.program.title?epgByGeo(show.program.title):'NO INFORMATION' | epgTitle}}</div>
+                                        <span class="time">{{getDifference(show.startTime, show.endTime)}}</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" ng-attr-style="{{showProgress(show.startTime ,show.endTime)}}"></div>
+                                        </div>
+
+                                        <!-- <div class="epg_back" ng-click="toggleCatchUp(channel._id)">
+                                            Catch Up <i ng-class="isCatchUpShown(channel._id) ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" aria-hidden="true"></i>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --- -->
+                            <!--  <div class="catch_up" ng-show="isCatchUpShown(channel._id)">
+                                
+                                <div class="catch_up_prog" ng-repeat="epg_prog in catch_Up_Epg" ng-click="setCatchUpVideo(channel, epg_prog.startTime, epg_prog.endTime);">
+                                    <div class="program-title">{{epg_prog.program.title?epgByGeo(epg_prog.program.title):'NO INFORMATION' | epgTitle}}</div>
+                                        <span class="time">{{getDifference(epg_prog.startTime, epg_prog.endTime)}} | {{epg_prog.startTime | date:'HH:mm'}} - {{epg_prog.endTime| date:'HH:mm'}}</span>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="catch_up" ng-show="isCatchUpShown(channel._id)">
+                                
+                                <div class="catch_up_prog" ng-repeat="epg_prog in catch_Up_Epg" ng-click="go_catch_up(channel._id, epg_prog.startTime, epg_prog.endTime);">
+                                    <div class="program-title">{{epg_prog.program.title?epgByGeo(epg_prog.program.title):'NO INFORMATION' | epgTitle}}</div>
+                                        <span class="time">{{getDifference(epg_prog.startTime, epg_prog.endTime)}} | {{epg_prog.startTime | date:'HH:mm'}} - {{epg_prog.endTime| date:'HH:mm'}}</span>
+                                </div>
+                            </div> -->
+                            <!-- --- -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stream">
+        <span class="stream-schedule">
+            Stream Schedule
+        </span>
+        <span class="today">
+            {{today | date:'EEEE, MMMM dd, yyyy'}}
+        </span>
+    </div>
+    <div class="schedule moveDown">
+        <div class="arrow-right hidden-xs {{channelListingPosition>=scheduleMoves?'opacity0':''}}" ng-click="moveListingRight()">
+            <div class="icon icon-arrow-right-20x33">
+            </div>
+        </div>
+        <div class="arrow-left hidden-xs {{channelListingPosition==0?'opacity0':''}}" ng-click="moveListingLeft()">
+            <div class="icon icon-arrow-left-20x33">
+            </div>
+        </div>
+        <ul id="schedule">
+            <li ng-repeat="channel in channels" ng-click="go_live(channel._id);">
+                <div class="row" ng-attr-style="margin: 0;">
+                    <div class="channel-logo col-sm-1 col-xs-3" style="background-image: url('{{channel.ChannelLogoSmall.downloadUrl | https}}');">
+                    </div>
+                    <div class="col-sm-11 col-xs-9 show-listing">
+                        <table class="table channel{{channel._id}}" ng-attr-style="left:{{channelListing}}%;">
+                            <tbody>
+                                <tr>
+                                    <th ng-repeat="show in channel.timeline | limitTo: 15 | filter: showEndedFilter">
+                                        <div class="show pr {{$first?'':'show-dark'}}" ng-attr-style="{{showLength(show.startTime ,show.endTime)}}">
+                                            <div class="show-title">{{epgByGeo(show.program.title) | epgTitle}}</div>
+                                            <h3>{{show.startTime | date:'HH:mm'}} - {{show.endTime| date:'HH:mm'}}</h3>
+                                            <div class="progress {{pastDate(show.startTime)?'hide':''}}" ng-if="!pastDate(show.startTime)">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" ng-attr-style="{{showProgress(show.startTime ,show.endTime)}}"></div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="empty-space"></div>
+</div>

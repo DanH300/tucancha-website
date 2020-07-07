@@ -1,0 +1,57 @@
+<div class="vod-page">
+        <div class="main-player">
+            <h2 class="info-right" ng-show="!isAllowed(video)">Este contenido no esta disponible en tu pais.</h2>
+            <div class="row" ng-if="isAllowed(video)" video="video">
+                <div class="col-sm-7 video-left">
+                    <div class="vod-loader" ng-show="loading">
+                    </div>
+                    <!-- <aniview class="col-xs-12" ng-if="video._id && hasAccess() && isAllowed(video)" video="video" autoplay="true" data-id="video-player" style="padding-left: 0; padding-right: 0;"></aniview> -->
+                    <pixellotplayer ng-if="video._id && hasAccess() && isAllowed(video)" video="video" autoplay="true" data-id="video-player"></pixellotplayer>
+                    <h2 class="info-right" ng-hide="allowAccess || loading || permission =='Subscribed'">Debes registrarte para ver este video.</h2>
+                    <h2 class="info-right" ng-show="permission =='Subscribed'">Debes suscribirte para ver este video.</h2>
+    
+                    <a ng-click="user._id?go('/account/subscription'):openLoginModel()">
+                        <h2 ng-show="permission=='Subscribed'">SUSCRIBETE AHORA</h2>
+                    </a>
+                </div>
+                <div class="col-sm-5 info-right">
+                    <div class="title-area">
+                        <span class="title">{{video.title}}</span>
+                        <!-- <span class="{{subscriptionType(commerceMedia)}}">{{subscriptionType(commerceMedia) | uppercase}}</span> -->
+                    </div>
+                    <div class="description">{{video.description}}</div>
+                    <div ng-if="video.aired_date" class="meta">
+                        Air Date: <span>{{video.aired_date | date: 'MMMM dd, yyyy'}}</span>
+                    </div>
+                    
+                    <div class="video-tags">
+                        <span class="badge badge-pill badge-secondary" >{{video.activity.name}}</span>
+                        <span class="badge badge-pill badge-secondary" ng-repeat="identity in video.identities" video="video">{{identity.name}}</span><br>
+                        <span class="badge badge-pill badge-secondary" ng-if="video.eventTeams">{{video.eventTeams.homeTeam}} vs. {{video.eventTeams.awayTeam}}</span>
+                    </div>
+                    <div class="social">
+                        <span ng-click="facebookShare()"><i class="fa fa-facebook-square"></i></span>
+                        <a href="https://twitter.com/intent/tweet?url={{encodedUrl}}&text=TuCancha" onclick="window.open(this.href, 'mywin',
+                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" target="_blank">
+                        <span><i class="fa fa-twitter-square"></i></span></a>
+                    </div>
+                    <div class="my-list">
+                        <span ng-hide="isInWatchlist(video._id)">
+                            <span class="fll icon icon-add-purple-45x45" ng-click="addToList(video, $event)"></span>
+                        <span class="fll mylist-span" ng-click="addToList(video, $event)">My List</span>
+                        </span>
+                        <span ng-show="isInWatchlist(video._id)">
+                            <span class="fll icon icon-add-purple-45x45 in-list" ng-click="removeFromList(video, $event)"></span>
+                        <span class="fll mylist-span" ng-click="removeFromList(video, $event)">Remove</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="related-header">
+            Related Videos
+        </div>
+        <div class="row related-videos">
+            <clip-block class=" col-x-12 col-sm-4 col-md-3" ng-repeat="video in related | limitTo: 4" video="video" data-transparent="true" ng-if="isAllowed(video)"></clip-block>
+        </div>
+    </div>

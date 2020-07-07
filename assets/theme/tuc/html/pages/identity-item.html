@@ -1,0 +1,57 @@
+<div class="sponsor-image col-xs-12 col-sm-12 col-md-12 col-lg-12"  ng-if="identityItem.SponsorPoster" ng-attr-style="background-image:url('{{identityItem.SponsorPoster}}')"></div>
+<mainslick id="main-slick" class="main-slick col-xs-12 col-sm-12 col-md-12 col-lg-12" item="identityItem"></mainslick>
+
+<div class="identity-content col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+    <div id="plan-row-content" class="plan-row-content" ng-show="showPlans.value">
+       <div class="plan-row col-xs-12" ng-repeat="plan in identityItem.products" ng-click="checkout(plan)">
+           <div class="col-xs-9 plan-row-title">{{plan.title}}</div>
+           <div class="col-xs-3 plan-row-price">R{{plan.price}}</div>
+       </div>
+    </div>
+
+    <div ng-show="pay.value">
+        <checkout-form class="col-xs-12 col-sm-12 col-md-12 col-lg-12" it="identityItem" plan="selectedPlan" pay="pay"></checkout-form>
+    </div>
+    
+    <div class="gallery-container">
+     
+        <section class="cd-gallery">
+
+            <div class="single-category" ng-show="events.length >0">
+                <div class="category-header">
+                    <h1 id="eventsBlock">Live Events  <a class="cd-filter-trigger"></a></h1>
+                </div>
+                <div class="featured-shows">
+                    <div class="row new-releases">
+                        <event-block class="col-xs-12 col-sm-6 col-md-6 col-lg-3" my-list="myList" ng-repeat="event in events" video="event" ng-if="isAllowed(event)"></event-block>
+                    </div>
+                </div>
+            </div>
+
+            <div id="videos-cont" class="videos-cont">
+                <div class="category-header">
+                    <h1>Videos <a class="cd-filter-trigger"></a></h1>
+                </div>
+                <div class="row new-releases">
+                    <clip-block class="col-x-12 col-sm-6 col-md-6 col-lg-3" ng-repeat="video in videos" video="video" ng-if="isAllowed(video)"></clip-block>
+                </div>
+                <div class="loader" ng-if="loading">
+                </div>
+                <div class="col-xs-12 more hand" ng-if="showMore" ng-click="nextPage()">Mas <span class="icon icon-arrow-down-white"></span></div>
+            </div>
+
+            <div class="highlights" ng-show="highlights.length >0">
+                <div class="category-header">
+                    <h1>Highlights</h1>
+                </div>
+                <div class="row new-releases">
+                    <clip-block class="col-xs-12 col-sm-6 col-md-6 col-lg-3" my-list="myList" ng-repeat="video in highlights | orderBy:'-added' | limitTo:12" video="video" ng-if="isAllowed(video)"></clip-block>
+                </div>
+            </div>
+            
+        </section>
+    </div>
+    <filter-panel fields="filterFields" dt-from="dtFrom" dt-to="dtTo" get-page-attr="getPage(pageArg)" page-attr="page" filter-list-attr="filterList"></filter-panel>
+    
+</div>

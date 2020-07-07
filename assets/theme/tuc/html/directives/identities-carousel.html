@@ -1,0 +1,9 @@
+<div class="identity-container slider">
+        
+    <div class="" ng-repeat="identity in identities" ng-show="{{identity.PosterH}}" ng-click="go(identity.media_type,identity._id)" >
+        <!-- <img class="identity-item" ng-src="{{identity.PosterH.streamingUrl}}"> -->
+        <div class="identity-item" style="background-image:url('{{identity.PosterH.streamingUrl}}')" title="{{identity.title}}">
+        </div>
+    </div>
+</div>
+

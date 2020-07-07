@@ -1,0 +1,153 @@
+.live-ppv-event{
+    background-color: #FE0000;
+    color: white;
+    text-align: center;
+    padding: 2px 20%;
+    transition: transform 0.3s ease-out;
+    transform: translate(0, 0);
+    cursor: pointer;
+    @media (max-width: @screen-xs-max) {
+        font-size: 12px;
+    }
+    .close-ppv-event{
+        float: right;
+        cursor: pointer;
+    }
+}
+.registration-complete {
+    text-align: center;
+    background-color: #eeeeee;
+    padding: 2% 4%;
+    color: #4a4a4a;
+    margin: auto;
+    color: black;
+    .rc-header{
+        font-size: 32px;
+        font-weight: 300;
+        @media (max-width: 1400px) {
+            font-size: 28px;
+        }
+    }
+    .rc-welcome{
+        font-size: 32px;
+        font-weight: bold;
+        @media (max-width: 1400px) {
+            font-size: 28px;
+        }
+    }
+    .rc-select{
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .flex-row{
+        display: flex;
+        align-items: stretch;
+        @media (max-width: @screen-xs-max) {
+            display: block;
+        }
+        .options{
+            height: 420px;
+            box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            @media (max-width: 1400px) {
+                height: 390px;
+            }
+            .yellow-bg{
+                color: black;
+                background-color: #FF9700;
+            }
+            .red-bg{
+                color: white;
+                background-color: #E32A32;
+            }
+            .option-header{
+                width: 100%;
+                font-size: 30px;
+                padding: 1% 2%;
+                font-weight: bold;
+                @media (max-width: 1400px) {
+                    font-size: 26px;
+                }
+            }
+            .detailes{
+                height: 70px;
+                font-size:20px;
+                padding:0 25%;
+                text-align: center;
+                padding-top: 1%;
+                @media (max-width: 1400px) {
+                    height: 55px;
+                    font-size:18px;
+                }
+                &.yellow-bg-opacity{
+                    font-size:16px;
+                    background-color: #FBCF90;
+                    @media (max-width: 1400px) {
+                        font-size:14px;
+                    }
+                }
+                &.red-bg-opacity{
+                    background-color: #FFC8CB;
+                }
+                .premium-cost{
+                    line-height: 0.9;
+                    padding: 0 30px;
+                    @media (max-width: 1400px) {
+                        padding: 0 40px;
+                    }
+                    @media (max-width: @screen-xs-max) {
+                        padding: 0 20px;
+                    }
+                    .premium-amount{
+                        font-weight: bold;
+                        font-size: 34px;
+                        float: left;
+                        @media (max-width: 1400px) {
+                            font-size:28px;
+                        }
+                    }
+                    .per-month{
+                        padding-top: 2px;
+                        font-size: 12px;
+                        text-align: left;
+                        @media (max-width: 1400px) {
+                            font-size:10px;
+                        }
+                    }
+                }
+            }
+            .plan-description{
+                font-size: 12px;
+                padding: 5px 0;
+            }
+            .buttons{
+                position: absolute;
+                width: 100%;
+                bottom: 0;
+                .rc-button{
+                    margin: 15px;
+                    padding: 10px;
+                    border-radius: 5px;
+                    font-size: 24px;
+                    font-weight: bold;
+                    width: 75%;
+                    @media (max-width: 1400px) {
+                        font-size:20px;
+                    }
+                }
+            }
+        }
+    }
+    .skip{
+        margin-top: 20px;
+        background-color: #E1E1E1;
+        border: 2px solid;
+        border-radius: 5px;
+        padding: 5px 40px;
+        font-size: 24px;
+        @media (max-width: 1400px) {
+            font-size:20px;
+            padding: 2px 40px;
+        }
+    }
+}

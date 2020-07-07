@@ -1,0 +1,12 @@
+<div class="tv-shows" >
+    <img src="{{mainImage}}" alt="image">
+    <div class="container">
+        <div class="row series">
+            <div class="select-show">
+                Select your favourite show </br>from our collection
+            </div>
+            <tv-show-block class="col-xs-6 col-sm-4 col-md-3 col-lg-15" ng-if="series" ng-repeat="item in series | orderBy:'-updated'" data-block="item" ></tv-show-block>
+            <!-- <div class="col-xs-12 more hand" ng-if="showMore" ng-click="nextPage()">Mas <span class="icon icon-arrow-down-white"></span></div> -->
+        </div>
+    </div>
+</div>

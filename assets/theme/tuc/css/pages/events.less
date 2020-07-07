@@ -1,0 +1,330 @@
+.events{
+    .available-performances{
+      #PPVCarousel{
+          .main-slider{
+              @media (max-width: @screen-xs-max) {
+                  height: 70vh;
+              }
+              .main-event{
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+                  .gradient{
+                      // position: relative;
+                      // height: 70vh;
+                      background: -moz-linear-gradient(left,  rgba(17,22,52,1) 30%, rgba(170,172,183,0) 75%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+                      background: -webkit-linear-gradient(left,  rgba(17,22,52,1) 30%,rgba(170,172,183,0) 75%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                      background: linear-gradient(to right,  rgba(17,22,52,1) 30%,rgba(170,172,183,0) 75%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111634', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+                      .gradient2{
+                          background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(102,102,102,0) 50%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+                          background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(102,102,102,0) 50%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                          background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(102,102,102,0) 50%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+                          position: relative;
+                          height: 60vh;
+                          @media (max-width: @screen-xs-max) {
+                            height: 70vh;
+                          }
+                          .info{
+                              color: white;
+                              width: 45%;
+                              padding: 5vh 0 0 6%;
+                              @media (max-width: @screen-xs-max) {
+                                width: 100%;
+                                padding: 10vh 0 0 6%;
+                              }
+                              .title{
+                                  font-size: 2.6vw;
+                                  line-height: 1.2;
+                                  font-weight: 700;
+                                  width: 75%;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 24px;
+                                  }
+                              }
+                              .date{
+                                  font-size: 2vw;
+                                  text-transform: uppercase;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 20px;
+                                  }
+                              }
+                              .ppv-live{
+                                  font-size: 2.4vw;
+                                  font-weight: 300;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 22px;
+                                  }
+                              }
+                              .venue{
+                                  font-size: 1.6vw;
+                                  font-weight: lighter;
+                                  line-height: 0.5;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 18px;
+                                    line-height: normal;
+                                  }
+                              }
+                              .restrictions{
+                                  position: absolute;
+                                  bottom: 50px;
+                                  width: 45%;
+                                  p{
+                                      font-size: 22px;
+                                      margin: 0 0 20px;
+                                      @media (max-width: 1400px) {
+                                          margin: 0 0 10px;
+                                        font-size: 18px;
+                                      }
+                                      @media (max-width: @screen-xs-max) {
+                                        font-size: 16px;
+                                      }
+                                  }
+                                  @media (max-width: @screen-xs-max) {
+                                    bottom: 20px;
+                                    width: initial;
+                                  }
+                                  .more_info_container{
+                                      text-align: center;
+                                      @media (max-width: @screen-xs-max) {
+                                          text-align: left;
+                                      }
+                                      .more-info{
+                                          outline: none;
+                                          background-color: #666666;
+                                          color: white;
+                                          font-weight: bold;
+                                          font-size: 22px;
+                                          padding: 8px 14px;
+                                          @media (max-width: @screen-xs-max) {
+                                            font-size: 20px;
+                                          }
+                                      }
+                                  }
+                                  
+                              }
+  
+  
+                          }
+                          .clock{
+                              position: absolute;
+                              bottom: 80px;
+                              right: 10%;
+                              color: white;
+                              font-weight: bold;
+                              text-align: center;
+                              background-color: transparent;
+                              @media (max-width: @screen-xs-max) {
+                                bottom: 20px;
+                              }
+  
+                              .more-info{
+                                    outline: none;
+                                    background-color: #9224a6;
+                                    color: white;
+                                    font-weight: bold;
+                                    font-size: 22px;
+                                    padding: 8px 14px;
+                                    font-size: 26px;
+                                    padding: 8px 14px;
+                                    font-style: italic;
+                                    @media (max-width: @screen-xs-max) {
+                                      font-size: 20px;
+                                    }
+                                }
+  
+                              .counter {
+                                padding: 0 5px;
+                                display: inline-block;
+                                width: 3vw;
+                                margin: 0 10px;
+                                @media (max-width: @screen-xs-max) {
+                                  padding: 0 1px 0 1px;
+                                  width: inherit;
+                                  margin: 0 2px;
+                                }
+  
+                                
+                                .time {
+                                    font-size: 3vw;
+                                    font-weight: bold;
+                                    margin-bottom: 0;
+                                    width: 3vw;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 20px;
+                                    width: inherit;
+                                  }
+                                }
+                                .smalltext {
+                                    color: #DCDCDA;
+                                    font-size: 12px;
+                                    font-weight: 300;
+                                  @media (max-width: @screen-xs-max) {
+                                    font-size: 10px;
+                                  }
+                                }
+  
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+          
+      }
+      
+      .single-event{
+  
+          background-color: @mainBackgroundColor;
+          // &:nth-child(even){
+          //     background-color: white;
+          // }
+          // &:nth-child(odd){
+          //     background-color: #DCDCDA;
+          // }
+          .event-container{
+              padding: 2.5vw 10vw;
+              .event-row{
+                  display: flex;
+                  @media (max-width: @screen-xs-max) {
+                    display: block;
+                  }
+              }
+              .img-container {
+                  position: relative;
+                  background-repeat: no-repeat;
+                  background-size: auto 90%;
+                  background-color: #ffffff;
+                  background-position: center;
+                  height: 20vw;
+                  @media (max-width: @screen-xs-max) {
+                    height: 40vw;
+                  }
+              }
+              .available-info{
+                  margin-left: 15px;
+  
+                  @media(max-width: 768px){
+                      margin-top: 20px;
+                  }
+                  .title{
+                      font-weight: bold;
+                      padding-top: 0;
+                      font-size: 2vw;
+                      color: #ffffff;
+                      margin-top: -0.6vw;
+                      // margin-bottom: 12px;
+                      word-wrap: break-word;
+                      @media (max-width: @screen-xs-max) {
+                          margin-top: 6px;
+                          margin-bottom: 6px;
+                          font-size: 18px;
+                      }
+                  }
+  
+                  .event-commerce-info{
+                    color: @mainColor;
+                  }
+                  .date{
+                      font-weight: bolder;
+                      padding-top: 0;
+                      font-size: 1.5vw;
+                      color: #ffffff;
+                      margin-top: 0;
+                      word-wrap: break-word;
+                      @media (max-width: @screen-xs-max) {
+                          font-size: 16px;
+                      }
+                  }
+                  .venue{
+                      font-size: 1vw;
+                      color: black;
+                      @media (max-width: @screen-xs-max) {
+                          font-size: 14px;
+                      }
+                  }
+                  .description{
+                      font-size: 1vw;
+                      color: #ffffff;
+                      @media (max-width: @screen-xs-max) {
+                          font-size: 14px;
+                      }
+                  }
+                  table{
+                      margin-top: 12px;
+                      // width: 80%;
+                  }
+                  .mobile-tickets{
+                      padding: 0;
+                  }
+                  .ticket-cell{
+                      padding: 0 10px;
+                      .ticket-title{
+                          font-weight: normal;
+                          font-size: 1vw;
+                          color: #ffffff;
+                          @media (max-width: @screen-xs-max) {
+                              font-size: 10px;
+                          }
+                      }
+                      .ticket-price{
+                          font-size: 1vw;
+                          font-weight: bolder;
+                          color: #ffffff;
+                          @media (max-width: @screen-xs-max) {
+                              font-size: 14px;
+                          }
+                      }
+                  }
+                  .btn-available{
+                      background-color: @mainColor;
+                      color: #efefef;
+                      font-size: 1vw;
+                      font-weight: bold;
+                      bottom: 0;
+                      position: absolute;
+                      border-radius: 6px;
+                      padding: 8px 14px;
+                      &:hover{
+                          outline: none;
+                          background-color: #898c8d;
+                          box-shadow: 0px 0px 5px 0px #000;
+                      }
+                      &:active, &:focus{
+                          outline: none;
+                          background-color: #898c8d;
+                          box-shadow: inset 0px 0px 5px 0px #000;
+                      }
+                      @media (max-width: @screen-xs-max) {
+                          font-size: 14px;
+                          position: relative;
+                          margin-top: 10px;
+                      }
+                  }
+              }
+          }
+      }
+  }
+  .purchased{
+    // margin-left: 40px;
+    h2 {
+      margin-top: 6px;
+      margin-bottom: 24px;
+      font-weight: normal;
+      font-size: 28px;
+      color: #7a49ae;
+    }
+    .message {
+      margin-top: 25px;
+      span {
+        font-size: 20px;
+        color:#4a136a;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+  }
+  

@@ -1,0 +1,198 @@
+.register-page {
+    background-color: #eee;
+    padding: 6%;
+    text-align: center;
+    color: #4a4a4a;
+    .register-header {
+        font-size: 38px;
+        padding-bottom: 20px;
+        color: black;
+        @media (max-width: 1600px) {
+            padding-bottom: 10px;
+            font-size: 36px;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 26px;
+        }
+    }
+    .chkbox_terms{
+        vertical-align: bottom;
+        position: relative;
+        top: -1vh;
+    }
+    .txtTermsSocial{
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        a{
+            text-decoration: none;
+            color: #666666;
+        }
+    }
+    .disclaimer-span {
+      font-size: 19px;
+      margin-bottom: 40px;
+      @media (max-width: 1600px) {
+          margin-bottom: 30px;
+          font-size: 16px;
+      }
+      @media (max-width: @screen-xs-max) {
+          font-size: 15px;
+          margin-bottom: 20px;
+      }
+      span {
+          cursor: pointer;
+          color: #7a49ae;
+      }
+  }
+  .register-error{
+      color: white;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #fe0000;
+      border-radius: 4px;
+      font-size: 23px;
+      @media (max-width: 1600px) {
+          font-size: 20px;
+      }
+      @media (max-width: @screen-xs-max) {
+          font-size: 18px;
+          margin-bottom: 20px;
+      }
+  }
+    .facebook-register {
+        margin: auto;
+        cursor: pointer;
+        height: 60px;
+        width: 350px;
+        font-size: 20px;
+        padding: 16px;
+        background-color: #3a5897;
+        color: white;
+        border-radius: 3px;
+        margin-bottom: 40px;
+        &.disabled{
+            opacity: 0.5;
+        }
+        @media (max-width: 1600px) {
+            height: 50px;
+            margin-bottom: 30px;
+            padding: 12px;
+            font-size: 18px;
+        }
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 16px;
+            padding: 8px;
+            height: 40px;
+        }
+    }
+    .or-line {
+        // max-width: 350px;
+        height: 2px;
+        text-align: center;
+        border-bottom: 1px solid #d2b846;
+        line-height: 0.1em;
+        margin: 10px 8% 20px;
+        @media (max-width: @screen-lg) {
+            margin: 10px 0 20px;
+        }
+        .or-span {
+            font-size: 20px;
+            color: #333333;
+            background:#eee;
+            padding:0 10px;
+            @media (max-width: 1600px) {
+                font-size: 18px;
+            }
+            @media (max-width: @screen-xs-max) {
+                font-size: 16px;
+            }
+        }
+    }
+    .login-information{
+        margin-bottom: 30px;
+        font-size: 20px;
+        @media (max-width: 1600px) {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 16px;
+        }
+    }
+    .login-span {
+        color: #333333;
+    }
+    .register-form {
+        text-align: left;
+        font-size: 18px;
+        @media (max-width: 1600px) {
+            font-size: 16px;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 16px;
+        }
+        .single-input {
+            input {
+                font-size: 20px;
+                width: 100%;
+                border: 0px;
+                margin-bottom: 30px;
+                padding: 10px;
+                @media (max-width: 1600px) {
+                    margin-bottom: 20px;
+                    font-size: 18px;
+                }
+                @media (max-width: @screen-xs-max) {
+                    font-size: 16px;
+                    padding: 8px;
+                    margin-bottom: 15px;
+                }
+                &.input-error{
+                    border: #a94442;
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px #a94442;
+                }
+            }
+            .small-text{
+                font-size: 16px;
+                @media (max-width: 1600px) {
+                    font-size: 12px;
+                }
+            }
+        }
+        .submit {
+            margin-top: 20px;
+            text-align: center;
+            transition: 0.5s;
+            .submit-btn {
+                background-color: #666666;
+                color: white;
+                width: 100%;
+                border: 0px;
+                border-radius: 3px;
+                font-size: 24px;
+                padding: 13px;
+                margin-top: 40px;
+                @media (max-width: 1600px) {
+                    margin-top: 20px;
+                    padding: 10px;
+                    font-size: 20px;
+                }
+                @media (max-width: @screen-xs-max) {
+                    font-size: 20px;
+                    padding: 7px;
+                }
+                &:disabled {
+                    background-color: #dddddd;
+                }
+            }
+        }
+        a{
+            color: #666666;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    }
+}

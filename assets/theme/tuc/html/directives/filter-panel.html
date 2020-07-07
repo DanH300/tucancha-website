@@ -1,0 +1,40 @@
+<div class="cd-filter">
+        <form>
+            <div class="cd-filter-title">FILTERS</div>
+
+            <div class="cd-filter-block"  ng-repeat="filter in filters" ng-if="showFilter(filter['title'])">
+                <h4>{{filter.title}}</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="item in filter['items']">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{item.title}}" ng-click="applyFilter(filter['media_type'], item._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{item.title}}">{{item.title}}</label>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="cd-filter-block" ng-if="showFilter('airedDate')"> 
+                <h4>Aired Date</h4>
+                <div class="cd-filter-content">
+                    <div class="filter-title">
+                        From
+                    </div>
+                    <div class="filter">
+                        <input class="filter-input" type="date" max="{{$parent.dtTo | date:'yyyy-MM-dd'}}" ng-model="$parent.dtFrom" ng-change="applyFilterDate()"/>>
+                    </div>
+                    <div class="filter-title">
+                        To
+                    </div>
+                    <div class="filter">
+                        <input class="filter-input" type="date" min="{{$parent.dtFrom | date:'yyyy-MM-dd'}}" ng-model="$parent.dtTo" ng-change="applyFilterDate()"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <button type="button" class="close cd-close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>

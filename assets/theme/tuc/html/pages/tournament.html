@@ -1,0 +1,87 @@
+<main class="cd-main-content tournament-page">
+
+    <section class="">
+        <div class="videos-cont">
+            <div class="row">
+
+
+                <div class="col-sm-12 col-md-6 col-lg-3 month_container month{{plan.subscriptionLength}} {{plan.campaign_active?'campaign_active':''}}"
+                    ng-repeat="plan in plans">
+
+                    <div class="subscription_background">
+                        <div class="month_title">
+                            <div ng-if="plan.subscriptionLength==1" class="">
+                                {{plan.billingSchedule[0].duration}} Month</div>
+                            <div ng-if="plan.subscriptionLength>1" class="">
+                                {{plan.billingSchedule[0].duration}} Months</div>
+                        </div>
+                        <div class="price_container">
+                            <div ng-if="plan.campaign_active" class="old_price">US${{plan.old_price}}</div>
+
+                            <div class="price_section">
+                                <span class="price_us">US$</span>
+                                <span class="price_amount">{{plan.billingSchedule[0].amount}}</span>
+                            </div>
+
+                            <div class="price_desc">
+                                Auto-renew each
+                                <span ng-if="plan.subscriptionLength==1">
+                                    {{plan.billingSchedule[0].duration}} Month</span>
+                                <span ng-if="plan.subscriptionLength>1">
+                                    {{plan.billingSchedule[0].duration}} Months</span>
+                            </div>
+
+                        </div>
+                        <div class="subscription_desc">
+
+                            <div ng-if="plan.campaign_active" class="sub_desc_item red"> <i class="fa fa-circle"></i>
+                            </div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Access to 10 Channels</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Unrestricted access to VOD Catalogue
+                            </div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch 3 screens simultaneously</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch on your laptop, phone or
+                                tablet</div>
+
+                        </div>
+
+                        <div class="button_section">
+                            <button class="btn buy_button" ng-click="buy(plan)">
+                                buy now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-repeat="item in activityItems" ng-show="classifiedTournaments[item._id]">
+                <div class="yellow-tittle-container">
+                    <div class="yellow-title">
+                        <h1>Torneos {{item.title}}</h1>
+                    </div>
+                </div>
+                <activity-item-carousel items="classifiedTournaments[item._id]" activity-item-id="item._id">
+                </activity-item-carousel>
+            </div>
+
+            <div ng-show="classifiedTournaments.others.length > 0">
+                <div class="yellow-tittle-container">
+                    <div class="yellow-title">
+                        <h1>Otros Torneos</h1>
+                    </div>
+                </div>
+                <activity-item-carousel items="classifiedTournaments.others" activity-item-id="'others'">
+                </activity-item-carousel>
+            </div>
+
+        </div>
+        <div class="loader" ng-if="loading">
+        </div>
+        <div class="col-xs-12 more hand" ng-if="showMore" ng-click="nextPage()">Mas <span
+                class="icon icon-arrow-down-white"></span></div>
+        </div>
+    </section>
+
+
+
+</main>

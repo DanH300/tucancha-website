@@ -1,0 +1,68 @@
+uvodApp.directive('episodeBlock', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            video: '=',
+            myList: '=',
+            transparent: '@',
+            link: "="
+        },
+        controller: ['$scope', '$rootScope', '$location', 'listFactory', 'User', function episodeController($scope, $rootScope, $location, listFactory, User) {
+            $scope.addToList = function(video, $event) {
+                $event.stopPropagation();
+                if (!User._id) {
+                    $('.loginModal').modal('show');
+                } else {
+                    listFactory.addWatchlist(video._id).then(function(response) {
+                        if (response && $scope.myList) {
+                            if ($scope.$parent.myList == null)
+                                $scope.$parent.myList = [];
+                            $scope.$parent.myList.unshift(video);
+                        }
+
+                    });
+                }
+            };
+
+            $scope.removeFromList = function(video, $event) {
+                $event.stopPropagation();
+                listFactory.removeWatchlist(video._id).then(function(response) {
+                    if (response && $scope.myList)
+                        if ($scope.$parent.myList.length == 1)
+                            $scope.$parent.myList = [];
+                        else
+                            $scope.$parent.myList.splice($scope.myList.getIndexBy("_id", video._id), 1);
+                });
+            };
+
+            Array.prototype.getIndexBy = function(name, value) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i][name] == value) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            $scope.getPosterH = function(content) {
+                if (!content)
+                    return;
+                var i;
+                for (i = 0; i < Object.keys(content).length; i++) {
+                    if (content[i].assetTypes[0] == "Poster H") {
+                        return content[i].downloadUrl;
+                    }
+                }
+            };
+
+            $scope.isInWatchlist = function(id) {
+                return listFactory.isInWatchlist(id);
+            }
+
+            $scope.go = function(link) {
+                $location.path(link);
+            };
+        }],
+        templateUrl: '/assets/theme/tuc/html/directives/episode-block.html'
+    };
+});

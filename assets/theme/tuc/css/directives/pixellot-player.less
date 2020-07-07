@@ -1,0 +1,98 @@
+.aspect-ratio-box {
+    height: 0;
+    overflow: hidden;
+    padding-top: 56.25%;
+    background: white;
+    position: relative;
+}
+
+.aspect-ratio-box .aspect-ratio-box-inside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .theo-top-controlbar{
+        visibility: visible!important;
+    }
+
+    .stream-icons{
+        width: 40px;
+        position: absolute;
+        right: 5px;
+        top: 180%;
+        z-index: 99;
+
+        .hd-icon{
+            width: 40px;
+            height: 25px;
+            background-image: url(/assets/theme/tuc/images/logos/hd-white.png);
+            background-repeat: no-repeat;
+            background-size: auto 100%;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .hd-icon.active{
+            background-image: url(/assets/theme/tuc/images/logos/hd-lightblue.png);
+            cursor: initial;
+        }
+        .pano-icon{
+            width: 40px;
+            height: 30px;
+            background-image: url(/assets/theme/tuc/images/logos/pano-white.png);
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .pano-icon.active{
+            background-image: url(/assets/theme/tuc/images/logos/pano-lightblue.png);
+            cursor: initial;
+        }
+    }
+}
+
+.alert{
+    display: none;
+    margin-top: 20px;
+
+    .loader{
+        border: 5px solid #898c8d;
+        border-radius: 50%;
+        border-top: 5px solid #666;
+        width: 40px;
+        height: 40px;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        float: left;
+    }
+
+    .process-complete-icon{
+        display: none;
+        font-size: 3rem;
+        font-size: 3rem;
+        float: left;
+        padding-left: 1vw;
+        padding-top: 5px;
+        color: @mainColor;
+    }
+
+    .loading-txt{
+        position: absolute;
+        z-index: 99;
+        margin: 10px 50px;
+        color: @mainColor;
+
+        a{
+            color: #fff!important;
+        }
+    }
+}
+
+.alert-success{
+    background-color: transparent!important;
+    border: none!important;
+}

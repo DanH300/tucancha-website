@@ -1,0 +1,46 @@
+.outer {
+    display: table;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.inner {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.circle-background-image {
+    width: 140px;
+    height: 140px;
+    -moz-border-radius: 70px;
+    -webkit-border-radius: 70px;
+    border-radius: 70px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.transparent-yellow {
+    /* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(214, 226, 26);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(214, 226, 26, 0.6);
+    color: #062543
+}
+
+.elipsis-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    @media (max-width: 1200px) {
+        font-size: medium;
+    }
+}

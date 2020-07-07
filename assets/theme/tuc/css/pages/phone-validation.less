@@ -1,0 +1,138 @@
+.phone-validation-page{
+    background-color: #e3e3e3;
+    padding: 40px;
+        .wrapper{
+            width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            @media (max-width: @screen-xs-max) {
+                width: initial;
+            }
+            .title{
+                color: #666666;
+                font-size: 48px;
+                font-weight: bold;
+                padding: 20px 0px 60px;
+                text-transform: uppercase;
+            }
+            .subtitle{
+                font-size: 36px;
+                color: #4a4a4a;
+                text-transform: capitalize;
+
+                span{
+                    font-size: 16px;
+                    color: #666666;
+                    display: inline-block;
+                    padding: 20px 20%;
+                }
+            }
+            .phone-number-box{
+                border: 2px solid #333333;
+                padding: 20px;
+                margin: 10px 40px;
+                @media (max-width: @screen-xs-max) {
+                    margin: 10px 0;
+                }
+                .box-title{
+                    color: #333333;
+                    font-size: 22px;
+                    text-transform: uppercase;
+                }
+
+                .phone{
+                    margin: 20px 0;
+                    select{
+                        background-color: #898c8d;
+                        background-image: url(/assets/theme/tuc/images/arrow-down-white-10x6.png);
+                        -webkit-appearance: none;
+                        -moz-appearance:none;
+                        height: 28px;
+                        width: 91px;
+                        background-position: 90% center;
+                        background-repeat: no-repeat;
+                        border-radius: 0;
+                        outline: 0;
+                        color: white;
+                        text-transform: uppercase;
+                        padding: 0 20px 0 4px;
+                    }
+                    input{
+                        color: #4e186d;
+                        background-color: #d8d8d8;
+                        border: none;
+                        box-shadow: none;
+                        outline: none;
+                        padding: 4px 8px;
+                        width: 110px;
+                        font-size: 16px;
+                        margin-left: 25px;
+                    }
+                    ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                }
+
+                .code{
+                    margin: 20px 0;
+                    input{
+                        background-color: rgba(180, 156, 206, 0.2);
+                        border: 3px solid #7a49ae;
+                        font-size: 16px;
+                        border-radius: 5px;
+                        padding: 5px 3px;
+                        width: 80%;
+                    }
+                }
+
+                .validation-error{
+                    background-color: #fe0000;
+                    color: white;
+                    border-radius: 3px;
+                    margin: 10px 30px 20px;
+                    padding: 5px;
+                    font-size: 18px;
+                }
+
+                .send-btn{
+                    background-color: #666666;
+                    color: white;
+                    padding: 7px 40px;
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    display: inline-block;
+
+                    &.disabled{
+                        background-color: #dddddd;
+                        color: #efefef;
+                    }
+                }
+
+                .edit-phone{
+                    cursor: pointer;
+                    margin: 5px 0;
+                }
+            }
+
+            .para{
+                font-size: 16px;
+                line-height: 26px;
+                color: #4a4a4a;
+                padding-bottom: 30px;
+            }
+
+            .skip-btn{
+                cursor: pointer;
+                border-radius: 3px;
+                background-color: #666666;
+                margin: 20px 40px;
+                color: #efefef;
+                font-size: 30px;
+                padding: 9px;
+                text-transform: uppercase;
+            }
+        }
+}

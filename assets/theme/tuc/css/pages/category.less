@@ -1,0 +1,246 @@
+.category-page {
+  background-color: #003264;
+  .category-header {
+    text-align: center;
+    // background-image: url('/assets/theme/tuc/images/rectangle-17.png');
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: #33383C;
+    .header-text {
+      font-weight: bold;
+      padding-top: 90px;
+      font-size: 66px;
+      color: #efefef;
+      text-transform: uppercase;
+    }
+  }
+  .category-container {
+    padding: 0 6vw;
+    background-color: black;
+    .page-content {
+      display: flex;
+      align-content: stretch;
+      .date-filter {
+        float: right;
+        .date-input {
+          margin: 35px 10px 30px 0;
+          float: left;
+          .title {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #efefef;
+            font-weight: normal;
+            p {
+              font-size: 18px;
+              padding: 0 10px;
+              margin-top: 5px;
+              margin-bottom: 0;
+            }
+            input {
+              background-color: #898c8d;
+              border: #898c8d;
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+              height: 34px;
+              width: 8vw;
+              padding: 6px 8px;
+              font-size: 16px;
+              width: 92px;
+        }
+            .calander-icon {
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+              height: 34px;
+              padding: 6px 8px;
+              font-size: 18px;
+              color: #efefef;
+              line-height: 1.43;
+              background-color: #333333;
+              border: #333333;
+            }
+          }
+        }
+      }
+    }
+    .navigation-left {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 20px;
+      background-color: #33383C;
+      padding-right: 0;
+      min-height: 700px;
+      .category-menu {
+        position: absolute;;
+        width: 95%;
+        top: 0px;
+        padding-left: 20px;
+        .categories-nav {
+          .single-category {
+            padding: 10px 0px;
+            padding-left: 20px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            &.selected {
+              background-color: #666666;
+              position: relative;
+            }
+            .triangle-border {
+              width: 0px;
+              height: 0px;
+              border-top: 22px solid transparent;
+              border-bottom: 22px solid transparent;
+              border-right: 22px solid #1d2124;
+              float: right;
+              position: absolute;
+              right: 0;
+              top: 0;
+            }
+          }
+        }
+        .header-nav {
+          padding-top: 40px;
+          color: white;
+          font-size: 20px;
+          padding-bottom: 20px;
+        }
+      }
+    }
+
+    .right-menu {
+      height: 50px;
+
+      .menu {
+        width: 200px;
+        padding: 15px;
+        background-color: #666666;
+        position: fixed;
+        z-index: 5;
+        left: -200px;
+        transition: 0.5s;
+
+        &.active {
+          left: 0px;
+        }
+
+        .menu-btn {
+          color: white;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          left: 100%;
+          top: 0;
+          background-color: #666666;
+          font-size: 24px;
+          padding: 7px 9px;
+        }
+
+        .menu-title {
+          text-align: center;
+          font-size: 23px;
+          color: white;
+          text-transform: uppercase;
+        }
+
+        .menu-filter {
+          padding: 5px 0;
+
+          .filter-title {
+            color: white;
+            font-size: 16px;
+            padding-bottom: 5px;
+          }
+
+          .filter {
+            .filter-btn, .filter-input {
+              padding: 5px 10px;
+              width: 100%;
+              background-color: white;
+              color: #7a49ae;
+              text-align: left;
+              outline: 0;
+              text-transform: uppercase;
+              padding-right: 33px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              .fa {
+                position: absolute;
+                right: 6px;
+                font-size: 30px;
+                top: 0px;
+              }
+            }
+
+            .filter-input {
+              padding-right: 3px
+            }
+
+            .filter-menu {
+              width: 102%;
+              background-color: white;
+              color: #7a49ae;
+              padding: 0 !important;
+              left: -2px;
+              .filter-row {
+                margin: 0 !important;
+                padding: 5px 10px;
+                border-bottom: 1px solid #7a49ae;
+
+                &:last-child {
+                  border-bottom: 0;
+                }
+
+                &:hover, &.selected {
+                  color: white;
+                  background-color: #7a49ae;
+                  border-bottom-color: white;
+                }
+              }
+            }
+          }
+        }
+
+        .clear-filter {
+          background: white;
+          border-radius: 4px;
+          color: #7a49ae;
+          padding: 5px 15px;
+          text-align: center;
+          text-transform: uppercase;
+          cursor: pointer;
+          font-size: 23px;
+          letter-spacing: 1.4px;
+          margin: 30px auto 0;
+          display: table;
+        }
+
+      }
+    }
+
+    .videos-cont {
+      padding-top: 40px;
+      padding-bottom: 60px;
+      padding-right: 6%;
+      padding-left: 6%;
+
+      @media (max-width: @screen-xs-max) {
+        padding: 40px 15px 60px 15px;
+      }
+
+      .more {
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        .icon {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

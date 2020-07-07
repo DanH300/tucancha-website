@@ -1,0 +1,8 @@
+<div class="tv-show-block ">
+    <div class="img-container" style="background-image: url('{{block.PosterV.downloadUrl | https}}')" ng-click="go(block._id)">
+        <div class="available-info">
+            <span ng-if="block.seasons_count && block.episodes_count">{{block.seasons_count}} {{block.seasons_count==1?'Season':'Seasons'}} | {{block.episodes_count}} Episodes</span>
+            <div ng-if="validUntil">Valid Until: {{validUntil | date: 'MMM d, yyyy'}}</div>
+        </div>
+    </div>
+</div>

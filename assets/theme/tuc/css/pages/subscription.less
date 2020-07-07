@@ -1,0 +1,730 @@
+.subscription-page {
+    background-color: @mainBackgroundColor;
+    color: white;
+    text-align: center;
+    .sub-header {
+        padding: 70px 0px;
+        color: @secondaryColor;
+        font-size: 40px;
+        @media (max-width: @screen-xs-max) {
+            font-size: 26px;
+            padding: 70px 15px;
+        }
+    }
+    .sub-plans {
+        .col-sm-3 {
+            background: linear-gradient(to bottom, #4e186d 0%,#4e186d 50%,#eee 50%,#eee 100%);
+        }
+        .campaign_active {
+            /*background: linear-gradient(to bottom, #E80202 0%,#E80202 50%,#eee 50%,#eee 100%);*/
+            .pricircle {
+                color: #E80202 !important;
+                border-color: #E80202 !important;
+            }
+        }
+        .plan-period {
+            position: relative;
+            font-size: 16px;
+            .plan_info{
+              margin-top: 15px;
+              height: 95px;
+              >.time-span {
+                  margin-bottom: 6px;
+                  font-size: 24px;
+              }
+              > .plan_campain{
+                font-weight: bold;
+                font-size: 1.25vw;
+                @media (max-width: @screen-xs-max) {
+                    font-size: 24px;
+                }
+              }
+            }
+            .time-span {
+                margin-top: 16px;
+                margin-bottom: 6px;
+                font-size: 24px;
+            }
+            .plan_campain{
+              font-weight: bold;
+              font-size: 1.4vw;
+              @media (max-width: @screen-xs-max) {
+                  font-size: 24px;
+              }
+            }
+            .pricircle {
+                font-size: 28px;
+                padding-top: 30px;
+                font-weight: bold;
+                color: @secondaryColor;
+                width: 130px;
+                height: 130px;
+                margin-left: ~"calc(50% - 65px)";
+                margin-left: ~"-webkit-calc(50% - 65px)";
+                margin-left: ~"-moz-calc(50% - 65px)";
+                background-color: #efefef;
+                border: 4px solid #4e186d;
+                border-radius: 50%;
+                //margin-top: 30px;
+                .text-fs16 {
+                    color: #9b9b9b;
+                }
+            }
+        }
+        .under-circle {
+            margin-top: 12px;
+            color: #211e1f;
+            font-size: 20px;
+            .buy-btn {
+                cursor: pointer;
+                width: 130px;
+                background-color: #2087e0;
+                border-radius: 3px;
+                color: white;
+                padding: 6px;
+                margin-left: ~"calc(50% - 65px)";
+                margin-left: ~"-webkit-calc(50% - 65px)";
+                margin-left: ~"-moz-calc(50% - 65px)";
+            }
+        }
+    }
+    .promotion_container{
+        color: #000;
+        font-weight: normal;
+        margin-top:10px;
+  
+        .apply_promotion_code{
+          background: #1da8da;
+          font-size: 1vw;
+          padding: 6px 15px;
+          margin-top: 10px;
+          width: 100%;
+        }
+  
+        .promotion_code_error{
+          color: red;
+          width: 100%;
+          border-radius: 5px;
+          padding-top: 10px;
+          font-size: 13px;
+        }
+      }
+    .sub-details {
+        color: #211e1f;
+        margin-top: 70px;
+        font-size: 28px;
+        div {
+            padding: 20px 0px;
+            border-bottom: 1px solid #fcb134;
+            &:last-child {
+                border-bottom: 0px solid #fcb134;
+            }
+        }
+    }
+    .continue{
+        background-color: #4e186d;
+        border-bottom: none;
+        width: initial;
+        font-size: 24px;
+        color: #eeeeec;
+        text-align: center;
+        padding: 10px 40px;
+        margin-bottom: 20px;
+    }
+    .payment{
+        .payment-header {
+            h1 {
+                text-align: left;
+                color: @secondaryColor;
+                padding: 4vw 20vw;
+                margin-top: 0;
+                @media (max-width: @screen-lg-min) {
+                    padding: 5vw 10vw;
+                }
+            }
+        }
+        .plan{
+            background-color: @mainBackgroundColor;
+            padding: 0 20vw;
+            @media (max-width: @screen-lg-min) {
+                padding: 0 10vw;
+            }
+            @media (max-width: @screen-xs-max) {
+                padding: 0;
+            }
+            .sub-plans {
+                .col-sm-4 {
+                    /*background-color: #4e186d;*/
+                }
+                .under-circle {
+                    color: #efefef;
+                    font-size: 16px;
+                    .mb12 {
+                        &.month12 {
+                            color: #E80202;
+                        }
+                    }
+                    .description{
+                        padding: 15px;
+                        border-bottom: solid 1px #e0e0e0;
+                        &.no-border{
+                            border:none;
+                        }
+                    }
+                }
+            }
+            .month_container{
+                padding-left: 0px;
+                padding-right: 0px;
+                margin-bottom: 65px;
+                @media (max-width: @screen-md-max) {
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+                &.campaign_active{
+                    .subscription_background{
+                        .month_title{
+                            background: @secondaryColor;
+                        }
+                        .price_container{
+                             .price_section{
+                                color: rgb(0,119,159);
+                             }
+                        }
+                        .subscription_desc{
+                            padding-top: 0px;
+                        }
+                        .button_section{
+                            background: white;
+                            .buy_button{
+                                background: @secondaryColor;
+                                
+                            }
+                        }
+                    }
+                }
+                .subscription_background{
+                    margin-top: 60px;
+                    box-shadow: 0px 10px 28px -5px rgba(0,0,0,0.5);
+                    background: rgb(233,234,235);
+                    border: 1px solid rgb(222,223,224);
+                    border-radius: 5px;
+                    overflow: hidden;
+                    @media (max-width: @screen-md-max) {
+                        font-size: 40px;
+                    }
+                    .month_title{
+                        background: @secondaryColor;
+                        height: 4vw;
+                        font-family: 'Open-Sans-Condensed';
+                        font-weight: 300;
+                        font-style: normal;
+                        font-size: 1.6vw;
+                        padding-top: 0.9vw;
+                        @media (max-width: @screen-md-max) {
+                            height: 80px;
+                            font-size: 30px;
+                            padding-top: 18px;
+                        }
+                    }
+                    .price_container{
+                        padding: 15px;
+                        border-bottom: 1px solid rgb(222,223,224);
+                        position: relative;
+                        .price_section{
+                            color: rgb(130,131,132);
+                            .price_us{
+                                font-size: 1.6vw;
+                                font-family: 'Open-Sans-Condensed';
+                                font-weight: 300;
+                                font-style: normal;
+                                vertical-align: 0.9vw;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 30px;
+                                    vertical-align: 16px;
+                                }
+                            }
+                            .price_amount{
+                                font-size: 3vw;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 55px;
+                                }
+                            }
+                        }
+                        .price_desc{
+                            color: rgb(162,163,164);
+                            font-size: 0.9vw;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 18px;
+                            }
+                        }
+                        .old_price{
+                            position: absolute;
+                            font-family: 'Open-Sans-Condensed';
+                            color: rgba(236,0,1, .5);
+                            font-weight: bold;
+                            font-size: 1.15vw;
+                            right: 0.9vw;
+                            top: 0.2vw;
+                            text-decoration: line-through;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 22px;
+                                right: 18px;
+                                top: 6px;
+                            }
+                        }
+                    }
+                    .price_container_extended{
+                        padding: 22px!important;
+                      }
+                    .subscription_desc{
+                        padding: 20px;
+                        text-align: left;
+                        background: white;
+                        .sub_desc_item{
+                            &:not(:last-child){
+                                border-bottom: 1px solid rgb(222,223,224);
+                            }
+                            &.red{
+                                color: rgb(236,0,1);
+                                font-weight: bold;
+                                font-size: 1.25vw;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 24px;
+                                }
+                            } 
+                            .fa-circle{
+                                font-size: 0.5vw;
+                                vertical-align: 0.2vw;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 10px;
+                                    vertical-align: 5px;
+                                }
+                            }
+                            color: rgb(162,163,164);
+                            font-size: 1.05vw;
+                            line-height: 2.5;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                    .button_section{
+                        padding: 20px;
+                        .buy_button{
+                            background: @secondaryColor;
+                            font-size: 1.25vw;
+                            padding: 6px 15px;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 24px;
+                            }
+                        }
+                        .payment_button{
+                            background: @secondaryColor;
+                            font-size: 1.25vw;
+                            padding: 6px 15px;
+                            width: 100%;
+                            margin: 5px 0;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+                .payment_background{
+                    box-shadow: 0px 10px 28px -5px rgba(0,0,0,0.5);
+                    background: rgb(233,234,235);
+                    border: 1px solid rgb(222,223,224);
+                    border-radius: 5px;
+                    overflow: hidden;
+                    @media (max-width: @screen-md-max) {
+                        font-size: 40px;
+                    }
+                    .button_section{
+                        padding: 20px;
+                        .payment_button{
+                            background: @secondaryColor;
+                            font-size: 1.25vw;
+                            padding: 6px 15px;
+                            width: 100%;
+                            margin: 5px 0;
+                            @media (max-width: @screen-md-max) {
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            .modify{
+                outline: none;
+                padding: 10px;
+                width: 100%;
+                color: #ffffff;
+                background-color: transparent;
+                border: solid 2px #ffffff;
+                margin-bottom: 60px;
+                &:hover {
+                    box-shadow: 0px 0px 5px 0px #000;
+                }
+                &:active {
+                    outline: none;
+                    background-color: rgba(122, 73, 174, 0.8);
+                    border-color: rgba(122, 73, 174, 0.8);
+                }
+            }
+            .payment-form{
+                margin: 60px;
+                @media (max-width: @screen-sm-max) {
+                    margin: 10px;
+                }
+            }
+            form, .wallet-payment{
+                text-align: left;
+                .form-group {
+                    height: 46px;
+                    font-size: 16px;
+                }
+                label {
+                    font-size: 16px;
+                    color: #4a4a4a;
+                    span{
+                        font-size: 14px;
+                        font-weight: normal;
+                        color: @commonText;
+                        margin-left: 10px;
+                    }
+                }
+                .form-control {
+                    font-size: 18px;
+                    height: 50px;
+                    margin-bottom: 20px;
+                    &.error{
+                        border: #a94442;
+                        box-shadow :inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
+                    }
+                }
+                .row{
+                    margin-left: 0px;
+                    select{
+                        width: 25%;
+                        @media (max-width: @screen-xs-max) {
+                            width: 48%;
+                        }
+                    }
+                }
+                .btn {
+                    background-color: @secondaryColor;
+                    color: #eeeeee;
+                    padding: 10px 12px 10px 12px;
+                    text-align: center;
+                    width: 100%;
+                    font-size: 20px;
+                    margin-top: 20px;
+                    &:hover {
+                        box-shadow: 0px 0px 5px 0px #000;
+                    }
+                    &:active {
+                        outline: none;
+                        background-color: rgba(122, 73, 174, 0.8);
+                        border-color: rgba(122, 73, 174, 0.8);
+                    }
+                    &:focus {
+                        border-color: rgba(122, 73, 174, 0.8);
+                        outline: none;
+                    }
+                }
+                .accept-terms{
+                    span{
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: @secondaryColor;
+                    }
+                    margin-top: 40px;
+                }
+            }
+            .subscription-error{
+                color: #4a4a4a;
+            }
+        }
+    }
+    .subscription_campain{
+        padding: 4vw 20vw;
+        @media (max-width: @screen-xs-max) {
+          padding: 12vw 8vw;
+        }
+        .campain_subscription_success{
+          text-align: left;
+          color: #211e1f;
+          font-size: 26px;
+          font-weight: bold;
+          padding: 0;
+        }
+        .campain_subscription_description{
+          text-align: left;
+          color: #ffffff;
+          font-size: 18px;
+          background-color: rgba(33, 30, 31, 0.8);
+          padding: 15px;
+          margin-top: 10px;
+        }
+        .campain_form{
+          > form{
+            text-align: left;
+            margin-top: 10px;
+            > .row{
+              .form-group{
+                height: auto;
+                margin-bottom: 15px;
+                label{
+                  margin-bottom: 0px;
+                  color: #211e1f;
+                  .red_star{
+                    color: red;
+                  }
+                  .campain_phone_span{
+                    font-size: 14px;
+
+                    font-weight: normal;
+                  }
+                }
+                .form-control{
+                  border: 1px solid #211e1f;
+                  border-radius: 2px;
+                  background-color: #eeeeee;
+                  height: 35px;
+                }
+              }
+                .subscription-success{
+                    color: #4a4a4a;
+                    font-size: 18px;
+                    font-weight: bold;
+
+                    span{
+                        cursor: pointer;
+                        color: @secondaryColor;
+                    }
+
+                }
+              .btn{
+                  width: auto;
+                  background-color: #51597c;
+                  padding: 0px 10px;
+                  border-radius: 2px;
+                  font-size: 1.2vw;
+                  margin-top: 60px;
+                  &:first-child{
+                    margin-right: 30px;
+                  }
+                @media (max-width: @screen-xs-max) {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+    }
+
+    .subscription_plans{
+        padding-bottom: 15px;
+        .subscription_header{
+            padding: 70px 0px;
+            color: @commonText;
+            font-size: 70px;
+            font-family: 'Open-Sans-Condensed';
+            font-weight: 300;
+            font-style: normal;
+            @media (max-width: @screen-xs-max) {
+                /*font-size: 26px;
+                padding: 70px 15px;*/
+            }
+            .subscription_sub_header{
+                font-size: 30px;
+            }
+        }
+        .container{
+            .row{
+                .month_container{
+                    margin-bottom: 20px;
+
+                    &.campaign_active{
+                        .subscription_background{
+                            margin-top: 0px;
+                            .month_title{
+                                background: @secondaryColor;
+                                height: 5vw;
+                                font-family: 'Open-Sans-Condensed';
+                                font-weight: 300;
+                                font-style: normal;
+                                font-size: 2.1vw;
+                                padding-top: 1.05vw;
+                                @media (max-width: @screen-md-max) {
+                                    height: 100px;
+                                    font-size: 40px;
+                                    padding-top: 20px;
+                                }
+                            }
+                            .price_container{
+                                padding: 20px;
+                                 .price_section{
+                                    color: rgb(0,119,159);
+                                    .price_us{
+                                        font-size: 2vw;
+                                        vertical-align: 1.4vw;
+                                        @media (max-width: @screen-md-max) {
+                                            font-size: 40px;
+                                            vertical-align: 28px;
+                                        }
+                                    }
+                                    .price_amount{
+                                        font-size: 4vw;
+                                        line-height: 4vw;
+                                        @media (max-width: @screen-md-max) {
+                                            font-size: 80px;
+                                            line-height: 90px;
+                                        }
+                                    }
+                                 }
+                                .price_desc{
+                                    font-size: 1.3vw;
+                                    @media (max-width: @screen-md-max) {
+                                        font-size: 26px;
+                                    }
+                                }
+                            }
+                            .subscription_desc{
+                                padding-top: 0px;
+                            }
+                            .button_section{
+                                background: white;
+                                .buy_button{
+                                    background: @secondaryColor;
+                                    
+                                }
+                            }
+                        }
+                    }
+                    .subscription_background{
+                        box-shadow: 0px 10px 28px -5px rgba(0,0,0,0.5);
+                        background: rgb(233,234,235);
+                        border: 1px solid rgb(222,223,224);
+                        border-radius: 5px;
+                        overflow: hidden;
+                        margin-top: 2.1vw;
+                        @media (max-width: @screen-md-max) {
+                            font-size: 40px;
+                        }
+                        .month_title{
+                            background: @secondaryColor;
+                            height: 4vw;
+                            font-family: 'Open-Sans-Condensed';
+                            font-weight: 300;
+                            font-style: normal;
+                            font-size: 1.6vw;
+                            padding-top: 0.9vw;
+                            @media (max-width: @screen-md-max) {
+                                height: 80px;
+                                font-size: 30px;
+                                padding-top: 18px;
+                            }
+                        }
+                        .price_container{
+                            padding: 15px;
+                            border-bottom: 1px solid rgb(222,223,224);
+                            position: relative;
+                            .price_section{
+                                color: rgb(130,131,132);
+                                .price_us{
+                                    font-size: 1.6vw;
+                                    font-family: 'Open-Sans-Condensed';
+                                    font-weight: 300;
+                                    font-style: normal;
+                                    vertical-align: 0.9vw;
+                                    @media (max-width: @screen-md-max) {
+                                        font-size: 30px;
+                                        vertical-align: 16px;
+                                    }
+                                }
+                                .price_amount{
+                                    font-size: 3vw;
+                                    @media (max-width: @screen-md-max) {
+                                        font-size: 55px;
+                                    }
+                                }
+                            }
+                            .price_desc{
+                                color: rgb(162,163,164);
+                                font-size: 0.9vw;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 18px;
+                                }
+                            }
+                            .old_price{
+                                position: absolute;
+                                font-family: 'Open-Sans-Condensed';
+                                color: rgba(236,0,1, .5);
+                                font-weight: bold;
+                                font-size: 1.15vw;
+                                right: 0.9vw;
+                                top: 0.2vw;
+                                text-decoration: line-through;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 22px;
+                                    right: 18px;
+                                    top: 6px;
+                                }
+                            }
+                        }
+                        .price_container_extended{
+                            padding: 22px!important;
+                          }
+                        .subscription_desc{
+                            padding: 20px;
+                            text-align: left;
+                            background: white;
+                            .sub_desc_item{
+                                &:not(:last-child){
+                                    border-bottom: 1px solid rgb(222,223,224);
+                                }
+                                &.red{
+                                    color: rgb(236,0,1);
+                                    font-weight: bold;
+                                    font-size: 1.25vw;
+                                    @media (max-width: @screen-md-max) {
+                                        font-size: 24px;
+                                    }
+                                } 
+                                .fa-circle{
+                                    font-size: 0.5vw;
+                                    vertical-align: 0.2vw;
+                                    @media (max-width: @screen-md-max) {
+                                        font-size: 10px;
+                                        vertical-align: 5px;
+                                    }
+                                }
+                                color: rgb(162,163,164);
+                                font-size: 1.05vw;
+                                line-height: 2.5;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+                        .button_section{
+                            padding: 20px;
+                            .buy_button{
+                                background: @secondaryColor;
+                                font-size: 1.25vw;
+                                padding: 6px 30px;
+                                @media (max-width: @screen-md-max) {
+                                    font-size: 24px;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}

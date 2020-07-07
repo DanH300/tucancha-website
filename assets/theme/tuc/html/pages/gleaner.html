@@ -1,0 +1,156 @@
+<div class="gleaner-content">
+    <div class="container">
+        <div class="player-wrapper row">
+            <div class="player-content pr col-xs-12 col-md-6">
+                <div class="description">
+                    <div class="title fll">
+                        Gleaner Minute
+                    </div>
+                    <div class="date flr">
+                        {{today | date : 'dd MMMM'}}
+                    </div>
+                    <div class="desc fll">
+                        When television was young, there was a hugely popular show based on the still popular fictional character of Superman. The opening of that show had a familiar phrase that went.
+                    </div>
+                </div>
+                <jwplayer data-video="activeVideo" data-autoplay="true" data-id="video-player"></jwplayer>
+            </div>
+            <div class=" col-xs-12 col-md-6">
+                <div class="description">
+                    <div class="title fll">
+                        News Feed
+                    </div>
+                    <div class="date flr">
+                        {{today | date : 'dd MMMM'}}
+                    </div>
+                    <div class="desc fll">
+                        When television was young, there was a hugely popular show based on the still popular fictional character of Superman. The opening of that show had a familiar phrase that went.
+                    </div>
+                </div>
+                <div class="channels">
+                    <div class="channel {{activeVideo._id == ch._id?'active':''}} hand" ng-repeat="feed in rss">
+                        <a href="{{feed.link}}" target="_blank" style="text-decoration:none;">
+                            <div class="rss-feed">
+                                <div class="top">
+                                    <div class="title fll" ng-bind-html="feed.title | nl2br">
+                                    </div>
+                                    <div class="date flr">
+                                        {{formatDate(feed.pubDate) | date : 'dd MMM. H:mm'}}
+                                    </div>
+                                </div>
+                                <div class="desc fll">
+                                    {{feed.description}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gleaner-carousel-container">
+            <div class="arrow-right hidden-xs {{caruselPosition==1?'opacity0':''}}" ng-click="moveRight()">
+                <div class="icon icon-arrow-right-32x83">
+                </div>
+            </div>
+            <div class="arrow-left  hidden-xs {{caruselPosition==0?'opacity0':''}}" ng-click="moveLeft()">
+                <div class="icon icon-arrow-left-32x83">
+                </div>
+            </div>
+            <div id="{{carouselId}}" class="gleaner-carousel pr">
+                <div class="row__inner recentInner {{caruselPosition==1?'moveLeft':''}} {{activeVideo?'unhover':''}}">
+                    <div class="tile {{activeVideo._id==video._id?'selected':''}}" ng-repeat="video in videos">
+                        <div class="pr tile-content hand" style="background-image:url('{{getPosterH(video)}}')" ng-click="changeVideo(video)">
+                            <div class="overflow">
+                                {{video.title}}<span class="flr" style="color: #b9b9b9;">{{video.aired_date| date : 'dd MMM '}}</span>
+                            </div>
+                            <div class="playverflow">
+                                <img src="/assets/theme/tuc/images/triangle-copy-8.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="epg">
+        <div class="live-channel">
+            <div class="carousel container">
+                <div class="arrow-right hidden-xs {{channelCaruselPosition==1?'opacity0':''}}" ng-click="moveEpgRight()">
+                    <div class="icon icon-arrow-right-20x33">
+                    </div>
+                </div>
+                <div class="arrow-left hidden-xs {{channelCaruselPosition==0?'opacity0':''}}" ng-click="moveEpgLeft()">
+                    <div class="icon icon-arrow-left-20x33">
+                    </div>
+                </div>
+                <div class="arrow-down {{schedulePosition==1?'opacity0':''}}" ng-click="moveDown()">
+                    <div class="icon icon-arrow-down-white">
+                    </div>
+                </div>
+                <div class="channel-list">
+                    <div class="channal-logo" style="background-image: url('{{currentChannelLogo}}');">
+                    </div>
+                </div>
+                <div class="row__outer" ng-click="go('/live-stream/'+epgId)">
+                    <ul class="row__inner recentInner {{channelCaruselPosition==1?'moveLeft':''}}">
+                        <li ng-repeat="show in currentEpg | limitTo: 12">
+                            <div class="channel-list channel-list-inner" ng-show="{{pastDate(show.endTime)}}">
+                                <h4><strong>{{show.startTime | date:'HH:mm'}}</strong></br>
+                                    {{show.program.title}}
+                                </h4>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="{{showProgress(show.startTime ,show.endTime)}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="icon icon-add-purple-30x30" ng-click="moveDown()" ng-show="schedulePosition==1">
+            </div>
+            <div class="schedule {{schedulePosition==1?'moveDown':''}}">
+                <div class="arrow-right hidden-xs {{channelListingPosition==1?'opacity0':''}}" ng-click="moveListingRight()">
+                    <div class="icon icon-arrow-right-20x33">
+                    </div>
+                </div>
+                <div class="arrow-left hidden-xs {{channelListingPosition==0?'opacity0':''}}" ng-click="moveListingLeft()">
+                    <div class="icon icon-arrow-left-20x33">
+                    </div>
+                </div>
+                <ul>
+                    <li ng-repeat="channel in channelsInfo">
+                        <div class="row" style="margin: 0;">
+                            <div class="channel-logo col-sm-1 col-xs-1" style="background-image: url('{{channel.logo}}');" ng-click="go('/live-stream/'+channel.id)">
+                            </div>
+                            <div class="col-sm-11 col-xs-9 show-listing">
+                                <table class="table {{channelListingPosition==1?'moveLeft':''}}">
+                                    <tbody>
+                                        <tr>
+                                            <th ng-repeat="show in channel.timeline | limitTo: 15" ng-show="{{pastDate(show.endTime)}}">
+                                                <div class="show" style="{{showLength(show.startTime ,show.endTime)}}">
+                                                    <h4>
+                                                        {{show.program.title}}
+                                                    </h4>
+                                                    <h3 data-placement="bottom" title="{{show.program.title}} - {{show.program.description}}">
+                                                        {{show.startTime | date:'HH:mm'}} - {{show.endTime| date:'HH:mm'}}
+                                                    </h3>
+                                                    <div class="progress {{pastDate(show.startTime)?'hide':''}}">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="{{showProgress(show.startTime ,show.endTime)}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

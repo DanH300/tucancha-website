@@ -1,0 +1,73 @@
+<div class="home-page">
+    <div id="HomeCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner main-slider" role="listbox">
+            <div ng-repeat="slide in slider" style="" class="item {{$first?'active':''}}">
+                <a ng-href="{{slide.link || ''}}" target="{{slide.target}}"><img ng-src="{{slide.image_url | https}}" alt="{{slide.text}}"></a>
+            </div>
+        </div>
+        <a class="left carousel-control hidden-xs" onclick="$(this).closest('#HomeCarousel').carousel('prev');" role="button" data-slide="prev">
+            <span class="icon icon-arrow-left-32x83" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control hidden-xs" onclick="$(this).closest('#HomeCarousel').carousel('next');" role="button" data-slide="next">
+            <span class="icon icon-arrow-right-32x83" aria-hidden="true"></span>
+        </a>
+    </div>
+    
+
+    <div class="categories">
+        <div class="single-category" ng-if="user._id && myList.length > 0" myList="myList">
+            <div class="category-header">
+                <h1>My Watchlist</h1>
+            </div>
+            <div class="my-watchlist">
+                <div class="watchlist-carousel-container">
+                    <div ng-if="myList" class="watchlist-carousel">
+                        <div class="arrow-right hidden-xs {{myList.length - listCaruselPosition > 4?'':'opacity0'}}" ng-click="moveListRight()">
+                            <div class="icon icon-arrow-right-32x83" ng-attr-style="right:20px;">
+                            </div>
+                        </div>
+                        <div class="arrow-left hidden-xs {{listCaruselPosition==0?'opacity0':''}}" ng-click="moveListLeft()">
+                            <div class="icon icon-arrow-left-32x83" ng-attr-style="left:20px;">
+                            </div>
+                        </div>
+                        <div class="row__inner recentInner" ng-attr-style="left: {{listMoveLeft}};">
+                            <clip-block ng-repeat="video in myList" myList="myList" video="video" ng-if="isAllowed(video)"></clip-block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single-category" ng-show="events.length >0">
+            <div class="category-header">
+                <h1>Live Events</h1>
+            </div>
+            <div class="featured-shows">
+                <div class="row new-releases">
+                    <event-block class="col-xs-12 col-sm-6 col-lg-3" my-list="myList" ng-repeat="event in events | limitTo:12" video="event" ng-if="isAllowed(event)"></event-block>
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="single-category home-middle row">
+            <sports-carousel data-carouse-id="sports" class="col-sm-4"></sports-carousel>
+        </div>
+
+        <div class="single-category">
+                <div class="category-header">
+                    <h1>Eventos PPV</h1>
+                </div>
+                <div class="featured-shows">
+                    <div class="row new-releases">
+                        <ppv-block class="col-xs-12 col-sm-6 col-lg-3" my-list="myList" ng-repeat="ppv in ppvEvents | limitTo:12" video="ppv"></ppv-block>
+                    </div>
+                </div>
+             
+            </div>
+        
+        <div class="empty-space">
+        </div>
+        
+    </div>
+</div>

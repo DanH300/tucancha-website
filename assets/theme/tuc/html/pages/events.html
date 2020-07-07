@@ -1,0 +1,128 @@
+<main class="cd-main-content">
+    <div class="cd-tab-filter-wrapper">
+        <div class="cd-tab-filter {{!selectedItemLogo || selectedItemLogo ==''?'single-title':''}}">
+            EVENTOS EN VIVO
+        </div>
+    </div>
+    <section class="cd-gallery cd-events-gallery">
+        <div class="videos-cont">
+            <div class="events">
+                <div class="available-performances">
+                    <div class="single-event" ng-repeat="singleEvent in events">
+                        <div class="event-container" ng-hide="singleEvent.event_is_over">
+                            <div class="row event-row">
+                                <div class="img-container col-sm-5 col-xs-12" style="background-image: url('{{singleEvent.content.PosterH}}')">
+                                </div>
+                                <div class="available-info col-sm-9 col-xs-12">
+                                    <div class="cc event-commerce-info">
+                                        <div ng-if="!singleEvent.categories || singleEvent.categories[0].name == 'commerce_free_media'">FREE</div>
+                                        <div ng-if="singleEvent.categories[0].name == 'commerce_members_media'">MEMBER</div>
+                                        <div ng-if="singleEvent.categories[0].name == 'commerce_subscription_basic_media'">PREMIUM</div>
+                                    </div>
+                                    <div class="title"><i>{{singleEvent.title}}</i></div>
+                                    <div class="date">Inicio {{singleEvent.event_date | date: 'EEEE MMM d h:mma'}}</div>
+                                    <!-- <div class="venue">NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
+                                    <div class="description">{{singleEvent.description}}</div>
+                                    <button class="btn btn-available" ng-click="go('event/'+singleEvent._id)">VIEW EVENT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="cd-filter">
+        <form>
+
+            <div class="cd-filter-block">
+                <h4>Uiversities</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="university in filters.university">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{university.title}}" ng-click="applyFilter('identity','university',university._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{university.title}}">{{university.title}}</label>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="cd-filter-block">
+                <h4>Schools</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="school in filters.school">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{school.title}}" ng-click="applyFilter('identity','school',school._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{school.title}}">{{school.title}}</label>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="cd-filter-block">
+                <h4>Clubs</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="club in filters.club">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{club.title}}" ng-click="applyFilter('identity','club',club._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{club.title}}">{{club.title}}</label>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="cd-filter-block">
+                <h4>Sports</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="sport in filters.sport">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{sport.title}}" ng-click="applyFilter('activity','sport',sport._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{sport.title}}">{{sport.title}}</label>
+                    </li>
+
+                </ul>
+            </div>
+
+            <!-- <div class="cd-filter-block">
+                <h4>Entertainment</h4>
+
+                <ul class="cd-filter-content cd-filters list">
+                    <li ng-repeat="entertainment in filters.entertainment">
+
+                        <input class="filter" data-filter=".check1" type="checkbox" id="chk_{{entertainment.title}}" ng-click="applyFilter('activity','entertainment',entertainment._id, $event.target.checked)">
+                        <label class="checkbox-label" for="chk_{{entertainment.title}}">{{entertainment.title}}</label>
+                    </li>
+
+                </ul>
+            </div> -->
+
+            <div class="cd-filter-block">
+                <h4>Event Date starts</h4>
+                <div class="cd-filter-content">
+                    <div class="filter-title">
+                        From
+                    </div>
+                    <div class="filter">
+                        <input class="filter-input" type="date" ng-model="dtFrom" />
+                    </div>
+                    <div class="filter-title">
+                        To
+                    </div>
+                    <div class="filter">
+                        <input class="filter-input" type="date" class="" ng-model="dtTo" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <a class="cd-close">Close</a>
+    </div>
+
+    <!-- <a class="cd-filter-trigger">Filters</a> -->
+</main>

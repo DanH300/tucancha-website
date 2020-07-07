@@ -1,0 +1,16 @@
+<div class=" slider sport-block">
+    <div class="col-sm-6 sport-item" ng-repeat="sport in sports" ng-show="sport.PosterH || defaultPoster"
+        ng-click="go(sport.activityId,sport._id)">
+        <div class="tile-content" title="{{sport.title}}" style="background-image:url('{{sport.PosterH}}')">
+            <div class="outer">
+                <div class="sport-middle">
+                    <div class="sport-inner">
+                        <div class="sport-item-title">
+                            <h3><strong>{{sport.title|  uppercase}}</strong></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

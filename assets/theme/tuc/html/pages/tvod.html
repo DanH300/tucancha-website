@@ -1,0 +1,76 @@
+<div class="tvod-page">
+    <div id="tvodCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <!-- <ol class="carousel-indicators">
+            <li ng-repeat="slide in featuredTransVideos track by $index" data-target="#tvodCarousel" data-slide-to="{{$index}}" class="{{$index==0?'active':''}}"></li>
+        </ol> -->
+        <div class="carousel-inner main-slider" role="listbox">
+            <div ng-repeat="slide in featuredTransVideos | limitTo: 10" class="hand item {{$first?'active':''}}">
+                <a href="{{slide.link}}">
+                    <!-- <div class="purple-grad"> -->
+                    <img ng-src="{{slide.image_url | https}}" alt="{{slide.text}}">
+                    <!-- </div> -->
+                </a>
+                <div class="info-right">
+                    <div class="slide-title text-bold">
+                        <!-- I AM NUMBER FOUR -->
+                        {{slide.text}}
+                    </div>
+                    <div class="slide-genre text-fs20 mb20">
+                        <span ng-repeat="tag in slide.keywords">{{tag}}</span>
+                    </div>
+                    <div class="text-fs20 mb28 slide-desc">
+                        {{slide.description}}
+                        <!-- Aliens and their Guardians are hiding on Earth from intergalactic bounty hunters. They can only be killed in numerical order, and Number Four is next on the list. -->
+                    </div>
+                    <!-- <div class="rent-btn" ng-click="go('tvod/'+slide._id)">
+                        RENT NOW
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control hidden-xs" onclick="$(this).closest('#tvodCarousel').carousel('prev');" role="button" data-slide="prev">
+            <span class="icon icon-arrow-left-32x83" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control hidden-xs" onclick="$(this).closest('#tvodCarousel').carousel('next');" role="button" data-slide="next">
+            <span class="icon icon-arrow-right-32x83" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="tuc-container">
+        <div class="tvod-tabs mb30">
+            <div class="tab {{activeTab=='tv_show'?'active':''}}" ng-click="activeTab='tv_show'">
+                TV SHOWS
+            </div>
+            <div class="tab {{activeTab=='clip'?'active':''}}" ng-click="activeTab='clip'">
+                PROGRAMS
+            </div>
+            <div ng-show="myTransClips.length || myTransShows.length" class="tab {{activeTab=='my_videos'?'active':''}}" ng-click="activeTab='my_videos'">
+                MY TVOD
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+                    SORT
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="{{sort=='title'?'active':''}}" ng-click="sort='title'">A-Z</li>
+                    <li class="{{sort=='aired_date'?'active':''}}" ng-click="sort='aired_date'">Old to New</li>
+                    <li class="{{sort=='-aired_date'?'active':''}}" ng-click="sort='-aired_date'">New to Old</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tuc-container videos-cont">
+        <div class="row">
+            <tvod-block ng-if="activeTab=='clip'" class="" ng-repeat="video in transVideos | orderBy:'aired_date':true" video="video"></tvod-block>
+            <tv-show-block ng-if="activeTab=='tv_show'" class="col-xs-6 col-sm-3 col-md-102" ng-repeat="video in transShows | orderBy:sort" href-base="tvod/tv-show" block="video"></tv-show-block>
+            <div ng-if="activeTab=='my_videos' && myTransShows.length" class="title">
+                Shows
+            </div>
+            <tv-show-block ng-if="activeTab=='my_videos'" class="col-xs-6 col-sm-3 col-md-102" ng-repeat="video in myTransShows | orderBy:sort" href-base="tvod/tv-show" block="video"></tv-show-block>
+            <div ng-if="activeTab=='my_videos' && myTransClips.length" class="title">
+                Programs
+            </div>
+            <tvod-block ng-if="activeTab=='my_videos'" class="" ng-repeat="video in myTransClips" video="video"></tvod-block>
+        </div>
+    </div>
+</div>

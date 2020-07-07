@@ -1,0 +1,20 @@
+<div class="ppv-block tile">
+    <div class="pr tile-content hand ppv" ng-attr-style="background-image:url('{{getPosterH(video.content)}}')" ng-click="go(video._id)">
+        <!-- <div class="pa my-list">
+            <span ng-hide="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="addToList(video, $event)">Add to my List</span>
+            <span class="flr icon icon-add-purple-45x45" ng-click="addToList(video, $event)"></span>
+            </span>
+            <span ng-show="isInWatchlist(video._id)">
+                <span class="flr mylist-span" ng-click="removeFromList(video, $event)">Remove</span>
+            <span class="flr icon icon-add-purple-45x45 in-list" ng-click="removeFromList(video, $event)"></span>
+            </span>
+        </div> -->
+    </div>
+    <div class="info">    
+        <div class="title" title="{{video.title}}">{{video.title}}</div>
+        <div class="date col-xs-6 col-sm-6 col-lg-6">
+            {{video.event_date | date: 'MMM dd, yyyy. HH:mm'}} Hs.
+        </div>
+    </div>
+</div>

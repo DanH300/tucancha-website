@@ -1,0 +1,754 @@
+<div class="account">
+    <div class="tabs-area" ng-hide="showConfirmation">
+        <h1 class="account-header">MY ACCOUNT</h1>
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="nav nav-tabs nav-stacked" role="tablist">
+                    <li ng-repeat="menuItem in menu" class="nav-item {{activeTab==menuItem.id?'active':''}}">
+                        <a class="nav-link {{activeTab==menuItem.id?'active':''}}" data-toggle="tab" href="" role="tab" ng-click="showActiveTab(menuItem.id)">{{menuItem.name}}</a>
+                    </li>
+                    <li>
+                        <button type="button" class="logout hidden-xs" ng-click="logout()">LOGOUT</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <div class="tab-pane {{activeTab=='profile'?'active':''}}" id="profile" role="tabpanel">
+                        <div class="profile">
+                            <form name="profileForm">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="subscriptionType">Subscription</label>
+                                        <input type="text" class="form-control" id="subscriptionType" ng-model="subscription.title" ng-disabled="true">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 profile-picture">
+                                        <label for="image">
+                                            <img class="img" src="{{profile.avatar}}" ngf-select="uploadFiles($files)" ngf-drag-over-class="'dragover'" ngf-multiple="false" 
+                                            ngf-allow-dir="false" accept="image/jpeg,image/jpg,image/png" 
+                                            ngf-pattern="'image/jpeg,image/jpg,image/png'"  />
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" ng-model="profile.firstName" ng-disabled="!editing">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" ng-model="profile.lastName" ng-disabled="!editing">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" ng-model="profile.email" disabled>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="phone">Phone</label>
+                                        <input type="tel" class="form-control" id="phone" ng-model="profile.phone" ng-disabled="!editing">
+                                    </div>
+                                    <!-- <div class="error-message col-sm-4" ng-hide="profile.email">
+                                        <span>Your Email address is not verified.</br>
+                                            <span style="color:#4e186d;">Resend verification</span>
+                                        </span>
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 line"></div>
+                                </div>
+                                <div class="row" style="margin-top:0;">
+                                    <div class="col-sm-4">
+                                        <label for="countryName">Country</label>
+                                        <input type="text" class="form-control" id="countryName" ng-model="profile.countryName" ng-disabled="!editing">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="dni">Cédula de Identidad</label>
+                                        <input type="text" class="form-control" id="dni" ng-model="profile.dni" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-hide="editing">EDIT</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="update(profile)" ng-show="editing">UPDATE</button>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-show="editing">CANCEL</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='subscription'?'active':''}}" id="subscription" role="tabpanel">
+                        <div class="subscription">
+                            <form name="subscriptionForm" ng-hide="changingPlan">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="type">Type</label>
+                                        <input type="text" class="form-control" id="type" ng-model="subscription.title" disabled>
+                                        <label for="status">Status</label>
+                                        <input type="text" class="form-control" id="status" ng-model="subscription.status" disabled>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="since">Subscribed since</label>
+                                        <input type="text" class="form-control" id="since" value="{{subscription.startDate | date: 'MMMM dd yyyy'}}" disabled>
+                                        <label for="dueDate">Subscription due date</label>
+                                        <input type="text" class="form-control" id="dueDate" value="{{subscription.endDate | date: 'MMMM dd yyyy'}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div ng-if="!subscription.autoRenew" class="cancel-subscription-msg">
+                                        Your Subscription Will End On: {{subscription.endDate | date:'dd/MM/yyyy'}} </br>
+                                        <!-- </br>
+                                        To Renew your subscription click <span ng-click="go('subscription')" class="here-btn">here</span> -->
+                                    </div>
+                                </div>
+                                <div class="row" ng-hide="loading">
+                                    <!-- <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-primary" ng-click="changePlan(subscriptionForm)">CHANGE PLAN</button>
+                                    </div> -->
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn cancel" ng-click="cancelSubscription(subscriptionForm)" ng-if="subscription.autoRenew">CANCEL SUBSCRIPTION</button>
+                                    </div>
+                                </div>
+                                <div class="loader" ng-if="loading"></div>
+                            </form>
+
+                            <div class="subscription-tab">
+                                <!-- ------------NEW SUBSCRIPTION------------------------- -->
+                                <div class="subscription_plans" ng-show="(!pay && changingPlan)">
+                                    <div class="subscription_header">
+                                        Pricing Plans
+                                        <div class="subscription_sub_header">
+                                            Choose a plan that's right for you
+                                        </div>
+                                    </div>
+                                    <!-- <div class="container"> -->
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-3 month_container month{{plan.subscriptionLength}} {{plan.campaign_active?'campaign_active':''}}" style="cursor: pointer;" ng-click="buy(plan)" ng-repeat="plan in plans">
+
+                                            <div class="subscription_background">
+                                                <div class="month_title">
+                                                    <div class="">
+                                                        {{plan.title}}
+                                                    </div>
+                                                </div>
+                                                <div class="price_container {{!plan.autoRenew?'price_container_extended':''}}">
+                                                    <div ng-if="plan.campaign_active && plan.old_price" class="old_price">US${{plan.old_price}}</div>
+
+                                                    <div class="price_section">
+                                                        <span class="price_us">US$</span>
+                                                        <span class="price_amount">{{plan.price}}</span>
+                                                    </div>
+
+                                                    <div ng-if="plan.autoRenew" class="price_desc">
+                                                        Auto-renew each
+                                                        <span>
+                                                            {{plan.title}}
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="subscription_desc">
+
+                                                    <div ng-if="plan.campaign_active" class="sub_desc_item red"> <i class="fa fa-circle"></i> FREE Usain Bolt Book</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Access to 10 Channels</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Unrestricted access to VOD Catalogue</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch 3 screens simultaneously</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch on your laptop, phone or tablet</div>
+
+                                                </div>
+
+                                                <div class="button_section">
+                                                    <button class="btn buy_button" ng-click="buy(plan)">
+                                                            buy now
+                                                        </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- </div> -->
+
+                                </div>
+                                <!-- ------------END NEW SUBSCRIPTION------------------------- -->
+
+
+                                <div class="payment" ng-show="pay && !campain">
+                                    <div class="payment-header">
+                                        <h1>PAYMENT</h1>
+                                    </div>
+                                    <div class="sub-plans row">
+
+                                        <!-- new subscription payment -->
+                                        <div class="col-sm-12 col-md-4 month_container month{{currentPlan.subscriptionLength}} {{currentPlan.campaign_active?'campaign_active':''}}">
+
+                                            <div class="subscription_background">
+                                                <div class="month_title">
+                                                    <div class="">
+                                                        {{currentPlan.title}} </div>
+                                                </div>
+                                                <div class="price_container">
+                                                    <div ng-if="currentPlan.campaign_active && currentPlan.old_price" class="old_price">US${{currentPlan.old_price}}</div>
+
+                                                    <div class="price_section">
+                                                        <span class="price_us">US$</span>
+                                                        <span class="price_amount">{{currentPlan.price}}</span>
+                                                    </div>
+
+                                                    <div ng-if="currentPlan.autoRenew" class="price_desc">
+                                                        Auto-renew each
+                                                        <span>
+                                                        {{currentPlan.title}}</span>
+                                                    </div>
+                                                    <div ng-if="currentPlan.displayAutoRenew" class="price_desc">
+
+                                                        <input type="checkbox" name="autoRenew" ng-click="updateAutoRenew($event.target.checked)" checked="{{currentPlan.displayAutoRenew}}?'checked':''">
+                                                        <span>
+                                                            Auto-Renew
+                                                        </span>
+                                                    </div>
+                                                    <div class="promotion_container" ng-hide="subscriptionSuccess">
+                                                        <label for="promotionCode">Promotion Code</label>
+                                                        <input type="text" class="form-control" id="promotionCode" name="promotionCode" ng-model="promotionCode">
+                                                        <div class="promotion_code_error" ng-if="promotionCodeError">
+                                                            {{promotionCodeError}}
+                                                        </div>
+                                                        <button class="btn apply_promotion_code" ng-click="applyPromotionCode()">
+                                                            Apply Code
+                                                       </button>
+                                                    </div>
+                                                </div>
+                                                <div class="subscription_desc">
+
+                                                    <div ng-if="currentPlan.campaign_active" class="sub_desc_item red"> <i class="fa fa-circle"></i> FREE Usain Bolt Book</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Access to 10 Channels</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Unrestricted access to VOD Catalogue</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch 3 screens simultaneously</div>
+                                                    <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch on your laptop, phone or tablet</div>
+
+                                                </div>
+
+                                                <div class="button_section" ng-hide="subscriptionSuccess">
+                                                    <button class="btn buy_button" ng-click="modify()">
+                                                         modify selection
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- end new subscription payment -->
+
+                                        <div class="col-sm-12 col-md-8 payment-form" ng-if="paymentType=='creditCard'">
+                                            <form name="paymentForm" novalidate>
+                                                <div ng-show="!profile.billingInfo">
+                                                    <!-- <input type="checkbox" ng-model="payment.userIsCardHolder" ng-click="changeIsUserCardHolder(payment)" style="vertical-align: 1px;margin-right: 10px" /><label for="userIsCardHolder"> Check if Card Holder is the User</label> -->
+                                                    <label for="number" style="display:block">Name on Card</label>
+                                                    <input type="text" id="firstName" name="firstName" class="form-control {{submitted.payment && paymentForm.firstName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="payment.firstName" placeholder="First Name" autocomplete="first name"
+                                                        required>
+                                                    <input type="text" id="lastName" name="lastName" class="form-control {{submitted.payment && paymentForm.lastName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="payment.lastName" placeholder="Last Name" autocomplete="last name"
+                                                        required>
+                                                    <!-- <label for="number" style="display:block">Card Holder Email</label>
+                                                    <input type="email" id="email" name="email" class="form-control {{submitted.payment && paymentForm.email.$invalid?'error':''}}" name="number" ng-model="payment.email" autocomplete="email" required> -->
+                                                    <label for="cardType">Card Type*</label>
+                                                    <select type="text" class="form-control {{submitted.payment && paymentForm.cardType.$invalid?'error':''}}" id="cardType" name="cardType" ng-model="payment.pi_type" required>
+                                                        <option value="visa">Visa</option>
+                                                        <option value="mastercard">Mastercard</option>
+                                                        <option value="amex">Amex</option>
+                                                    </select>
+                                                    <label for="number">Card Number* <span> (enter your credit card Number without spaces)</span></label>
+                                                    <input type="text" class="form-control {{submitted.payment && paymentForm.number.$invalid?'error':''}}" id="number" name="number" ng-model="payment.pi_number" required>
+                                                    <label for="security">Security Code*</label>
+                                                    <input type="text" class="form-control {{submitted.payment && paymentForm.security.$invalid?'error':''}}" id="security" name="security" ng-model="payment.security_code" required>
+                                                    <label for="CCMonth">Expiration Date*</label>
+                                                    <div class="row">
+                                                        <select class="form-control col-sm-2 col-xs-4 {{submitted.payment && paymentForm.CCMonth.$invalid?'error':''}}" name="CCMonth" id="CCMonth" ng-model="payment.pi_month" required>
+                                                            <option value="01" selected="selected">January</option>
+                                                            <option value="02">February</option>
+                                                            <option value="03">March</option>
+                                                            <option value="04">April</option>
+                                                            <option value="05">May</option>
+                                                            <option value="06">June</option>
+                                                            <option value="07">July</option>
+                                                            <option value="08">August</option>
+                                                            <option value="09">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                        <select class="form-control col-sm-2 col-xs-4 {{submitted.payment && paymentForm.CCYear.$invalid?'error':''}}" name="CCYear" ng-model="payment.pi_year" required> 
+                                                    
+                                                            <option value="2020" selected>2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2029">2029</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="profile.billingInfo">
+                                                    <label for="number" style="display:block">Name on Card</label>
+                                                    <input type="text" class="form-control" style="width:49%;display:inline-block" name="first-number" ng-model="profile.billingInfo.first_name" placeholder="First Name" autocomplete="first name" disabled>
+                                                    <input type="text" class="form-control" style="width:49%;display:inline-block" name="last-name" ng-model="profile.billingInfo.last_name" placeholder="Last Name" autocomplete="last name" disabled>
+                                                    <label for="cardType" style="display:block">Card Type</label>
+                                                    <input type="text" class="form-control" id="cardType" name="cardType" ng-model="profile.billingInfo.type" disabled style="text-transform: uppercase;">
+                                                    <label for="number">Card Number</label>
+                                                    <input type="text" class="form-control" id="number" name="number" ng-model="profile.billingInfo.number" disabled>
+                                                    <label for="exDate">Expiration Date</label>
+                                                    <div class="form-control" style="display:block;padding: 12px;background: #eeeeee;">{{profile.billingInfo.expire_month}}/{{profile.billingInfo.expire_year}}</div>
+                                                </div>
+                                                <div>
+                                                    <label class="accept-terms" ng-hide="subscriptionSuccess">
+                                                        <input type="checkbox" ng-model="payment.accept" name="accept" required>
+                                                         Accept<span style="cursor:pointer" ng-click="go('terms-and-conditions')">Terms and conditions*</span>
+                                                    </label>
+                                                    <div class="loader" ng-if="subscribing"></div>
+                                                    <div class="subscription-error" ng-if="subscriptionError">
+                                                        {{subscriptionError}}
+                                                        <div ng-if="profile.billingInfo" ng-click="showActiveTab('billing-information');subscriptionError=null">Click to Change Credit Card info</div>
+                                                    </div>
+                                                    <div class="subscription-success" ng-if="subscriptionSuccess">
+                                                        You Subscription has Seccessfully Processed <span ng-click="showPlan()">Click Here To See your plan</span>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" ng-click="subscribe(paymentForm)" ng-disabled="!payment.accept" ng-hide="subscribing || subscriptionSuccess">SUBSCRIBE</button>
+                                                    <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Change Payment Method</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-12 col-md-5  payment-form" ng-if="paymentType=='wallet'">
+                                            <div class="wallet-payment">
+                                                <div style="padding:0;">
+                                                    <div ng-if="enoghCredits()">
+                                                        <div class="saldo"><h2>Saldo actual: u$s{{wallet.credits}}</h2></div>
+                                                        <p>Esta a punto de comprar {{currentPlan.title}} por u$s{{currentPlan.price}}</p>
+                                                        <label class="accept-terms">
+                                                            <input type="checkbox" ng-model="$parent.payment.accept" name="accept" required>
+                                                            Acepto los<span style="cursor:pointer" ng-click="go('terms-and-conditions')">Terminos y Condiciones*</span>
+                                                        </label>
+                                                        <div class="loader" ng-if="subscribing"></div>
+                                                        <div class="subscription-error" ng-if="subscriptionError">
+                                                            <img class="error-triangle" src="/assets/theme/sht/images/red-triangle.png"> {{subscriptionError}}
+                                                        </div>
+                                                    </div>
+                                                    <div ng-if="enoghCredits() == false">
+                                                        No tienes suficiente saldo para comprar este producto.
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" ng-click="subscribeWithWallet()" ng-disabled="!payment.accept" ng-hide="subscribing">SUBSCRIBIRSE</button>
+                                                    <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Cambiar metodo de pago</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-5  month_container payment-form"  ng-if="paymentType=='none'">
+                                            <div class="subscription_background">
+                                                <div class="button_section">
+                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
+                                                        Pagar con wallet
+                                                    </button>
+                                        
+                                                    <button class="btn payment_button"  ng-click="payWithCreditCard()">
+                                                        Pagar con Tarjeta de Credito
+                                                    </button>
+                                                    <img style="width: 100%; margin-top: 30px;" src="/assets/theme/tuc/images/p2p-logo-default.png">
+                                                    <a target="_blank" href="/assets/theme/tuc/images/LISTADO DE PREGUNTAS FRECUENTES PlacetoPay.pdf">Ver preguntas frecuentes</a>
+                                                </div>
+                                            </div>
+                                                   
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- CAMPAIN SHIPPING ADDRESS -->
+                                <div class="subscription_campain" ng-if="campain && currentPlan._id">
+                                    <div class="row">
+
+                                        <div class="col-xs-12 campain_subscription_success">
+                                            Your payment was successful!
+                                        </div>
+                                        <div class="col-xs-12 col-sm-10 campain_subscription_description">
+                                            Congratulations you have qualified for a FREE Copy of Usain Bolt Legend. Please provide your correct shipping address below:
+                                        </div>
+                                        <div class="col-xs-12 col-sm-8 campain_form">
+                                            <form name="campainForm" novalidate>
+                                                <div class="row">
+
+                                                    <div class="col-xs-12 col-sm-6 form-group">
+                                                        <label for="campain_first_name"><span  class="red_star">* </span>First Name:</label>
+                                                        <input type="text" class="form-control {{campainForm.campain_first_name.$invalid?'error':''}}" name="campain_first_name" id="campain_first_name" ng-model="shippingInfo.first_name" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-6 form-group">
+                                                        <label for="campain_last_name"><span class="red_star">* </span>Last Name:</label>
+                                                        <input type="text" class="form-control" id="campain_last_name" ng-model="shippingInfo.last_name" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-8 form-group">
+                                                        <label for="campain_address_1"><span class="red_star">* </span>Address 1:</label>
+                                                        <input type="text" class="form-control" id="campain_address_1" ng-model="shippingInfo.address_1" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-8 form-group">
+                                                        <label for="campain_address_2"><span class="red_star"></span>Address 2:</label>
+                                                        <input type="text" class="form-control" id="campain_address_2" ng-model="shippingInfo.address_2" placeholder="">
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-8 form-group">
+                                                        <label for="campain_country"><span class="red_star">* </span>Country:</label>
+                                                        <input type="text" class="form-control" id="campain_country" ng-model="shippingInfo.country" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-4 form-group" style="clear: both;">
+                                                        <label for="campain_city"><span class="red_star">* </span>City:</label>
+                                                        <input type="text" class="form-control" id="campain_city" ng-model="shippingInfo.city" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-5 form-group">
+                                                        <label for="campain_state"><span class="red_star">* </span>State:</label>
+                                                        <input type="text" class="form-control" id="campain_state" ng-model="shippingInfo.state" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-3 form-group">
+                                                        <label for="campain_zip"><span class="red_star">* </span>Zip code:</label>
+                                                        <input type="number" class="form-control" id="campain_zip" ng-model="shippingInfo.zip" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-7 form-group">
+                                                        <label for="campain_phone"><span class="red_star">* </span>Phone <span class="campain_phone_span">(for shipping related questions)</span>:</label>
+                                                        <input type="tel" class="form-control" id="campain_phone" ng-model="shippingInfo.phone" placeholder="" required>
+                                                    </div>
+
+                                                    <div class="col-xs-12 subscription-success" ng-if="campainMessage">
+                                                        Thank you for Subscribing to 1spotmedia!
+                                                    </div>
+
+                                                    <div class="col-xs-12" style="clear:both;" ng-if="campaignUpdate">
+                                                        <div class="loader"></div>
+                                                    </div>
+
+                                                    <div class="col-xs-12 ">
+                                                        <button ng-hide="(campainMessage || campaignUpdate)" type="button" class="btn btn-sm campain_cancel" ng-click="cancelCampaign();">CANCEL</button>
+                                                        <button ng-hide="campainMessage || campaignUpdate" type="submit" class="btn btn-sm campain_continue" ng-click="sendShippingAddress();" ng-disabled="campainForm.$invalid">CONTINUE ></button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END CAMPAIN SHIPPING ADDRESS -->
+
+                                <div class="subscription-back">
+                                    <button type="button" class="btn btn-primary" ng-if="subscription && changingPlan" ng-click="goBack()">Back</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='billing-information'?'active':''}}" id="billing-information" role="tabpanel">
+                        <div ng-repeat="transaction in transactions" class="transaction wrap-{{ transaction.status }}">
+                            
+                            <div class="transaction-card transaction-{{ transaction.status }}"><b>{{ transaction.status == "APPROVED"? "¡Compra aprobada con éxito!" : "" }}
+                                {{ transaction.status == "REJECTED"? "La compra ha sido rechazada" : "" }}
+                                {{ transaction.status == "ERROR"? "Ocurrió un error durante la compra" : "" }}
+                                {{ transaction.status == "PENDING"? "Pago pendiente" : "" }}
+                                {{ transaction.status == "FAILED"? "La compra terminó con una falla." : "" }}</b></div>
+                            <div ng-if="transaction.status == 'APPROVED' || transaction.status == 'PENDING' || transaction.status == 'REJECTED' || transaction.status == 'ERROR' || transaction.status == 'FAILED' ">Transacción: <b>{{ transaction._id }}</b> | Fecha: <b>{{ transaction.added }}</b></div>
+                            <div ng-if="transaction.status == 'APPROVED'">
+                                <a style="text-decoration: none; color: #fff;" href="" ng-click="printDiv(transaction)">Descargar comprobante de pago</a>
+                            </div>
+                            <div style="font-weight: bold;">
+                            Precio total:   $ {{ transaction.value }}.00
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        #billing-information{
+                            padding-left: 20px;
+                        }
+                        .transaction-card{
+                            font-size: 20px;
+                        }
+                        .transaction{
+                            margin: 10px;
+                            padding: 20px;
+                            border-radius: 2px;
+                        }
+                        .transaction.wrap-PENDING{
+                            background-color:#ffa600;
+                        }
+                        .transaction.wrap-APPROVED{
+                            background-color:#28a745;
+                        }
+                        .transaction.wrap-ERROR,
+                        .transaction.wrap-REJECTED,
+                        .transaction.wrap-FAILED
+                        {
+                            background-color:#dc3545;
+                        }
+
+                    </style>
+                    <div class="tab-pane {{activeTab=='tickets'?'active':''}}" id="tickets" role="tabpanel">
+                        <div class="tickets">
+                            <div class="no-tickets" ng-show="length(profile.ppvTickets) == 0">
+                                <h2>You don’t have any Pay-Per-View tickets yet.</h2>
+                                <a ng-click="go('pay-per-view')">BUY NOW!</a>
+                            </div>
+                            <div class="row" ng-hide="length(profile.ppvTickets) == 0">
+                                <div class="col-sm-12">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Your Tickets:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="ticket in profile.ppvTickets | orderBy : '-date'">
+                                                <th class="first">
+                                                    <div class="title">{{ticket.title}}</div>
+                                                    <div class="date">{{ticket.date | date: 'MMMM dd - HH:mm'}}<span ng-if="ticket.date_to"> to {{ticket.date_to | date: 'MMMM dd - HH:mm'}}</span></div>
+                                                    <div class="sessions-included" ng-if="ticket.sessions_included.length > 1">
+                                                        This ticket includes:
+                                                        <ul>
+                                                            <li ng-repeat="session in ticket.sessions_included">
+                                                                {{session}}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </th>
+                                                <th class="cost" ng-if="!ticket.live_now">
+                                                    <div class="already-purchased">Already<br>Purchased</div>
+                                                </th>
+                                                <th class="buy" ng-if="ticket.live_now">
+                                                    <button type="button" class="btn btn-primary" ng-click="go('pay-per-view/'+ticket.main_event_id)">VIEW EVENT</button>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='tvod'?'active':''}}" id="tvod" role="tabpanel">
+                        <div class="tickets">
+                            <div class="no-tickets" ng-show="length(profile.transactionalPlans) == 0">
+                                <h2>You don’t have any TVOD tickets yet.</h2>
+                                <a ng-click="go('tvod')">BUY NOW!</a>
+                            </div>
+                            <div class="row" style="padding:25px" ng-hide="length(profile.transactionalPlans) == 0">
+                                <div ng-if="myTransShows.length" class="title">
+                                    Shows
+                                </div>
+                                <tv-show-block class="col-xl-3 col-lg-4 col-sm-105" ng-repeat="video in myTransShows" href-base="tvod/tv-show" block="video"></tv-show-block>
+                                <div ng-if="myTransClips.length" class="title">
+                                    Programs
+                                </div>
+                                <tvod-block ng-repeat="tvod in myTransClips" data-section="account" video="tvod"></tvod-block>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='clips'?'active':''}}" id="clips" role="tabpanel">
+                        <div class="devices">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="featured-shows">
+                                        <div class="row new-releases">
+                                            <user-clip-block class="col-xs-12 col-sm-6 col-md-4 col-lg-4" my-list="myList" ng-repeat="clip in clips | orderBy:'-added' | limitTo:12" video="clip"></user-clip-block>
+                                        </div>
+                                    </div>
+                                  
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='follow'?'active':''}}" id="follow" role="tabpanel">
+                        <div class="devices">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Followed</th>
+                                                <th></th>
+                                                <!-- <th></th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="follow in profile.follows">
+                                                <td>
+                                                    <span>{{getFollowDisplay(follow)}}</span>
+                                                </td>
+
+                                                <td>
+                                                    <i class="fa fa-trash deleteDevice" aria-hidden="true" ng-click="unfollow(follow._id)"></i>
+                                                </td>
+                                            </tr>
+                                            <tr ng-hide="profile.follows && profile.follows.length != 0">
+                                                <th>
+                                                    <h1>No followed found</h1>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='devices'?'active':''}}" id="devices" role="tabpanel">
+                        <div class="devices">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Device Name</th>
+                                                <th>Device ID</th>
+                                                <!-- <th></th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="device in profile.devices">
+                                                <th>
+                                                    <span>{{device.deviceName}}</span>
+                                                </th>
+                                                <!-- <th>
+                                                    <span>{{device.deviceId}}</span>
+                                                </th> -->
+                                                <th>
+                                                    <i class="fa fa-trash deleteDevice" aria-hidden="true" ng-click="deleteDevice(device._id)"></i>
+                                                </th>
+                                            </tr>
+                                            <tr ng-hide="profile.devices && profile.devices.length != 0">
+                                                <th>
+                                                    <h1>No Devices Registered</h1>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- <button ng-show="profile.devices && profile.devices.length != 0" type="button" class="btn" ng-click="deleteDevice()">Delete all devices</button> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='wallet'?'active':''}}" id="wallet" role="tabpanel">
+                        <div class="wallet">
+                            <div ng-if="wallet == null">
+                                <p>Aun no tienes wallet. Debes realizar una primera recarga.</p>
+                            </div>
+                            <div  ng-if="wallet">
+                                <div class="saldo"><h2>Saldo actual: u$s {{wallet.credits}}</h2></div>
+                                <h2>Transacciones</h2>
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Detalle</th>
+                                                    <th>Valor</th>
+                                                    <th>Credito Restante</th>
+                                                    <!-- <th></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="transaction in transactions|orderBy: '-added'">
+                                                    <th>
+                                                        <span>{{ transaction.added | date }}</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>{{ transaction.title }}</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>u$s {{ transaction.value }}</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>u$s {{ transaction.paymentInfo.currentCredits }}</span>
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="spin" style="text-align:center" ng-if="loading">
+                                            <ion-spinner color="primary" text-center name="crescent"></ion-spinner>
+                                        </div>
+                                        <button class="button button-full button-more" ng-if="showMoreTransactions" ng-click="nextPageTransactions()">
+                                            Ver más
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='change-password'?'active':''}}" id="change-password" role="tabpanel">
+                        <div class="change-password">
+                            <form name="passwordForm">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="current">Current Password</label>
+                                        <input type="password" class="form-control" id="current" name="current" ng-model="changePasswordDetails.current" required>
+                                        <label for="newPassword">New Password</label>
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword" ng-model="changePasswordDetails.newPassword" required>
+                                        <label for="confirmNewPassword">Confirm New Password</label>
+                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" ng-model="changePasswordDetails.confirmNewPassword" required>
+                                        <div class="pass-message error-message" ng-if="changePasswordError">{{changePasswordError}}</div>
+                                        <div class="pass-message success-message" ng-if="changePasswordSuccess">{{changePasswordSuccess}}</div>
+                                        <div class="loader" ng-if="loading"></div>
+                                        <button ng-if="changePasswordError" ng-hide="loading" type="submit" class="btn btn-primary" ng-click="resetPassword()">Reset Password By Email</button>
+                                        <button ng-hide="loading" type="submit" class="btn btn-primary" ng-click="changePassword(passwordForm)">Change Password</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane {{activeTab=='validation'?'active':''}}" id="validation" role="tabpanel">
+                        <div class="phone-validation-page">
+                            <div class="wrapper">
+                                <div class="validated" ng-if="phoneValidated">
+                                    Your Phone is Validated.
+                                </div>
+                                <div ng-if="editPhone" class="phone-number-box">
+                                    <div class="box-title" ng-hide="phoneValidated">
+                                        for Password Recovery add your phone number
+                                    </div>
+                                    <div class="box-title" ng-if="phoneValidated">
+                                        To edit your phone number add your new number
+                                    </div>
+                                    <div class="phone">
+                                        <select ng-model="$parent.country">
+                                            <option ng-repeat="country in countries track by $index" value="{{$index}}" >{{country.name}}</option>
+                                        </select>
+                                        <input type="number" min="0" max="9999999999" ng-model="$parent.phone" />
+                                    </div>
+                                    <div class="send-btn {{$parent.country=='-1' || !$parent.phone || $parent.phone<'10000000'?'disabled':''}}" ng-click="sendSms()">Send Code</div>
+                                </div>
+                                <div ng-if="!editPhone" class="phone-number-box">
+                                    <div class="box-title">
+                                        Validation Code was sent to number : +{{$parent.countries[$parent.country].callingCodes[0]}}-{{$parent.phone}} , Please enter the Code.
+                                    </div>
+                                    <div class="code">
+                                        <input ng-model="$parent.code" />
+                                    </div>
+                                    <div class="validation-error" ng-if="$parent.validationError">{{$parent.validationError}}</div>
+                                    <div class="send-btn {{!$parent.code || $parent.phone<'10000'?'disabled':''}}" ng-click="validate()">Validate</div>
+                                    <div class="edit-phone" ng-click="$parent.editPhone='true'">Edit Phone Number</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="logout visible-xs" ng-click="logout()">LOGOUT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+.tvod-block {
+    margin-bottom: 30px;
+    color: white;
+    .block-bg {
+        cursor: pointer;
+        margin-bottom: 10px;
+        padding-bottom: 56.25%;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        .hover-info {
+            padding: 20px;
+            opacity: 0;
+            position: absolute;
+            background-color: rgba(236,9,40,0.5);
+            top: 0px;
+            bottom: 0px;
+            width: 100%;
+            font-size: 13px;
+            &:hover {
+                opacity: 1;
+            }
+            .rating-span {
+                margin-bottom: 6px;
+            }
+            .description-span{
+                height:  54px;
+                -webkit-line-clamp: 3;
+                display: -webkit-box;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .read-button {
+                font-size: 20px;
+                text-align: center;
+                border-radius: 2px;
+                border: 1px solid white;
+                padding: 6px;
+                font-style: italic;
+                font-weight: bold;
+                margin: auto;
+                width: 150px;
+            }
+        }
+    }
+    .tvod-title {
+        font-size: 13px;
+        font-weight: 300;
+        margin-bottom: 5px;
+    }
+    .tvod-date {
+        font-size: 12px;
+        font-weight: 300;
+    }
+
+    &.account{
+        color:#414141;
+        .tvod-title{
+            font-weight: bold;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .hover-info{
+            background-color: rgba(236,9,40,0.5);
+            .cast-span {
+                display: none;
+            }
+            .rating-span {
+                display: none;
+            }
+            .description-span{
+                display: none;
+            }
+            .read-button {
+                display: none;
+            }
+        }
+
+    }
+}

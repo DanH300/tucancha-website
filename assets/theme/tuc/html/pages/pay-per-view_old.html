@@ -1,0 +1,147 @@
+<div class="pay-per-view">
+    <div class="available-performances">
+        <!--         <div class="main-event" style="background-image: url('{{mainEventPoster | https}}')">
+            <div class="gradient">
+                <div class="gradient2">
+                    <div class="info">
+                        <div class="title">{{mainEvent.title}}</div>
+                        <div class="date">{{mainEvent.event_date | date: 'EEEE MMM d | h:mma'}}</div>
+                        <div class="ppv-live">LIVE VIA PAY-PER-VIEW</div>
+                        
+                        <div class="restrictions">
+                            <p>www.tucancha.ec gives you a front row seat to some of the biggest events in the world of sports and entertainment. Watch live, on your desktop, tablet or smartphone, as each electrifying event unfolds.</p>
+                            <button type="button" name="button" class="btn more-info" ng-click="go('pay-per-view/'+mainEvent._id)"><i>Mas INFO.</i></button>
+                        </div>
+                    </div>
+                    <div  class="remaining-time">
+
+                        <div class="clock">
+                            <div ng-if="remainingTime.total>=0" class="counter">
+                                <div class="time">{{remainingTime.days}}</div>
+                                <div class="smalltext">DAYS</div>
+                            </div>
+                            <div ng-if="remainingTime.total>=0" class="counter">
+                                <div class="time">{{remainingTime.hours}}</div>
+                                <div class="smalltext">HRS</div>
+                            </div>
+                            <div ng-if="remainingTime.total>=0" class="counter">
+                                <div class="time">{{remainingTime.minutes}}</div>
+                                <div class="smalltext">MNS</div>
+                            </div>
+                            <div ng-if="remainingTime.total>=0" class="counter">
+                                <div class="time">{{remainingTime.seconds}}</div>
+                                <div class="smalltext">SEC</div>
+                            </div>
+                            <div ng-if="remainingTime.total<0" class="counter">
+                                <button type="button" name="button" class="btn more-info" ng-click="go('pay-per-view/'+mainEvent._id)">Go To Event</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
+
+        <div id="PPVCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner main-slider" role="listbox">
+                <div ng-repeat="singlePoster in availablePerformances" style="" class="item {{$first?'active':''}}">
+
+                    <div class="main-event" style="background-image: url('{{getPosterF(singlePoster.content) | https}}')">
+                        <div class="gradient">
+                            <div class="gradient2">
+                                <div class="info">
+                                    <div class="title">{{singlePoster.title}}</div>
+                                    <div class="date">{{singlePoster.event_date | date: 'EEEE MMM d | h:mma'}}</div>
+                                    <div class="ppv-live">LIVE VIA PAY-PER-VIEW</div>
+                                    <!-- <div class="venue">FROM THE NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
+                                    <div class="restrictions">
+                                        <p>Tucancha.ec gives you a front row seat to some of the biggest events in the world of sports and entertainment. Watch live, on your desktop, tablet or smartphone, as each electrifying event unfolds.</p>
+
+                                        <div class="more_info_container">
+                                            <button type="button" name="button" class="btn more-info" ng-click="go('pay-per-view/'+singlePoster._id)"><i>Mas INFO.</i></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="remaining-time">
+
+                                    <div class="clock">
+                                        <div ng-if="singlePoster.total>=0" class="counter">
+                                            <div class="time">{{singlePoster.days}}</div>
+                                            <div class="smalltext">DAYS</div>
+                                        </div>
+                                        <div ng-if="singlePoster.total>=0" class="counter">
+                                            <div class="time">{{singlePoster.hours}}</div>
+                                            <div class="smalltext">HRS</div>
+                                        </div>
+                                        <div ng-if="singlePoster.total>=0" class="counter">
+                                            <div class="time">{{singlePoster.minutes}}</div>
+                                            <div class="smalltext">MNS</div>
+                                        </div>
+                                        <div ng-if="singlePoster.total>=0" class="counter">
+                                            <div class="time">{{singlePoster.seconds}}</div>
+                                            <div class="smalltext">SEC</div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <a class="left carousel-control hidden-xs" onclick="$(this).closest('#PPVCarousel').carousel('prev');" role="button" data-slide="prev">
+                <span class="icon icon-arrow-left-32x83" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control hidden-xs" onclick="$(this).closest('#PPVCarousel').carousel('next');" role="button" data-slide="next">
+                <span class="icon icon-arrow-right-32x83" aria-hidden="true"></span>
+            </a>
+        </div>
+
+
+        <div class="single-event" ng-repeat="singleEvent in availablePerformances">
+            <div class="event-container" ng-hide="singleEvent.event_is_over">
+                <div class="row event-row">
+                    <div class="img-container col-sm-3 col-xs-12" style="background-image: url('{{getPosterH(singleEvent.content) | https}}')">
+                    </div>
+                    <div class="available-info col-sm-9 col-xs-12">
+                        <div class="title"><i>{{singleEvent.title}}</i></div>
+                        <div class="date">{{singleEvent.event_date | date: 'EEEE MMM d h:mma'}}</div>
+                        <!-- <div class="venue">NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
+                        <div class="description">{{singleEvent.description}}</div>
+                        <div class="description">Due to restrictions, this programme is only available via pay-per-view for viewers outside of Jamaica</div>
+                        <table class="hidden-xs">
+                            <tr>
+                                <td class="ticket-cell" ng-repeat="ticket in singleEvent.tickets | filter: ticketIncluded(singleEvent)" ng-show="offerHasStarted(ticket)">
+                                    <div class="ticket-title">
+                                        {{ticket.title}}
+                                    </div>
+                                    <div class="ticket-price">
+                                        {{userPurchased(ticket)?'Already Purchased':'$'+ticket.pricingPlan[0].pricingTiers[0].amounts.USD}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <ul class="mobile-tickets visible-xs">
+                            <li class="ticket-cell" ng-repeat="ticket in singleEvent.tickets | filter: ticketIncluded(singleEvent)" ng-show="offerHasStarted(ticket)">
+                                <div class="ticket-title">
+                                    {{ticket.title}}
+                                </div>
+                                <div class="ticket-price">
+                                    {{userPurchased(ticket)?'Already Purchased':ticket.pricingPlan[0].pricingTiers[0].amounts.USD}}
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-available" ng-click="go('pay-per-view/'+singleEvent._id)">{{userPurchasedFromEvent(singleEvent)?'VER EVENTO':'COMPRA TU TICKET'}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

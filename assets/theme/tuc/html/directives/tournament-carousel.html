@@ -1,0 +1,19 @@
+<div class="mt30 tournament-container slider tournament-block">
+    <div ng-repeat="tournament in tournaments" ng-show="tournament.PosterH || defaultPoster"
+        ng-click="go(tournament._id)">
+        <div class="tile-content rounded-circle" title="{{tournament.title}}" style="margin: auto;">
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner circle-background-image"
+                        style="background-image:url('{{tournament.PosterH || defaultPoster}}')">
+                        <div class="outer">
+                            <div class="middle circle-background-image transparent-yellow" ">
+                                    <h3 class=" inner"><strong>{{tournament.title|  uppercase}}</strong></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

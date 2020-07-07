@@ -1,0 +1,15 @@
+<div class="tournament-block">
+    <div class="tile-content rounded-circle" title="{{tournament.title}}" style="margin: auto;"
+        ng-click="go(tournament._id)">
+        <div class="outer">
+            <div class="middle">
+                <div class="inner circle-background-image"
+                    style="background-image:url('{{tournament.PosterH || defaultPoster}}')">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="transparent-black">
+        <h3 class="tournament-tittle elipsis-text"><strong>{{tournament.title|  uppercase}}</strong></h3>
+    </div>
+</div>

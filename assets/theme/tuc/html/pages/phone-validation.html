@@ -1,0 +1,41 @@
+<div class="phone-validation-page">
+    <div class="wrapper">
+        <div class="title">
+            Thank you!
+        </div>
+        <div class="subtitle">
+            welcome {{user.firstName}} {{user.lastName}}
+            <span>you have succefully completed the registeration proccess</span>
+        </div>
+        <div ng-if="editPhone" class="phone-number-box">
+            <div class="box-title">
+                for Password Recovery add your phone number
+            </div>
+            <div class="phone">
+                <select ng-model="$parent.country">
+                    <option ng-repeat="country in countries track by $index" value="{{$index}}" >{{country.name}}</option>
+                </select>
+                <input type="number" min="0" max="9999999999" ng-model="$parent.phone" />
+            </div>
+            <div class="send-btn {{$parent.country=='-1' || !$parent.phone || $parent.phone<'100000000'?'disabled':''}}" ng-click="sendSms()">Send Code</div>
+        </div>
+        <div ng-if="!editPhone" class="phone-number-box">
+            <div class="box-title">
+                Validation Code was sent to number : +{{$parent.countries[$parent.country].callingCodes[0]}}-{{$parent.phone}} , Please enter the Code.
+            </div>
+            <div class="code">
+                <input ng-model="$parent.code" />
+            </div>
+            <div class="validation-error" ng-if="$parent.validationError">{{$parent.validationError}}</div>
+            <div class="send-btn {{!$parent.code || $parent.phone<'10000'?'disabled':''}}" ng-click="validate()">Validate</div>
+            <div class="edit-phone" ng-click="$parent.editPhone='true'">Edit Phone Number</div>
+        </div>
+
+        <span class="para">You may view or update your profile information at any time after logging onto Tucancha.ec by visiting the My Account section.</span>
+        <span class="para">Thanks for Joining the Tucancha.ec family and we hope you enjoy our offering of authentic Jamaican content.</span>
+
+        <div class="skip-btn hand" ng-click="go('/')">
+            Skip
+        </div>
+    </div>
+</div>

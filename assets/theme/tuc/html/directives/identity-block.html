@@ -1,0 +1,14 @@
+<div class="identity-block tile">
+    <div class="pr tile-content hand" ng-attr-style="background-image:url('{{identity.PosterH}}')" ng-click="go(mainIdentity._id,identity._id)">
+    </div>
+    <div class="info {{transparent?'transparent':''}}">
+        <div class="title" title="{{identity.title}}">
+            {{identity.title}}
+        </div>
+        <div class="info-commerce">
+            <span ng-if="!identity.categories || identity.categories.length == 0 || identity.categories[0].name == 'commerce_free_media'">FREE</span>
+            <span ng-if="identity.categories[0].name == 'commerce_members_media'">MEMBER</span>
+            <span ng-if="identity.categories[0].name == 'commerce_subscription_basic_media' || identity.categories[0].name == 'commerce_subscription_identity_media'">PREMIUM</span>
+        </div>
+    </div>
+</div>

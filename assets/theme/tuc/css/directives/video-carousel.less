@@ -1,0 +1,504 @@
+.tile-tint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0);
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(60%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,1)));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+  background: -o-linear-gradient(top, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+  background: -ms-linear-gradient(top, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+.single-category {
+  &:hover {
+    z-index: 1001;
+  }
+}
+.carousel {
+  margin: -8vw 26px;
+  color: white;
+  overflow: hidden;
+
+  width: ~"calc(100% - 52px)";
+  position: relative;
+  height: 28vw;
+  @media (max-width: @screen-xs-max) {
+    height: 40vw;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  &:hover {
+    .arrow-right, .arrow-left {
+      opacity: 0.5;
+    }
+  }
+  .arrow-right {
+    z-index: 2;
+    position: absolute;
+    height: 100%;
+    width: 65px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    transition: 0.5s ease;
+    &:hover, &:focus {
+      opacity: 1;
+    }
+    &.opacity0 {
+      opacity: 0;
+    }
+    .icon-arrow-right-49x82 {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      z-index: 1;
+      top: ~"calc(14vw - 41px)";
+    }
+  }
+  .arrow-left {
+    z-index: 2;
+    position: absolute;
+    height: 83%;
+    width: 65px;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: 0.5s ease;
+    &:hover, &:focus {
+      opacity: 1;
+    }
+    &.opacity0 {
+      opacity: 0;
+    }
+    .icon-arrow-left-49x82 {
+      cursor: pointer;
+      top: ~"calc(14vw - 41px)";
+      position: absolute;
+      left: 10px;
+      z-index: 1;
+    }
+  }
+
+  .row__inner {
+    background-color: transparent;
+    left: 0%;
+    transition-delay: 0ms;
+    transition: 1s ease;
+    -webkit-transition: 1s ease;
+    position: absolute;
+    font-size: 0;
+    white-space: nowrap;
+    margin-top: 7vw;
+    padding-bottom: 10px;
+    @media (max-width: @screen-xs-max) {
+      position: relative;
+    }
+    &.moveLeft {
+      left: -100%;
+    }
+  }
+  .tile {
+    padding: 1.7vw 0px;
+    vertical-align: middle;
+    background-color: transparent;
+    height: 13.5vw;
+    width: ~"calc(20vw - 22px)";
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition-delay: 0ms;
+    -webkit-transition: 450ms all;
+    transition: 450ms all;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+    @media (max-width: @screen-xs-max) {
+      width: ~"calc(50vw - 8px)";
+      height: 27vw;
+    }
+    .icon-triangle-29x12 {
+      display: none;
+      margin-left: -15px;
+      left: 50%;
+      bottom: -12px;
+    }
+    &.selected {
+      >.h100 {
+        border: 2px solid #919191;
+      }
+
+      .icon-triangle-29x12 {
+        display: block;
+      }
+    }
+  }
+  .tile__media {
+    z-index: 1;
+    height: 100%;
+    .tile__img {
+      width: 100%;
+      height: ~"calc(10vw - 3px)";
+      -o-object-fit: cover;
+      object-fit: cover;
+      @media (max-width: @screen-xs-max) {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .tile-header {
+      font-family: 'PTsans', arial, 'Lato', sans-serif;
+      position: absolute;
+      top: 5%;
+      width: 100%;
+      height: 22px;
+      @media(max-width: @screen-xs-max) {
+        height: 16px;
+      }
+      .logo-left {
+        transition: 450ms;
+        opacity: 0;
+        position: absolute;
+        bottom: 20%;
+        height: 70%;
+        display: inline-block;
+        margin-left: 6px;
+        width: 30%;
+        background-image: url('/assets/theme/clixtv/images/clix-logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+      .reward-right {
+        margin-right: 4px;
+        height: 100%;
+        text-align: center;
+        padding: 3px 6px;
+        float: right;
+        background-color: rgba(230, 20, 25, 1);
+        font-size: 13px;
+        border-radius: 16px;
+        @media(max-width: @screen-xs-max) {
+          font-size: 9px;
+        }
+      }
+    }
+
+    .sponsers-footer {
+      font-size: 8px;
+      font-weight: bold;
+      transition: 450ms;
+      text-align: center;
+      position: absolute;
+      bottom: 16px;
+      left: 0px;
+      right: 0px;
+      height: 30%;
+      .h100 {
+        display: flex;
+        padding: 1px;
+      }
+      .single-sponser {
+        margin: 1px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: ~"calc(100% - 2px)";
+        position: relative;
+        width: 25%;
+        margin-left: 3%;
+        margin-right: 3%;
+        display: inline-block;
+        .sponser-bg {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          background-position: center;
+          background-size: cover;
+          opacity: 1;
+          transition: 0.5s ease;
+        }
+        .sponser-logo {
+          transition: 0.5s ease;
+          opacity: 0;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          background-position: center;
+          background-size: cover;
+          // background-position: center;
+          // background-size: contain;
+        }
+        .reward-square {
+          border-radius: 10px;
+          padding: 2px 2px 1px 3px;
+          transition: 450ms;
+          opacity: 0;
+          position: absolute;
+          background-color: rgba(230, 20, 25, 1);
+          right: 3px;
+          bottom: 3px;
+          font-size: 10px;
+        }
+        img {
+          -o-object-fit: contain;
+          object-fit: contain;
+          height: 100%;
+        }
+      }
+
+    }
+  }
+
+  .tile__details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+    opacity: 1;
+    // background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    // background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    -webkit-transition: 450ms opacity;
+    transition: 450ms opacity;
+    transition-delay: 0ms;
+    .tile__title {
+      font-family: 'PTsans';
+    }
+    .detail-header {
+      font-size: 15px;
+      color: #919191;
+      @media(@screen-xs-max) {
+        display: none;
+      }
+    }
+    .detail-desc {
+      display: none;
+      opacity: 0;
+    }
+    .play {
+      -webkit-transition: 450ms all;
+      transition: 450ms all;
+      content: '';
+      position: absolute;
+      margin-top: -25px;
+      margin-left: -25px;
+      left: 50%;
+      top: 32%;
+      width: 50px;
+      height: 50px;
+      background-image: url('../images/play-red.png');
+      -webkit-filter: grayscale(1); /* Safari 6.0 - 9.0 */
+      filter: grayscale(1);
+      -webkit-transform: translateZ(0px);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      line-height: 50px;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      @media (min-width: 1400px) {
+        width: 60px;
+        height: 60px;
+        margin-top: -30px;
+        margin-left: -30px;
+      }
+      @media (max-width: @screen-xs-max) {
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        margin-left: -20px;
+      }
+      &:hover {
+        opacity: 1 !important;
+        -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+        filter: grayscale(0);
+      }
+    }
+  }
+
+  .tile__details:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: #000;
+  }
+
+  .tile__details:after {
+
+  }
+  .tile:hover {
+    .tile-tint {
+      bottom: 29%;
+      background: rgba(0,0,0,0);
+      background: -moz-linear-gradient(top, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%);
+      background: -webkit-gradient(left top, left bottom, color-stop(40%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,1)));
+      background: -webkit-linear-gradient(top, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%);
+      background: -o-linear-gradient(top, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%);
+      background: -ms-linear-gradient(top, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+      @media (max-width: @screen-xs-max) {
+        bottom: 0;
+      }
+    }
+    @media (min-width: @screen-xs-max) {
+      padding: 0;
+      // border: 2px solid #848484;
+
+      .tile__media {
+        border-bottom: none;
+        .logo-left {
+          opacity: 1;
+        }
+      }
+      .sponsers-footer {
+        background-color: black;
+        height: 30%;
+        bottom: 0;
+        .single-sponser {
+          margin: 1.4% 1.1%;
+          height: 86%;
+          background-color: #141414;
+          .sponser-bg {
+            opacity: 0;
+          }
+          .sponser-logo {
+            opacity: 1;
+          }
+        }
+        .reward-square {
+          opacity: 1;
+        }
+      }
+      .tile__details {
+        .detail-header {
+          font-size: 16px;
+          font-weight: bold;
+          color: white;
+        }
+        .tile__title {
+          background-color: rgba(0,0,0,0);
+          bottom: 30%;
+        }
+        .detail-desc {
+          white-space: initial;
+          opacity: 1;
+          display: block;
+        }
+        .play {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+  .tile__title {
+    overflow-x: hidden;
+    background-color: rgba(0,0,0,1);
+    width: 100%;
+    transition: 0.5s ease;
+    position: absolute;
+    bottom: 0px;
+    padding: 2px 10px;
+    .tile-header {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .detail-desc {
+      font-size: 8px;
+    }
+  }
+  // .row__inner:hover {
+  //   -webkit-transform: translate3d(0, 0, 0);
+  //           transform: translate3d(0, 0, 0);
+  // }
+  .row__inner:hover {
+    z-index: 1;
+    @media(min-width: @screen-xs-max) {
+      .tile {
+        opacity: 0.3;
+      }
+    }
+  }
+  .row__inner:hover .tile:hover {
+    @media(min-width: @screen-xs-max) {
+      -webkit-transform: scale(1.44);
+      transform: scale(1.44);
+      opacity: 1;
+    }
+  }
+  .tile:hover ~ .tile {
+    -webkit-transform: translate3d(8vw, 0, 0);
+    transform: translate3d(8vw, 0, 0);
+    @media(max-width: @screen-xs-max) {
+      -webkit-transform: translate3d(0px, 0, 0);
+      transform: translate3d(0px, 0, 0);
+
+    }
+  }
+  .row__inner {
+    &.unhover:hover{
+      .tile:hover {
+        height: 10.1vw;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+        @media (max-width: @screen-xs-max) {
+          height: 27vw;
+        }
+        .tile__media {
+          background-color: transparent;
+          .sponser-bg {
+            opacity: 0;
+          }
+        }
+        .tile__details .tile__title {
+          bottom: 0px;
+        }
+        .tile-tint {
+          bottom: 0;
+        }
+        .detail-desc {
+          display: none !important;
+        }
+      }
+      .tile:hover ~ .tile {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      .sponsers-footer {
+        height: 30%;
+        background-color: transparent;
+        bottom: 16px;
+        .single-sponser {
+          background-color: transparent;
+        }
+        .reward-square {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+.category-carousel {
+  .carousel();
+  zoom: 1.2;
+  .tile-header {
+    zoom: 0.7;
+  }
+  .sponsers-footer {
+    zoom: 0.8;
+  }
+  .tile__details {
+    zoom: 0.7;
+  }
+}

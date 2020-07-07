@@ -1,0 +1,106 @@
+.main-slick{
+    height: 300px;
+    background-color: @mainColor;
+    background-image: -webkit-linear-gradient(160deg, @mainColor 60%, #fff 40%);
+
+    @media(max-width: @screen-xs-max){
+       background-image: none;
+       height: 120px;
+    }
+
+    .left-slick{
+
+        height: 300px;
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-position-y: center;
+        background-position-x: center;
+
+        @media(max-width: @screen-sm-max){
+            background-size: auto 60%;
+         }
+
+        @media(max-width: @screen-xs-max){
+          display: none;
+        }
+
+        .back-btn{
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            font-family: 'Abel', sans-serif;
+            font-size: 1.5rem;
+            color: @secondaryColor;
+            cursor: pointer;
+        }
+
+        .back-btn:hover{
+            text-decoration: none;
+        }
+        
+    }
+
+    .right-slick{
+
+        height: 100%;
+        text-align: center;
+        padding-top: 15px;
+        overflow: auto;
+
+        @media(max-width: @screen-xs-max){
+            background-color: @mainColor;
+            padding-top: 50px;
+         }
+
+         @media(max-width: @screen-xs-min){
+            padding-top: 35px;
+        }
+
+        // @media(max-width: @screen-xs-max){
+        //     display: none;
+        //  }
+
+        .main-title{
+            width: 90%;
+            margin: 0 auto;
+            font-family: 'Abel', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+
+            @media(max-width: @screen-sm-max){
+                font-size: 3rem;
+            }
+        }
+
+        .vertical-center{
+            padding-top: 70px;
+            font-size: 5rem;
+        }
+
+        h4{
+            margin: 0 0 20px 0!important;
+            
+        }
+
+        .first-plan-title{
+            
+            @media(max-width: @screen-xs-max){
+                display: none;
+            }
+        }
+
+        .select-plan-btn{
+            cursor: pointer;
+            display: none;
+
+            @media(max-width: @screen-xs-max){
+                display: block;
+            }
+        }
+
+        .hide-plan{
+            cursor: pointer;
+        }
+
+    }
+}

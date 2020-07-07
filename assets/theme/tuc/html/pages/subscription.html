@@ -1,0 +1,347 @@
+<div class="subscription-page">
+    <!-- ------------NEW SUBSCRIPTION------------------------- -->
+    <div class="subscription_plans" ng-hide="pay">
+        <div class="subscription_header">
+            Pricing Plans
+            <div class="subscription_sub_header">
+                Choose a plan that's right for you
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 month_container month{{plan.duration}} {{plan.campaign_active?'campaign_active':''}}" ng-repeat="plan in plans">
+
+                    <div class="subscription_background">
+                        <div class="month_title">
+                                {{plan.title}}
+                            
+                        </div>
+                        <div class="price_container">
+                            <div ng-if="plan.campaign_active" class="old_price">US${{plan.old_price}}</div>
+
+                            <div class="price_section">
+                                <span class="price_us">US$</span>
+                                <span class="price_amount">{{plan.price}}</span>
+                            </div>
+
+                            <div class="price_desc">
+                                Auto-renew each
+                                {{plan.duration}} {{plan.durationUnits}}<span ng-if="plan.duration>1">s</span>
+                            </div>
+
+                        </div>
+                        <div class="subscription_desc">
+
+                            <div ng-if="plan.campaign_active" class="sub_desc_item red"> <i class="fa fa-circle"></i></div>
+                            <!-- <div class="sub_desc_item"><i class="fa fa-circle"></i> Access to 10 Channels</div> -->
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Unrestricted access to VOD Catalogue</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch 3 screens simultaneously</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch on your laptop, phone or tablet</div>
+
+                        </div>
+
+                        <div class="button_section">
+                            <button class="btn buy_button" ng-click="buy(plan)">
+                                buy now
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- ------------END NEW SUBSCRIPTION------------------------- -->
+
+    <div class="payment" ng-show="pay">
+        <div class="payment-header" ng-show="!campain">
+            <h1>PAYMENT</h1>
+        </div>
+        <div class="plan" ng-show="!campain">
+            <div class="sub-plans row">
+
+                <!--                 <div class="col-sm-4 col-lg-3">
+                    <div class="plan-period">
+                        <div class="time-span">
+                            {{currentPlan.durationUnits}} MONTHS
+                        </div>
+                        <div class="">
+                            SUBSCRIPTION
+                        </div>
+                         <div ng-if="(currentPlan.duration==12 || currentPlan.duration==6) && currentPlan.campaign_count <= currentPlan.campaign_max_count && currentPlan.campaign_active" class="plan_campain">{{currentPlan.campaign_text}}</div>
+                        <div class="pricircle">
+                            <div class="">
+                                US${{currentPlan.price}}
+                            </div>
+                            <div class="text-fs16" ng-if="currentPlan.description">
+                                {{currentPlan.description}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="under-circle">
+                        <div class="mb12 description">
+                            Per Month
+                        </div>
+                        <div class="description">
+                            Access to 10 Live Channels
+                            (5 TV + 5 Radio)
+                        </div>
+                        <div class="description">
+                            Unrestricted access to our VOD Catalogue
+                        </div>
+                        <div class="description">
+                            You can watch 3 screens simultaneously
+                        </div>
+                        <div class="description no-border">
+                            Watch on your computer phone or tablet
+                        </div>
+                        <div class="description no-border">
+                            <button class="btn modify" ng-click="modify()">MODIFY SELECTION</button>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- ------------NEW SUBSCRIPTION------------------------- -->
+                <div class="col-sm-12 col-md-4  month_container month{{currentPlan.duration}} {{currentPlan.campaign_active?'campaign_active':''}}">
+
+                    <div class="subscription_background">
+                        <div class="month_title">
+                            <div ng-if="currentPlan.duration==1" class="">
+                                {{currentPlan.durationUnits}} Month</div>
+                            <div ng-if="currentPlan.duration>1" class="">
+                                {{currentPlan.durationUnits}} Months</div>
+                        </div>
+                        <div class="price_container">
+                            <div ng-if="currentPlan.campaign_active && currentPlan.old_price" class="old_price">US${{currentPlan.old_price}}</div>
+
+                            <div class="price_section">
+                                <span class="price_us">US$</span>
+                                <span class="price_amount">{{currentPlan.price}}</span>
+                            </div>
+
+                            <div class="price_desc">
+                                Auto-renew each
+                                <span ng-if="currentPlan.duration==1">
+                                {{currentPlan.durationUnits}} Month</span>
+                                <span ng-if="currentPlan.duration>1">
+                                {{currentPlan.durationUnits}} Months</span>
+                            </div>
+
+                        </div>
+                        <div class="subscription_desc">
+
+                            <div ng-if="currentPlan.campaign_active" class="sub_desc_item red"> <i class="fa fa-circle"></i></div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Access to 10 Channels</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Unrestricted access to VOD Catalogue</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch 3 screens simultaneously</div>
+                            <div class="sub_desc_item"><i class="fa fa-circle"></i> Watch on your laptop, phone or tablet</div>
+
+                        </div>
+
+                        <div class="button_section">
+                            <button class="btn buy_button" ng-click="modify();">
+                                modify selection
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ------------END NEW SUBSCRIPTION--------------------- -->
+
+                <div class="col-sm-12 col-md-5  payment-form" ng-if="paymentType=='creditCard'">
+                    <form name="paymentForm" novalidate>
+                        <label for="number" style="display:block">Name on Card</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control {{submitted.payment && paymentForm.firstName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="payment.firstName" placeholder="First Name" autocomplete="first name"
+                            required>
+                        <input type="text" id="lastName" name="lastName" class="form-control {{submitted.payment && paymentForm.lastName.$invalid?'error':''}}" style="width:49%;display:inline-block" ng-model="payment.lastName" placeholder="Last Name" autocomplete="last name"
+                            required>
+                        <label for="cardType">Card Type*</label>
+                        <select type="text" class="form-control {{submitted.payment && paymentForm.cardType.$invalid?'error':''}}" id="cardType" name="cardType" ng-model="payment.pi_type" required>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="amex">Amex</option>
+                        </select>
+                        <label for="number">Card Number* <span> (enter your credit card Number without spaces)</span></label>
+                        <input type="text" class="form-control {{submitted.payment && paymentForm.number.$invalid?'error':''}}" id="number" name="number" ng-model="payment.pi_number" required>
+                        <label for="security">Security Code*</label>
+                        <input type="text" class="form-control {{submitted.payment && paymentForm.security.$invalid?'error':''}}" id="security" name="security" ng-model="payment.security_code" required>
+                        <label for="CCMonth">Expiration Date*</label>
+                        <div class="row">
+                            <select class="form-control col-sm-2 col-xs-4 {{submitted.payment && paymentForm.CCMonth.$invalid?'error':''}}" name="CCMonth" id="CCMonth" ng-model="payment.pi_month" required>
+                                <option value="01" selected="selected">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select class="form-control col-sm-2 col-xs-4 {{submitted.payment && paymentForm.CCYear.$invalid?'error':''}}" name="CCYear" ng-model="payment.pi_year" required>
+                                <option value="2017" selected>2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                            </select>
+                        </div>
+                        <div style="padding:0;">
+                            <label class="accept-terms">
+                                <input type="checkbox" ng-model="payment.accept" name="accept" required>
+                                Acepto los<span style="cursor:pointer" ng-click="go('terms-and-conditions')">Terminos y Condiciones*</span>
+                            </label>
+                            <div class="loader" ng-if="subscribing"></div>
+                            <div class="subscription-error" ng-if="subscriptionError">
+                                <img class="error-triangle" src="/assets/theme/sht/images/red-triangle.png"> {{subscriptionError}}
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="subscribe(paymentForm)" ng-disabled="!payment.accept" ng-hide="subscribing">SUBSCRIBIRSE</button>
+                            <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Cambiar metodo de pago</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-sm-12 col-md-5  payment-form" ng-if="paymentType=='wallet'">
+                    <div class="wallet-payment">
+                        <div style="padding:0;">
+                            <div ng-if="enoghCredits()">
+                                <div class="saldo"><h2>Saldo actual: u$s{{wallet.credits}}</h2></div>
+                                <p>Esta a punto de comprar {{currentPlan.title}} por u$s{{currentPlan.price}}</p>
+                                <label class="accept-terms">
+                                    <input type="checkbox" ng-model="$parent.payment.accept" name="accept" required>
+                                    Acepto los<span style="cursor:pointer" ng-click="go('terms-and-conditions')">Terminos y Condiciones*</span>
+                                </label>
+                                <div class="loader" ng-if="subscribing"></div>
+                                <div class="subscription-error" ng-if="subscriptionError">
+                                    <img class="error-triangle" src="/assets/theme/sht/images/red-triangle.png"> {{subscriptionError}}
+                                </div>
+                            </div>
+                            <div ng-if="enoghCredits() == false">
+                                No tienes suficiente saldo para comprar este producto.
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="subscribeWithWallet()" ng-disabled="!payment.accept" ng-hide="subscribing">SUBSCRIBIRSE</button>
+                            <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Cambiar metodo de pago</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-5  month_container payment-form"  ng-if="paymentType=='none'">
+                    <div class="payment_background">
+                        <div class="button_section">
+                            <button class="btn payment_button" ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
+                                Pagar con wallet
+                            </button>
+                
+                            <button class="btn payment_button"  ng-click="payWithCreditCard()">
+                                Pagar con Tarjeta de Credito
+                            </button>
+                            <img style="width: 100%; margin-top: 30px;" src="/assets/theme/tuc/images/p2p-logo-default.png">
+                            <a target="_blank" href="/assets/theme/tuc/images/LISTADO DE PREGUNTAS FRECUENTES PlacetoPay.pdf">Ver preguntas frecuentes</a>
+                        </div>
+                    </div>
+                           
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- CAMPAIN SHIPPING ADDRESS -->
+        <div class="subscription_campain" ng-if="campain && currentPlan._id">
+            <div class="row">
+
+                <div class="col-xs-12 campain_subscription_success">
+                    Your payment was successful!
+                </div>
+                <div class="col-xs-12 col-sm-10 campain_subscription_description">
+                    Congratulations you have qualified for a FREE Copy of Usain Bolt Legend. Please provide your correct shipping address below:
+                </div>
+                <div class="col-xs-12 col-sm-8 campain_form">
+                    <form name="campainForm" novalidate>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 form-group">
+                                <label for="campain_first_name"><span  class="red_star">* </span>First Name:</label>
+                                <input type="text" class="form-control {{campainForm.campain_first_name.$invalid?'error':''}}" name="campain_first_name" id="campain_first_name" ng-model="shippingInfo.first_name" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 form-group">
+                                <label for="campain_last_name"><span class="red_star">* </span>Last Name:</label>
+                                <input type="text" class="form-control" id="campain_last_name" ng-model="shippingInfo.last_name" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-8 form-group">
+                                <label for="campain_address_1"><span class="red_star">* </span>Address 1:</label>
+                                <input type="text" class="form-control" id="campain_address_1" ng-model="shippingInfo.address_1" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-8 form-group">
+                                <label for="campain_address_2"><span class="red_star"></span>Address 2:</label>
+                                <input type="text" class="form-control" id="campain_address_2" ng-model="shippingInfo.address_2" placeholder="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-8 form-group">
+                                <label for="campain_country"><span class="red_star">* </span>Country:</label>
+                                <input type="text" class="form-control" id="campain_country" ng-model="shippingInfo.country" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 form-group" style="clear: both;">
+                                <label for="campain_city"><span class="red_star">* </span>City:</label>
+                                <input type="text" class="form-control" id="campain_city" ng-model="shippingInfo.city" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-5 form-group">
+                                <label for="campain_state"><span class="red_star">* </span>State:</label>
+                                <input type="text" class="form-control" id="campain_state" ng-model="shippingInfo.state" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-3 form-group">
+                                <label for="campain_zip"><span class="red_star">* </span>Zip code:</label>
+                                <input type="number" class="form-control" id="campain_zip" ng-model="shippingInfo.zip" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-7 form-group">
+                                <label for="campain_phone"><span class="red_star">* </span>Phone <span class="campain_phone_span">(for shipping related questions)</span>:</label>
+                                <input type="tel" class="form-control" id="campain_phone" ng-model="shippingInfo.phone" placeholder="" required>
+                            </div>
+
+                            <div class="col-xs-12 subscription-success" ng-if="campainMessage">
+                                Thank you for Subscribing to MySoccerPlayer!
+                            </div>
+
+                            <div class="col-xs-12" style="clear:both;" ng-if="campaignUpdate">
+                                <div class="loader"></div>
+                            </div>
+
+                            <div class="col-xs-12 ">
+                                <button ng-hide="(campainMessage || campaignUpdate)" type="button" class="btn btn-sm campain_cancel" ng-click="cancelCampaign();">CANCEL</button>
+                                <button ng-hide="campainMessage || campaignUpdate" type="submit" class="btn btn-sm campain_continue" ng-click="sendShippingAddress();" ng-disabled="campainForm.$invalid">CONTINUE ></button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END CAMPAIN SHIPPING ADDRESS -->
+
+    </div>
+
+
+
+</div>
