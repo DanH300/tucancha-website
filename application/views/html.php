@@ -233,7 +233,7 @@
     <script>
         var OneSignal = window.OneSignal || [];
         OneSignal.push(["init", {
-            appId: "96c46e1c-599a-4265-ba41-de5b65a7f682",
+            appId: "<?php echo $this->config->item("onesignal_app_id"); ?>",
             autoRegister: true,
             notifyButton: {
                 enable: false /* Set to false to hide */

@@ -460,7 +460,7 @@
                                 {{ transaction.status == "ERROR"? "Ocurrió un error durante la compra" : "" }}
                                 {{ transaction.status == "PENDING"? "Pago pendiente" : "" }}
                                 {{ transaction.status == "FAILED"? "La compra terminó con una falla." : "" }}</b></div>
-                            <div ng-if="transaction.status == 'APPROVED' || transaction.status == 'PENDING' || transaction.status == 'REJECTED' || transaction.status == 'ERROR' || transaction.status == 'FAILED' ">Transacción: <b>{{ transaction._id }}</b> | Fecha: <b>{{ transaction.added }}</b></div>
+                            <div ng-if="transaction.status == 'APPROVED' || transaction.status == 'PENDING' || transaction.status == 'REJECTED' || transaction.status == 'ERROR' || transaction.status == 'FAILED' ">Transacción: <b>{{ transaction._id }}</b> | Fecha: <b>{{ transaction.added | date : 'yyyy-MM-dd HH:mm' }}</b></div>
                             <div ng-if="transaction.status == 'APPROVED'">
                                 <a style="text-decoration: none; color: #fff;" href="" ng-click="printDiv(transaction)">Descargar comprobante de pago</a>
                             </div>

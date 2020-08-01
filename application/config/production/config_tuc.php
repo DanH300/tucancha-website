@@ -63,3 +63,5 @@ $config['available_subscription_prices'] = array(
 	'19441019' => '49.95',
 	'19441020' => '99.9'
 );
+
+$config['onesignal_app_id'] = 'b1663dbb-0858-466b-9b76-d391a89e427f';

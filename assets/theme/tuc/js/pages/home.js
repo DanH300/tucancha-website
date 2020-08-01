@@ -31,6 +31,58 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
         image: '/assets/theme/tuc/images/logo.png'
     };
 
+
+    var showTransactionStatus = function(data){
+         
+        $scope.show_alert_pay_pending = 0;
+        transactions = data.content;
+       
+        for(var i = 0; i < transactions.length ; i++){
+            var transaction = transactions[i];
+
+            var today = new Date();
+            var day = new Date(transaction.added);
+
+            if((today.getTime() - day.getTime()) <=  3600000 ){
+                if(transaction.status == 'PENDING'){
+                    $scope.show_alert_pay_pending = 1;
+                    toastr.warning('El pago #'+transaction._id+' está en espera aprobación',
+                    'Por favor, espere hasta 5 minutos hasta que su pago se procese. Si no realizó ningún pago desestime esta alerta.',
+                    {timeOut: 50000});
+                    
+                }
+                else if(transaction.status == 'APPROVED'){
+                    $scope.show_alert_pay_pending = 1;
+                    toastr.success('El pago #'+transaction._id+' fué aprobado.',
+                    {timeOut: 50000});
+                }
+                else if(transaction.status == 'REJECTED'){
+                    $scope.show_alert_pay_pending = 1;
+                    toastr.error('El pago #'+transaction._id+' fué rechazado.',
+                    {timeOut: 50000});
+                }
+                else if(transaction.status == 'ERROR'){
+                    $scope.show_alert_pay_pending = 1;
+                    toastr.error('El pago #'+transaction._id+' tuvo un error.',
+                    {timeOut: 50000});
+                }
+                else if(transaction.status == 'FAILED'){
+                    $scope.show_alert_pay_pending = 1;
+                    toastr.error('El pago #'+transaction._id+' falló.',
+                    {timeOut: 50000});
+                }
+            }
+        }
+    }
+
+    var checkTransactions = function (){
+        globalFactory.getAllP2PPay().then(function(data){
+            globalFactory.getAllP2PPay().then(function(data){
+                showTransactionStatus(data);
+            });
+        });
+    }
+
     /* traigo el profile */
     if($scope.user){
         globalFactory.getProfileCurrent().then(function(data){
@@ -40,54 +92,9 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
                 reqsId.push(payments[i].creditCardId);
             }
         })
-   
-        globalFactory.getAllP2PPay().then(function(data){
-            
-            $scope.show_alert_pay_pending = 0;
-            transactions = data.content;
-           
-            for(var i = 0; i < transactions.length ; i++){
-                var transaction = transactions[i];
+          
+        checkTransactions();
 
-                var today = new Date();
-                var day = new Date(transaction.added);
-
-                if((today.getTime() - day.getTime()) <=  3600000 ){
-                    if(transaction.status == 'PENDING'){
-                        $scope.show_alert_pay_pending = 1;
-                        toastr.warning('El pago #'+transaction._id+' está en espera aprobación',
-                        'Por favor, espere hasta 5 minutos hasta que su pago se procese. Si no realizó ningún pago desestime esta alerta.',
-                        {timeOut: 50000});
-                        
-                    }
-                    else if(transaction.status == 'APPROVED'){
-                        $scope.show_alert_pay_pending = 1;
-                        toastr.success('El pago #'+transaction._id+' fué aprobado.',
-                        {timeOut: 50000});
-                    }
-                    else if(transaction.status == 'REJECTED'){
-                        $scope.show_alert_pay_pending = 1;
-                        toastr.error('El pago #'+transaction._id+' fué rechazado.',
-                        {timeOut: 50000});
-                    }
-                    else if(transaction.status == 'ERROR'){
-                        $scope.show_alert_pay_pending = 1;
-                        toastr.error('El pago #'+transaction._id+' tuvo un error.',
-                        {timeOut: 50000});
-                    }
-                    else if(transaction.status == 'FAILED'){
-                        $scope.show_alert_pay_pending = 1;
-                        toastr.error('El pago #'+transaction._id+' falló.',
-                        {timeOut: 50000});
-                    }
-                }
-            }
-            
-        });
-
-
-        
-        
         globalFactory.getLastContract().then(function(data) {
             $scope.plans = data.content.entries;
             $scope.user.subscriptionPlan = data.content.entries[(data.content.entries.length-1)];
@@ -98,6 +105,8 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
         });
         
     }
+
+
 
 
     $scope.moveLeft = function() {
