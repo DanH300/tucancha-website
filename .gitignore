@@ -2,3 +2,4 @@
 /application/config/staging/.DS_Store
 /application/config/development/.DS_Store
 /.DS_Store
+env.ini
