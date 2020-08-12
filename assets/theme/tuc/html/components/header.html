@@ -238,6 +238,12 @@
                             </div>
                             <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="userRegister.dni">
                         </div>
+                        <div class="single-input col-sm-6">
+                            <div class="input-label">
+                                Confirmar Cédula de Identidad *
+                            </div>
+                            <input class="{{error=='cedula'?'input-error':''}}" type="text" onpaste="return false;" autocomplete="off" ng-model="userRegister.dni_verify">
+                        </div>
                     </div>
                     <div class="row submit">
                         <div class="col-sm-8 col-sm-offset-2">

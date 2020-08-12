@@ -268,6 +268,8 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         password_verify: '',
         first_name: '',
         last_name: '',
+        dni: '',
+        dni_verify: '',
         termsRegular: false,
         termsFacebook: false,
         country: $rootScope.geo ? $rootScope.geo.countryCode : null
@@ -292,7 +294,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
     }
 
     $scope.disableRegister = function() {
-        if (!$scope.userRegister.email || !$scope.userRegister.email_verify || !$scope.userRegister.password || !$scope.userRegister.password_verify || !$scope.userRegister.first_name || !$scope.userRegister.last_name || !$scope.userRegister.dni || !$scope.validDni) return true;
+        if (!$scope.userRegister.email || !$scope.userRegister.email_verify || !$scope.userRegister.password || !$scope.userRegister.password_verify || !$scope.userRegister.first_name || !$scope.userRegister.last_name || !$scope.userRegister.dni) return true;
     };
 
     $scope.validateDni = function () {
@@ -331,7 +333,9 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
 
         } else if ($scope.userRegister.password != $scope.userRegister.password_verify || $scope.userRegister.password.length < 8) {
             $scope.error = 'password';
-        } else if (!$scope.userRegister.termsRegular) {
+        } else if ( $scope.userRegister.dni != $scope.userRegister.dni_verify) {
+            $scope.error = 'cedula';
+        }else if (!$scope.userRegister.termsRegular) {
             $scope.noTerms = true;
         } else {
             $scope.registering = true;
