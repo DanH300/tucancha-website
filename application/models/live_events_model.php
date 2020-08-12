@@ -17,9 +17,10 @@ class Live_events_model extends CI_Model {
         if($date){
             $filters->event_date = $date;
         }
-
+         $filters['categories.name'] = "commerce_subscription_basic_media|commerce_members_media|commerce_free_media" ;
         if($filters){
             $params["filters"] = $filters;
+            
         }
 
         return apiPost("event/list", $params);
@@ -149,5 +150,3 @@ class Live_events_model extends CI_Model {
 	}
 
 }
-
-?>

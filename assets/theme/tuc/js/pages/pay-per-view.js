@@ -183,15 +183,16 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
     };
 
     $scope.userPurchasedFromEvent = function(singleEvent) {
-        for (var i = 0; i < singleEvent.tickets.length; i++) {
-            var ticket = singleEvent.tickets[i];
-            for (var j = 0; j < $scope.length($scope.user.ppvTickets); j++) {
-                if ($scope.user.ppvTickets[j].id == ticket._id) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        if(!singleEvent || !singleEvent.tickets || singleEvent.tickets.length < 1 || 
+            !$scope.user || !$scope.user.ppvTickets || $scope.user.ppvTickets.length < 1) return false;
+         for (i = 0; i < $scope.user.ppvTickets.length; i++) {
+             if($scope.user.ppvTickets[i].product.event_id === singleEvent._id){
+                 return true;
+             }
+         }
+         return false;
+
+
     };
 
     $scope.userHasAccess = function(session) {

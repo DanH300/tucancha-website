@@ -34,11 +34,12 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         $scope.mainImage = $scope.getPosterF($scope.event.content);
         initializeClock($scope.event.event_date);
         // console.log(($scope.event));
-        $scope.eventIsLive = $scope.event.event_sessions[0].live_now;
+
+        $scope.eventIsLive = Date.now() >= $scope.event.event_date;
         $scope.showAllAvailable = false;
 
         if ($scope.eventIsLive) {
-            $scope.mainEvent = $scope.event.event_sessions[0];
+            $scope.mainEvent = $scope.event;
         }
 
         $scope.getPermissions();
@@ -339,15 +340,13 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         return false
     };
 
-    $scope.userHasAccess = function(session) {
-        if (session) {
-            var i;
-            for (i = 0; i < $scope.length($scope.user.ppvTickets); i++) {
-                if (session.access_tickets.indexOf(User.ppvTickets[i].id) != -1) {
-                    return true;
-                }
+    $scope.userHasAccess = function() {
+        if(!$scope.event || !$scope.event.tickets || $scope.event.tickets.length < 1 || 
+           !$scope.user || !$scope.user.ppvTickets || $scope.user.ppvTickets.length < 1) return false;
+        for (i = 0; i < $scope.user.ppvTickets.length; i++) {
+            if($scope.user.ppvTickets[i].product.event_id === $scope.event._id){
+                return true;
             }
-            return false;
         }
         return false;
     }
@@ -466,7 +465,7 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     };
 
     $scope.enoghCredits = function() {
-
+        if(!$scope.selectedTicket) return false;
         return $scope.selectedTicket.price <= $scope.wallet.credits;
 
     }

@@ -2,21 +2,21 @@
   
     <div class="main-image" style="background-image:url('{{mainImage | https}}')">
         <div class="gradient">
-            <!-- <div class="performer-about" ng-hide="userHasAccess(event.event_sessions[0]) && eventIsLive">
+            <!-- <div class="performer-about" ng-hide="userHasAccess() && eventIsLive">
                 <h1>{{event.title}}</h1>
                 <p>{{event.description}}</p>
             </div> -->
-            <div class="info" ng-hide="userHasAccess(event.event_sessions[0]) && eventIsLive">
+            <div class="info" ng-hide="userHasAccess() && eventIsLive">
                 <div class="title">{{event.title}}</div>
                 <div class="date">{{event.event_sessions[0].event_date | date: 'EEEE MMM d | h:mm a'}}</div>
                 <!-- <div class="ppv-live">LIVE VIA PAY-PER-VIEW</div> -->
                 <!-- <div class="venue">FROM THE NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
             </div>
-            <div class="main-event-container" ng-if="userHasAccess(event.event_sessions[0]) && eventIsLive">
+            <div class="main-event-container" ng-if="userHasAccess() && eventIsLive">
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="event-player">
-                            <rmpplayer ng-if="mainEvent._id" video="mainEvent" autoplay="true" data-id="video-player"></rmpplayer>
+                            <pixellotplayer ng-if="mainEvent._id" video="mainEvent"  data-id="video-player"></pixellotplayer>
                         </div>
                     </div>
                     <div class="col-sm-5">
