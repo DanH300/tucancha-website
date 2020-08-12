@@ -101,7 +101,7 @@ uvodApp.controller('SubscriptionController', function($scope, globalFactory, Aut
 
     $scope.buy = function(plan) {
         if ($scope.user && $scope.user._id) {
-            if ($scope.user.subscriptionPlan) {
+            if ($scope.user.subscriptionPlan && (JSON.stringify($scope.user.subscriptionPlan) != "[null]")) {
                 $scope.go("account/subscription");
             } else {
                 $scope.currentPlan = plan;
