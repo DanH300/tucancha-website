@@ -102,6 +102,14 @@ class Account extends REST_Controller{
         $this->response($this->account_model->update_profile($data["_id"],$data),200);
     }
 
+    function update_user_post(){
+        $post = $this->post();
+        $id = $post['id'];
+        $data = $post['data'];
+        $this->response($this->account_model->update_user_raw($id,$data),200);
+    }
+
+
     function delete_device_post(){
         $data = $this->post();
         $deviceId = $data['deviceId'];

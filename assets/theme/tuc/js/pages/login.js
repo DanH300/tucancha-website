@@ -14,6 +14,11 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
     };
     $scope.fbRegister = false;
 
+    $scope.dniUpdate = {
+        dni: '',
+        dni_verify: '',
+    }
+
     $scope.userLogin = {
         email: '',
         password: '',
@@ -172,6 +177,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         $scope.loginError = "";
         $scope.error = "";
         $scope.registering = false;
+        $scope.updatingDni = false;
         $scope.fbRegister = false;
 
         //    $location.path('/');
@@ -293,9 +299,20 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         $('#devicesModal').modal('hide');
     }
 
+    $scope.disableUpdateDni = function() {
+        if (!$scope.dniUpdate.dni || !$scope.dniUpdate.dni_verify || $scope.dniUpdate.dni != $scope.dniUpdate.dni_verify) return true;
+    };
+
     $scope.disableRegister = function() {
         if (!$scope.userRegister.email || !$scope.userRegister.email_verify || !$scope.userRegister.password || !$scope.userRegister.password_verify || !$scope.userRegister.first_name || !$scope.userRegister.last_name || !$scope.userRegister.dni) return true;
     };
+
+    $scope.updateDni = function(){
+        $scope.updatingDni = true;
+        AuthService.updateDni($scope.dniUpdate.dni).then(function(){
+            $scope.updatingDni = false;
+        });
+    }
 
     $scope.validateDni = function () {
         var cad = document.getElementById("dni").value.trim();

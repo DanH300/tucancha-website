@@ -354,6 +354,10 @@ class Account_model extends CI_Model {
        return $response->content;
     }
 
+    public function update_user_raw( $id, $data) {
+        return apiPost("user/update_user", array("id" => $id,"data" => $data));
+    }
+
     public function update_user( $id, $fb_id = NULL, $fb_data = NULL, $first_name = NULL, $last_name = NULL, $address = NULL, $birthDay = NULL) {
 
         $data = new stdClass();

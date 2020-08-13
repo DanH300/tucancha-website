@@ -55,6 +55,24 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         });
         return deffered.promise;
     }
+
+    scope.updateDni = function(dni) {
+        var deffered = $q.defer();
+        $http({ method: 'POST', url: 'index.php/api/account/update_user', data: {data: {dni: dni}, id: User._id} }).
+        then(function(data, status, headers, config) {
+            //Get user from the localstorage
+            var user = scope.RestoreState();
+            user.dni = data.data.content.dni;
+            User.set(user);
+            //Save the updated profile into the localstorage
+            scope.SaveState(user);
+            deffered.resolve(data.data);
+        }).
+        catch(function(data, status, headers, config) {
+            deffered.reject(data)
+        });
+        return deffered.promise;
+    }
     
 
     scope.setLoginUser = function(user) {
@@ -375,7 +393,11 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
         notificationsFactroy.sendTags(this);
         notificationsFactroy.syncHashedEmail(this.email);
         $rootScope.$broadcast("auth-login-success");
-
+        if(!user.dni){
+            $('.dniModal').modal('show');
+        }else{
+            $('.dniModal').modal('hide');
+        }
         if(user.authSignature){
             var Auth = $window['pixellot-web-sdk'].Auth;
             Auth.setSession(user.authSignature.token, user.authSignature.signature);

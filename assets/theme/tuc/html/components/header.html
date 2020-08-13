@@ -112,7 +112,7 @@
         </div>
     </nav>
 </div>
-<div ng-if="!user._id" class="modal loginModal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
+<div ng-if="!user._id" class="modal loginModal fade" id="loginModal"  tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
     <div class="modal-dialog login-modal-dialog">
         <i class="fa fa-times" aria-hidden="true" ng-click="closeModel()"></i>
         <div class="modal-content">
@@ -385,6 +385,49 @@
             <div class="loader-container" ng-if="deletingDevice">
                 <div class="loader-text">Por favor espere...</div>
                 <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal dniModal fade" id="dniModal"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="dniModal" ng-controller="LoginController">
+    <div class="modal-dialog login-modal-dialog">
+        <div class="modal-content">
+ 
+            <div class="register-page" >
+                <div class="register-header">
+                    Ingresa tu Cédula de Identidad
+                </div>
+
+                <form class="register-form">
+
+                    <div class="row">
+    
+                        <div class="single-input col-sm-6">
+                            <div class="input-label">
+                                Cédula de Identidad *
+                            </div>
+                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="dniUpdate.dni">
+                        </div>
+                        <div class="single-input col-sm-6">
+                            <div class="input-label">
+                                Confirmar Cédula de Identidad *
+                            </div>
+                            <input class="{{error=='cedula'?'input-error':''}}" type="text" onpaste="return false;" autocomplete="off" ng-model="dniUpdate.dni_verify">
+                        </div>
+                    </div>
+                    <div class="row submit">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="register-error" ng-if="error">algo salió mal, revisa tu {{error}}</div>
+                            <div class="" ng-hide="updatingDni">
+                                <input type="submit" ng-disabled="disableUpdateDni()" ng-click="updateDni()" class="submit-btn" value="ENVIAR">
+                            </div>
+                            <div class="loader" ng-if="updatingDni">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
