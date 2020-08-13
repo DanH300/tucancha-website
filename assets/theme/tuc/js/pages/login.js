@@ -351,7 +351,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         } else if ($scope.userRegister.password != $scope.userRegister.password_verify || $scope.userRegister.password.length < 8) {
             $scope.error = 'password';
         } else if ( $scope.userRegister.dni != $scope.userRegister.dni_verify) {
-            $scope.error = 'cedula';
+            $scope.error = 'cédula';
         }else if (!$scope.userRegister.termsRegular) {
             $scope.noTerms = true;
         } else {
