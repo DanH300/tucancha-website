@@ -1,0 +1,29 @@
+/*!
+ * Hoja de estilos Pixellec
+ * Autor: Daniel Castro
+ * VIII 2020
+ */
+
+.dc-home-sports {
+    padding-left: 10px;
+}
+
+.dc-home-banner {
+    margin: 15px 0px 0px 0px;
+    padding: 0px;
+    text-align: right;
+}
+
+.dc-home-banner img {
+    margin: 10px 0px 0px 0px;
+    padding: 0px;
+    width: 430px;
+    height: 315px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.dc-footer-logo {
+    padding: 20px;
+}
