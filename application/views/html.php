@@ -84,6 +84,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/common/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo "/assets/theme/".UVOD_THEME."/css/bootstrap.css"?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo "/assets/theme/".UVOD_THEME."/css/less.php"?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo "/assets/theme/".UVOD_THEME."/css/dc.css"?>" />
 
     <!-- <script type="text/javascript" src="https://cdn.tunneling.online/univ_rjr_jw7.js"></script> -->
 
