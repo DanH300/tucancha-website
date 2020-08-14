@@ -14,7 +14,7 @@ $config['streams_md5_shared_secret'] = '900P@rkCenter456';
 
 $config['website_title'] = 'Tu Cancha';
 $config['website_description'] = 'Tu Cancha OTT';
-$config['pixellot_sdk_url'] = 'https://pixellot-web-sdk.pixellot.tv/5dd3ecb332241f006c115de3/v1.2.1/pixellot-web-sdk.js';
+$config['pixellot_sdk_url'] = 'https://pixellot-web-sdk.pixellot.tv/5dd3ecb332241f006c115de3/v1.4.2/pixellot-web-sdk.js';
 
 $config['logo_file'] = 'tvj_logo.png';
 $config['logo_width'] = '127px';
