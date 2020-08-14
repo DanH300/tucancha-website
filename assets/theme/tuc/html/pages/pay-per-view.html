@@ -22,7 +22,7 @@
                                     <div class="description">{{singleEvent.description}}</div>
 
                                     <button class="btn btn-unavailable" ng-if="evaluateUnavailableButton(singleEvent)">Evento Expirado</button>
-                                    <!--<button class="btn btn-available" ng-if="!evaluateUnavailableButton(singleEvent)" ng-click="go('pay-per-view/'+singleEvent._id)">{{userPurchasedFromEvent(singleEvent)?'VER EVENTO':'COMPRA TU TICKET'}}</button> -->
+                                    <button class="btn btn-available" ng-if="!evaluateUnavailableButton(singleEvent)" ng-click="go('pay-per-view/'+singleEvent._id)">{{userPurchasedFromEvent(singleEvent)?'VER EVENTO':'COMPRA TU TICKET'}}</button>
                                 </div>
                             </div>
                         </div>
