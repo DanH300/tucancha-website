@@ -10,8 +10,8 @@
         </div>
         <div class="top-menu">
             <ul>
-                <li ng-if="user._id && !user.subscriptionPlan" style="padding:0;"><a href="" ng-click="go('account/subscription')">UPGRADE TO <span class="upgrade">PREMIUM</span></a></li>
-                <li><a class="subs-header" href="" ng-click="go('subscription')">SUBSCRIPCIONES</a></li>
+                <li ng-if="user._id && !user.subscriptionPlan" style="padding:0;" ng-hide="true"><a href="" ng-click="go('account/subscription')">UPGRADE TO <span class="upgrade">PREMIUM</span></a></li>
+                <li ng-hide="true"><a class="subs-header" href="">SUBSCRIPCIONES</a></li>
             </ul>
         </div>
         <div class="navbar-header">
@@ -36,9 +36,9 @@
 
                 <li><a href="" ng-click="go('events')">En Vivo</a></li>
                 <li><a href="" ng-click="go('pay-per-view')">Eventos PPV</a></li>
-                <li><a href="" ng-click="go('tournaments')">Torneos</a></li>
+                <li ng-hide="true"><a href="" ng-click="go('tournaments')">Torneos</a></li>
                 <li ng-repeat="activity in activities"><a href="" ng-click="go('activity/'+ activity._id)">{{activity.title}}</a></li>
-                <li><a href="">Noticias</a></li>
+                <!--<li><a href="">Noticias</a></li>-->
                 <li ng-repeat="identity in identities"><a href="" ng-click="go('identity/'+ identity._id)">{{identity.title}}</a></li>
 
                 <li class="visible-xs">
@@ -96,7 +96,7 @@
                 <li class="signin-div" ng-show="!user._id">
                     <div class="logged-out">
                         <div class="signin-btn hand" ng-click="openLoginModel()">
-                            Ingresar
+                            Regístrate Aquí
                         </div>
                     </div>
                 </li>
@@ -112,7 +112,7 @@
         </div>
     </nav>
 </div>
-<div ng-if="!user._id" class="modal loginModal fade" id="loginModal"  tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
+<div ng-if="!user._id" class="modal loginModal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
     <div class="modal-dialog login-modal-dialog">
         <i class="fa fa-times" aria-hidden="true" ng-click="closeModel()"></i>
         <div class="modal-content">
@@ -122,7 +122,7 @@
                     Ingresar a TuCancha
                 </div>
                 <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
-                    Ingresar con  Facebook
+                    Ingresar con Facebook
                 </div>
                 <div class="or-line">
                     <span class="or-span">
@@ -391,11 +391,11 @@
 </div>
 
 
-<div class="modal dniModal fade" id="dniModal"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="dniModal" ng-controller="LoginController">
+<div class="modal dniModal fade" id="dniModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="dniModal" ng-controller="LoginController">
     <div class="modal-dialog login-modal-dialog">
         <div class="modal-content">
- 
-            <div class="register-page" >
+
+            <div class="register-page">
                 <div class="register-header">
                     Ingresa tu Cédula de Identidad
                 </div>
@@ -403,7 +403,7 @@
                 <form class="register-form">
 
                     <div class="row">
-    
+
                         <div class="single-input col-sm-6">
                             <div class="input-label">
                                 Cédula de Identidad *
