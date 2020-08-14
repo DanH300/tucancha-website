@@ -9,6 +9,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
     $scope.devices = [];
     $scope.validDni = false;
     $scope.isForgotPassword = false;
+    $scope.dniError = false;
     $scope.forgotInput = {
         email: ''
     };
@@ -309,9 +310,15 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
 
     $scope.updateDni = function(){
         $scope.updatingDni = true;
+        $scope.dniError = false;
         AuthService.updateDni($scope.dniUpdate.dni).then(function(){
             $scope.updatingDni = false;
-        });
+        })
+        .catch(function(error){
+            $scope.updatingDni = false;
+            $scope.dniError = error.message;
+            
+        })
     }
 
     $scope.validateDni = function () {

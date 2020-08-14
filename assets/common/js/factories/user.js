@@ -60,6 +60,15 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         var deffered = $q.defer();
         $http({ method: 'POST', url: 'index.php/api/account/update_user', data: {data: {dni: dni}, id: User._id} }).
         then(function(data, status, headers, config) {
+
+            if(data.data.error){
+                if( data.data.message === 'dni_used'){
+                    var message = 'La cédula ya esta en uso'
+                }else {
+                    var message = data.data.message;
+                }
+                throw Error(message);
+            }
             //Get user from the localstorage
             var user = scope.RestoreState();
             user.dni = data.data.content.dni;

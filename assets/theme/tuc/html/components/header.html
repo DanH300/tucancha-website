@@ -419,7 +419,7 @@
                     </div>
                     <div class="row submit">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <div class="register-error" ng-if="error">algo salió mal, revisa tu {{error}}</div>
+                            <div class="register-error" ng-if="dniError">Algo salió mal, {{dniError}}</div>
                             <div class="" ng-hide="updatingDni">
                                 <input type="submit" ng-disabled="disableUpdateDni()" ng-click="updateDni()" class="submit-btn" value="ENVIAR">
                             </div>
