@@ -219,6 +219,12 @@ class Account extends REST_Controller{
         
     }
 
+    function get_customer_orders_post() {
+        $token = $this->post('token');
+        $this->response($this->account_model->get_customer_orders($token), 200);
+        
+    }
+
     function checkPayP2P_post () {
         $requestId = $this->post('requestId');
         $this->response($this->account_model->checkPayP2P($requestId), 200);

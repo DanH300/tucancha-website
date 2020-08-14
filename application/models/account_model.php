@@ -909,6 +909,13 @@ class Account_model extends CI_Model {
         return $token;
     }
 
+    public function get_customer_orders($token) {
+        $parameters = array();
+        $parameters["token"] = $token;
+        return apiCall("commerce/get_customer_orders", $parameters);
+    }
+    
+
     public function get_wallet($id) {
         
         $parameters = array();

@@ -4,6 +4,8 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
     $scope.user = User;
     $scope.filterList = {};
 
+    AuthService.getOrders().then( function(){})
+
     $scope.getEvents = function() {
 
         globalFactory.getPpvEvents($scope.filterList).then(function(data) {

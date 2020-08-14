@@ -333,7 +333,7 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     $scope.userPurchased = function(ticket) {
         var i;
         for (i = 0; i < $scope.length($scope.user.ppvTickets); i++) {
-            if ($scope.user.ppvTickets[i].id == ticket._id) {
+            if ($scope.user.ppvTickets[i].originalProductId == ticket._id) {
                 return true;
             }
         }

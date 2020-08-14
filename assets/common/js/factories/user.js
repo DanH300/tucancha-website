@@ -73,6 +73,32 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         });
         return deffered.promise;
     }
+
+    scope.getOrders = function() {
+        var deffered = $q.defer();
+        $http({ method: 'POST', url: 'index.php/api/account/get_customer_orders', data: {token: User.token} }).
+        then(function(data, status, headers, config) {
+            //Get user from the localstorage
+            if(data.data.content && data.data.content.entries){
+ 
+            var user = scope.RestoreState();
+            user.ppvTickets = data.data.content.entries;
+            User.set(user);
+            //Save the updated profile into the localstorage
+            scope.SaveState(user);
+            deffered.resolve(data.data.content.entries);
+            }else{
+                effered.resolve([]);
+            }
+    
+   
+        }).
+        catch(function(data, status, headers, config) {
+            deffered.reject(data)
+        });
+        return deffered.promise;
+    }
+
     
 
     scope.setLoginUser = function(user) {
@@ -353,6 +379,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
     this.set = function(user) {
         // console.log('Setting User',user);
         this._id = user.id ;
+        this.token = user.token ? user.token : null;
         this.accountId = user.profile ? user.profile.accountId : user.accountId;
         this.avatar = user.profile.avatar ? user.profile.avatar : "/assets/theme/tuc/images/profile.png";
         this.billingInfo = user.billingInfo;
@@ -415,6 +442,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
 
     this.destroy = function() {
         this._id = null;
+        this.token = null;
         this.accountId = null;
         this.avatar = null;
         this.billingInfo = null;
