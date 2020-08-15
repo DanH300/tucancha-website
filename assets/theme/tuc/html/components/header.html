@@ -113,65 +113,137 @@
     </nav>
 </div>
 <div ng-if="!user._id" class="modal loginModal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
-    <div class="modal-dialog login-modal-dialog">
+    <div class="modal-dialog login-modal-dialog" style="width: 78%;">
         <i class="fa fa-times" aria-hidden="true" ng-click="closeModel()"></i>
         <div class="modal-content">
             <div class="login-page" ng-hide="showRegister">
                 <div class="not-on-devices-error" ng-show="outOfDevicesList">Su dispositivo no está en la lista. Por favor inicie sesión</div>
                 <div class="login-header">
-                    Ingresar a TuCancha
-                </div>
-                <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
-                    Ingresar con Facebook
-                </div>
-                <div class="or-line">
-                    <span class="or-span">
-                        o
-                    </span>
-                </div>
-                <div class="credentials-span" ng-if="!isForgotPassword">
-                    Ingrese sus credenciales
-                </div>
-                <div class="inputs-cont">
-                    <form ng-if="!isForgotPassword" ng-submit="loginUser()" action='/' onsubmit="return false;" method='post'>
-                        <input type="email" name="email" autocomplete="email" ng-model="userLogin.email" placeholder="Email" required>
-                        <input type="password" name="password" autocomplete="on" ng-model="userLogin.password" placeholder="Contraseña" required>
-                        <div style="display: table;">
-                            <input type="checkbox" id="remember-me" name="remember-me" style="width: 20px;float: left;" ng-model="userLogin.remember_me" /><label for="remember-me" class="remember-me">Recuérdame</label>
-                        </div>
-                        <div class="login-error" ng-show="loginError">{{loginError}}</div>
-                        <div class="pass-success" ng-show="passwordSuccess">{{passwordSuccess}}</div>
-                        <div class="loader" ng-if="logging">
-                        </div>
-                        <input type="submit" class="login-btn" value="LOGIN" ng-hide="logging">
-                    </form>
-                    <form ng-submit="resetPassword()" ng-if="isForgotPassword">
-                        <span class="credentials-span forgot-title">Reestablecer contraseña</span>
-                        <label for="forgot-input" style="float: left;font-size: 20px;">Por favor escriba su correo electrónico:</label>
-                        <input type="email" name="forgot-input" ng-model="forgotInput.email" placeholder="Correo Electrónico" required>
-                        <div class="login-error" ng-show="forgotError">{{forgotError}}</div>
-                        <input type="submit" class="login-btn" value="Reset Password">
-                    </form>
+                    Elige como registrarte
                 </div>
 
-                <div class="forgot-span" ng-if="!isForgotPassword">
-                    ¿Olvidaste tu contraseña? <span class="hand" ng-click="enableForgot()">Click aquí</span>
-                </div>
-                <div class="or-line">
-                </div>
-                <div class="forgot-span" ng-hide="logging">
-                    ¿No tienes una cuenta?
-                </div>
-                <div class="create-cont" ng-hide="logging">
-                    <div class="create-btn" ng-click="openRegisterModel()">
-                        CREAR UNA NUEVA CUENTA
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 dc-login-modal-right">
+
+                        <div class="col dc-header-fb">
+                            <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
+                                Ingresar con Facebook
+                            </div>
+                        </div>
+
+                        <div class="or-line">
+                            <span class="or-span">
+                                o
+                            </span>
+                        </div>
+
+                        <div class="credentials-span" ng-if="!isForgotPassword">
+                            Ingrese sus credenciales
+                        </div>
+
+                        <div class="inputs-cont">
+                            <form ng-if="!isForgotPassword" ng-submit="loginUser()" action='/' onsubmit="return false;" method='post'>
+                                <input type="email" name="email" class="form-control" autocomplete="email" ng-model="userLogin.email" placeholder="Email" required>
+                                <input type="password" name="password" class="form-control" autocomplete="on" ng-model="userLogin.password" placeholder="Contraseña" required>
+                                <div style="display: table;">
+                                    <input type="checkbox" id="remember-me" name="remember-me" style="width: 20px;float: left;" ng-model="userLogin.remember_me" /><label for="remember-me" class="remember-me">Recuérdame</label>
+                                </div>
+                                <div class="login-error" ng-show="loginError">{{loginError}}</div>
+                                <div class="pass-success" ng-show="passwordSuccess">{{passwordSuccess}}</div>
+                                <div class="loader" ng-if="logging">
+                                </div>
+                                <input type="submit" class="login-btn" value="INGRESAR" ng-hide="logging">
+                            </form>
+                            <form ng-submit="resetPassword()" ng-if="isForgotPassword">
+                                <span class="credentials-span forgot-title">Reestablecer contraseña</span>
+                                <label for="forgot-input" style="float: left;font-size: 20px;">Por favor escriba su correo electrónico:</label>
+                                <input type="email" class="form-control" name="forgot-input" ng-model="forgotInput.email" placeholder="Correo Electrónico" required>
+                                <div class="login-error" ng-show="forgotError">{{forgotError}}</div>
+                                <input type="submit" class="login-btn" value="Cambiar mi contraseña">
+                                <!--<span class="hand" ng-click="openLoginModel()">Regresar a inicio de sesión</span>-->
+                            </form>
+                        </div>
+
+                        <div class="forgot-span" ng-if="!isForgotPassword">
+                            ¿Olvidaste tu contraseña? <span class="hand" ng-click="enableForgot()">Click aquí</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-12 register-page dc-login-modal-left">
+                        <form class="register-form">
+                            <div class="row">
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Nombre *
+                                    </div>
+                                    <input name="name" autocomplete="name first" type="text" ng-model="userRegister.first_name" class="form-control">
+                                </div>
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Apellido *
+                                    </div>
+                                    <input type="text" name="name" autocomplete="name last" ng-model="userRegister.last_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Email *
+                                    </div>
+                                    <input class="{{error=='email'?'input-error':''}} form-control" type="email" name="email" autocomplete="email" ng-model="userRegister.email">
+                                </div>
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Confirmar Email *
+                                    </div>
+                                    <input class="{{error=='email'?'input-error':''}} form-control" type="email" onpaste="return false;" autocomplete="off" ng-model="userRegister.email_verify">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Contraseña * <span class="flr small-text">(mínimo 8 caracteres)</span>
+                                    </div>
+                                    <input class="{{error=='password'?'input-error':''}} form-control" type="password" name="password" autocomplete="password" ng-model="userRegister.password">
+                                </div>
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Confirmar Contraseña *
+                                    </div>
+                                    <input class="{{error=='password'?'input-error':''}} form-control" type="password" onpaste="return false;" autocomplete="off" ng-model="userRegister.password_verify">
+                                </div>
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Cédula de Identidad *
+                                    </div>
+                                    <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="userRegister.dni" class="form-control">
+                                </div>
+                                <div class="single-input col-sm-6">
+                                    <div class="input-label">
+                                        Confirmar Cédula de Identidad *
+                                    </div>
+                                    <input class="{{error=='cedula'?'input-error':''}} form-control" type="text" onpaste="return false;" autocomplete="off" ng-model="userRegister.dni_verify">
+                                </div>
+                            </div>
+                            <div class="row submit">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <input class="chkbox_terms" type="checkbox" name="term-and" value="" ng-model="userRegister.termsRegular">
+                                    <label for="term-and">Aceptar <a ng-click="go('terms-and-conditions')">Términos y Condiciones *</a></label>
+                                    <div class="register-error" ng-if="error">Algo salió mal, revisa tu {{error}}</div>
+                                    <div class="register-error" ng-if="noTerms">Por favor, acepte los términos y condiciones</div>
+                                    <div class="register-error" ng-if="RegisterError">{{RegisterError}}</div>
+                                    <div class="" ng-hide="registering">
+                                        <input type="submit" ng-disabled="disableRegister()" ng-click="registerUser()" class="submit-btn" value="REGISTRARME">
+                                    </div>
+                                    <div class="loader" ng-if="registering">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="register-page" ng-show="showRegister">
-                <div class="register-header">
-                    Crea una cuenta en TuCancha
-                </div>
                 <!--<div class="disclaimer-span" ng-click="go('terms-and-conditions')">-->
                 <!--By registering you accept <span>terms and conditions</span>-->
                 <!--</div>-->
@@ -187,79 +259,7 @@
                         or
                     </span>
                 </div> -->
-                <div class="login-information">
-                    Ingresa tu <span class="login-span">información</span>
-                </div>
-                <form class="register-form">
-                    <div class="row">
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Nombre *
-                            </div>
-                            <input name="name" autocomplete="name first" type="text" ng-model="userRegister.first_name">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Apellido *
-                            </div>
-                            <input type="text" name="name" autocomplete="name last" ng-model="userRegister.last_name">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Email *
-                            </div>
-                            <input class="{{error=='email'?'input-error':''}}" type="email" name="email" autocomplete="email" ng-model="userRegister.email">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Confirmar Email *
-                            </div>
-                            <input class="{{error=='email'?'input-error':''}}" type="email" onpaste="return false;" autocomplete="off" ng-model="userRegister.email_verify">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Contraseña * <span class="flr small-text">(mínimo 8 caracteres)</span>
-                            </div>
-                            <input class="{{error=='password'?'input-error':''}}" type="password" name="password" autocomplete="password" ng-model="userRegister.password">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Confirmar Contraseña *
-                            </div>
-                            <input class="{{error=='password'?'input-error':''}}" type="password" onpaste="return false;" autocomplete="off" ng-model="userRegister.password_verify">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Cédula de Identidad *
-                            </div>
-                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="userRegister.dni">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Confirmar Cédula de Identidad *
-                            </div>
-                            <input class="{{error=='cedula'?'input-error':''}}" type="text" onpaste="return false;" autocomplete="off" ng-model="userRegister.dni_verify">
-                        </div>
-                    </div>
-                    <div class="row submit">
-                        <div class="col-sm-8 col-sm-offset-2">
-                            <input class="chkbox_terms" type="checkbox" name="term-and" value="" ng-model="userRegister.termsRegular">
-                            <label for="term-and">Aceptar <a ng-click="go('terms-and-conditions')">Términos y Condiciones *</a></label>
-                            <div class="register-error" ng-if="error">Algo salió mal, revisa tu {{error}}</div>
-                            <div class="register-error" ng-if="noTerms">Por favor, acepte los términos y condiciones</div>
-                            <div class="register-error" ng-if="RegisterError">{{RegisterError}}</div>
-                            <div class="" ng-hide="registering">
-                                <input type="submit" ng-disabled="disableRegister()" ng-click="registerUser()" class="submit-btn" value="REGISTRARME">
-                            </div>
-                            <div class="loader" ng-if="registering">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
             </div>
         </div>
     </div>
@@ -419,7 +419,7 @@
                     </div>
                     <div class="row submit">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <div class="register-error" ng-if="error">algo salió mal, revisa tu {{error}}</div>
+                            <div class="register-error" ng-if="error">Algo salió mal, revisa tu {{error}}</div>
                             <div class="" ng-hide="updatingDni">
                                 <input type="submit" ng-disabled="disableUpdateDni()" ng-click="updateDni()" class="submit-btn" value="ENVIAR">
                             </div>

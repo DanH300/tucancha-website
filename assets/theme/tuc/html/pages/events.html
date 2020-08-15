@@ -20,7 +20,7 @@
                                         <div ng-if="singleEvent.categories[0].name == 'commerce_subscription_basic_media'">PREMIUM</div>
                                     </div>
                                     <div class="title"><i>{{singleEvent.title}}</i></div>
-                                    <div class="date">Inicio {{singleEvent.event_date | date: 'EEEE MMM d h:mma'}}</div>
+                                    <div class="date">Inicio {{singleEvent.event_date | date: 'MMM d h:mma'}}</div>
                                     <!-- <div class="venue">NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
                                     <div class="description">{{singleEvent.description}}</div>
                                     <button class="btn btn-available" ng-click="go('event/'+singleEvent._id)">Ver Evento</button>

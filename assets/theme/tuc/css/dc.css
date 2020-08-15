@@ -27,3 +27,27 @@
 .dc-footer-logo {
     padding: 20px;
 }
+
+.dc-header-login {
+    margin: 0px;
+    padding: 0px;
+}
+
+.dc-header-fb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dc-login-modal-right {
+    padding: 0px 20px 0px 20px;
+    border-right: 2px solid #d0dd28;
+}
+
+.dc-login-modal-left {
+    padding: 0px 20px 0px 30px;
+}
+
+.dc-footer-derechos {
+    margin-top: 20px;
+}
