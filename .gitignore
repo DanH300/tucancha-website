@@ -4,3 +4,4 @@
 /.DS_Store
 env.ini
 .DS_Store
+/composer.lock
