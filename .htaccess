@@ -1,16 +1,3 @@
-RewriteEngine on
-
-#RewriteCond %{HTTPS} off
-# First rewrite to HTTPS:
-# Don't put www. here. If it is already there it will be included, if not
-# the subsequent rule will catch it.
-#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# Now, rewrite any request to the wrong domain to use www.
-# [NC] is a case-insensitive match
-#RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-
 #RewriteCond %{REQUEST_FILENAME} !lb\.php$
 #RewriteCond %{REQUEST_URI} !^/hauth
 #RewriteCond %{REQUEST_URI} !^/index.php/hauth
@@ -21,11 +8,6 @@ RewriteEngine on
  Order Allow,Deny
  Deny from all
 </filesMatch>
-
-#AuthUserFile /var/fog/apps/30029/ex.phpfogapp.com/.htpass
-#AuthType Basic
-#AuthName "Enter password"
-#Require valid-user
 
 Options -Indexes
 Options +FollowSymLinks
@@ -44,4 +26,6 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^(.*) /index.php [NC,L]
+
+Redirect /sportclub /identity/5e1f05cc034d704df9e2902e/5e74bf59a12738101a4e2acd
 </IfModule>
