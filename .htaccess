@@ -1,5 +1,3 @@
-
-
 RewriteEngine on
 
 #RewriteCond %{HTTPS} off
@@ -24,7 +22,6 @@ RewriteEngine on
  Deny from all
 </filesMatch>
 
-
 #AuthUserFile /var/fog/apps/30029/ex.phpfogapp.com/.htpass
 #AuthType Basic
 #AuthName "Enter password"
@@ -37,8 +34,14 @@ Options +FollowSymLinks
 DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
-	RewriteEngine on
-
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^(.*) /index.php [NC,L]
 </IfModule>
