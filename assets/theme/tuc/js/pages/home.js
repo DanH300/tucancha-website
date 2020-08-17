@@ -53,12 +53,12 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
                 }
                 else if(transaction.status == 'APPROVED'){
                     $scope.show_alert_pay_pending = 1;
-                    toastr.success('El pago #'+transaction._id+' fué aprobado.',
+                    toastr.success('El pago #'+transaction._id+' fue aprobado.',
                     {timeOut: 50000});
                 }
                 else if(transaction.status == 'REJECTED'){
                     $scope.show_alert_pay_pending = 1;
-                    toastr.error('El pago #'+transaction._id+' fué rechazado.',
+                    toastr.error('El pago #'+transaction._id+' fue rechazado.',
                     {timeOut: 50000});
                 }
                 else if(transaction.status == 'ERROR'){

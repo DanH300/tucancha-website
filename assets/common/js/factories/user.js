@@ -63,7 +63,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
 
             if(data.data.error){
                 if( data.data.message === 'dni_used'){
-                    var message = 'La cédula ya esta en uso'
+                    var message = 'La cédula ya está en uso'
                 }else {
                     var message = data.data.message;
                 }
