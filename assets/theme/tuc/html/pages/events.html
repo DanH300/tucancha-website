@@ -15,15 +15,15 @@
                                 </div>
                                 <div class="available-info col-sm-9 col-xs-12">
                                     <div class="cc event-commerce-info">
-                                        <div ng-if="!singleEvent.categories || singleEvent.categories[0].name == 'commerce_free_media'">FREE</div>
-                                        <div ng-if="singleEvent.categories[0].name == 'commerce_members_media'">MEMBER</div>
+                                        <div ng-if="!singleEvent.categories || singleEvent.categories[0].name == 'commerce_free_media'">GRATIS</div>
+                                        <div ng-if="singleEvent.categories[0].name == 'commerce_members_media'">MIEMBRO</div>
                                         <div ng-if="singleEvent.categories[0].name == 'commerce_subscription_basic_media'">PREMIUM</div>
                                     </div>
                                     <div class="title"><i>{{singleEvent.title}}</i></div>
-                                    <div class="date">Inicio {{singleEvent.event_date | date: 'EEEE MMM d h:mma'}}</div>
+                                    <div class="date">Inicio {{singleEvent.event_date | date: 'MMM d h:mma'}}</div>
                                     <!-- <div class="venue">NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
                                     <div class="description">{{singleEvent.description}}</div>
-                                    <button class="btn btn-available" ng-click="go('event/'+singleEvent._id)">VIEW EVENT</button>
+                                    <button class="btn btn-available" ng-click="go('event/'+singleEvent._id)">Ver Evento</button>
                                 </div>
                             </div>
                         </div>

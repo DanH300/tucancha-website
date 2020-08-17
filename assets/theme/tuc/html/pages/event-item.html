@@ -1,6 +1,6 @@
 <div class="ppv-error-message" ng-if="!hasAccess()">
-    <h2 class="info-right" ng-hide="allowAccess || permission =='Subscribed'">You must be a Register to watch this event.</h2>
-    <h2 class="info-right" ng-show="permission =='Subscribed'">You must be a Subscriber to watch this event.</h2>
+    <h2 class="info-right" ng-hide="allowAccess || permission =='Subscribed'">Debes estar registrado para mirar este evento</h2>
+    <h2 class="info-right" ng-show="permission =='Subscribed'">Debes tener una suscripción activa para mirar este evento</h2>
 </div>
 <div class="pay-per-view-item" ng-if="event._id && hasAccess()">
 

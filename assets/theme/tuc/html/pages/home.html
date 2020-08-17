@@ -13,12 +13,28 @@
             <span class="icon icon-arrow-right-32x83" aria-hidden="true"></span>
         </a>
     </div>
-    
+
+    <div class="single-category home-middle row">
+        <sports-carousel data-carouse-id="sports" class="col-sm-4"></sports-carousel>
+        <div class="col-sm-8">
+            <div class="col-md-6 padding-0">
+                <div class="dc-home-banner">
+                    <img src="/assets/theme/tuc/images/banner_1.jpg">
+                </div>
+            </div>
+            <div class="col-md-6 padding-0">
+                <div class="dc-home-banner">
+                    <img src="/assets/theme/tuc/images/banner_2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="categories">
         <div class="single-category" ng-if="user._id && myList.length > 0" myList="myList">
             <div class="category-header">
-                <h1>My Watchlist</h1>
+                <h1>Lista Contenido</h1>
             </div>
             <div class="my-watchlist">
                 <div class="watchlist-carousel-container">
@@ -38,9 +54,10 @@
                 </div>
             </div>
         </div>
+
         <div class="single-category" ng-show="events.length >0">
             <div class="category-header">
-                <h1>Live Events</h1>
+                <h1>Eventos en Vivo</h1>
             </div>
             <div class="featured-shows">
                 <div class="row new-releases">
@@ -48,26 +65,21 @@
                 </div>
             </div>
         </div>
-       
-
-        <div class="single-category home-middle row">
-            <sports-carousel data-carouse-id="sports" class="col-sm-4"></sports-carousel>
-        </div>
 
         <div class="single-category">
-                <div class="category-header">
-                    <h1>Eventos PPV</h1>
-                </div>
-                <div class="featured-shows">
-                    <div class="row new-releases">
-                        <ppv-block class="col-xs-12 col-sm-6 col-lg-3" my-list="myList" ng-repeat="ppv in ppvEvents | limitTo:12" video="ppv"></ppv-block>
-                    </div>
-                </div>
-             
+            <div class="category-header">
+                <h1>Eventos PPV</h1>
             </div>
-        
+            <div class="featured-shows">
+                <div class="row new-releases">
+                    <ppv-block class="col-xs-12 col-sm-6 col-lg-3" my-list="myList" ng-repeat="ppv in ppvEvents | limitTo:12" video="ppv"></ppv-block>
+                </div>
+            </div>
+
+        </div>
+
         <div class="empty-space">
         </div>
-        
+
     </div>
 </div>
