@@ -173,14 +173,14 @@ uvodApp.directive('pixellotplayer', function() {
                             streamName: 'hd',
                             limit: 20
                         };
-                        $scope.PixellotWebSDK.TagService.getTags(options)
-                        .then(response => response.json())
-                        .then(res => {
-                            if(typeof(res.data.error) == 'undefined' || res.data.error.length == 0){
-                                const tags = res.data.result;
-                                $scope.tagDecorat.showTags(tags);
-                            }
-                        });
+                        // $scope.PixellotWebSDK.TagService.getTags(options)
+                        // .then(response => response.json())
+                        // .then(res => {
+                        //     if(typeof(res.data.error) == 'undefined' || res.data.error.length == 0){
+                        //         const tags = res.data.result;
+                        //         $scope.tagDecorat.showTags(tags);
+                        //     }
+                        // });
                     }
                 }
                 
