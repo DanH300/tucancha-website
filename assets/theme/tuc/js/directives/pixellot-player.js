@@ -45,7 +45,7 @@ uvodApp.directive('pixellotplayer', function() {
                                 videoUrl += "?";
 
                             var posterUrl = $scope.getPosterUrl(vid);
-                            sources.push({ file: httpsFilt(videoUrl), image: posterUrl });
+                            sources.push(httpsFilt(videoUrl));
                         }
                         
                         if (vid.content) {
@@ -54,7 +54,7 @@ uvodApp.directive('pixellotplayer', function() {
                                     var videoUrl = value.url || value;
                                     if (videoUrl.indexOf("?") < 0)
                                         videoUrl += "?";
-                                    sources.push({ file: httpsFilt(videoUrl) });
+                                    sources.push(httpsFilt(videoUrl));
                                 }
                             });
                         }
