@@ -16,7 +16,7 @@ uvodApp.directive('pixellotplayer', function() {
             $scope.errorMessage = '';
             $scope.isRecording = false;
             $scope.isAdded = false;
-
+            $scope.user = User;
             if(User.globalTags){
                 $('#global-tag').prop('checked', true);
                 $scope.createglobal = true;
