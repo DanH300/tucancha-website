@@ -99,13 +99,13 @@ class Account_model extends CI_Model {
  
         $user = new stdClass();
         $user->id= $user_id;
-        if ($this->session->userdata('login_token')){
-            
-            $user->token = $this->session->userdata('login_token');
-        } else if($token != null){
-            
+
+        if($token){
             $user->token = $token;
+        }else{
+            $user->token = $this->session->userdata('login_token');
         }
+
         $data = apiPost("user/check_current_device", array("device_id" => $device_id, "device_name" => $device_name, "user" => json_encode($user)));
 
         return $data;

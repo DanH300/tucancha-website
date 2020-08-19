@@ -288,7 +288,7 @@ class Account extends REST_Controller{
         $device_id = $this->post("device_id");
         $device_name = $this->post("device_name");
         $user_id = $this->post("userId");
-        $token = $this->post("userId")? $this->post("userId") : null;
+        $token = $this->post("token")? $this->post("token") : null;
         
         $row = $this->account_model->check_devices($device_id, $device_name, $user_id, $token);
         $status = 200;

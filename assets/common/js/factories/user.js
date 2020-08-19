@@ -196,7 +196,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
 
     scope.checkDevices = function() {
         var deffered = $q.defer();
-        $http({ method: 'POST', url: 'index.php/api/account/check_devices', data: { device_id: navigator.userAgent, device_name: navigator.userAgent, userId: User._id } }).
+        $http({ method: 'POST', url: 'index.php/api/account/check_devices', data: { device_id: navigator.userAgent, device_name: navigator.userAgent, userId: User._id, token: User.token } }).
         then(function(data, status, headers, config) {
             if (data.data.content.enabled == false) {
                 scope.logout();
