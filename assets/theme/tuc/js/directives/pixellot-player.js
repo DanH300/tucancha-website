@@ -7,8 +7,9 @@ uvodApp.directive('pixellotplayer', function() {
             autoplay: '=autoplay',
             id: '@id'
         },
-        controller: ['$scope', 'globalFactory', '$filter','$window', 'User', 'AuthService', function jwpCtrl($scope, globalFactory, $filter, $window, User, AuthService) {
+        controller: ['$scope', 'globalFactory', '$filter','$window', 'User', 'AuthService', 'TagFactory', function jwpCtrl($scope, globalFactory, $filter, $window, User, AuthService, TagFactory) {
             var httpsFilt = $filter('https')
+            $scope.taglistid= 'tagList'
             $scope.playCalled = false,
             $scope.playerContainer = null;
             $scope.player = null;
@@ -16,10 +17,19 @@ uvodApp.directive('pixellotplayer', function() {
             $scope.isRecording = false;
             $scope.isAdded = false;
 
+            if(User.globalTags){
+                $('#global-tag').prop('checked', true);
+                $scope.createglobal = true;
+            }else {
+                $scope.createglobal = false;
+            }
+
+            $scope.tags = [];
+
                 $scope.setupVideo = function(vid, $filter) {
                     var sources = [];
                     var autostart = true;
-
+                    $scope.tags = [];
                     if (vid) {
 
                         if (vid.HLSStream) {
@@ -77,8 +87,13 @@ uvodApp.directive('pixellotplayer', function() {
             $scope.loadPlayer = function(vid, sources, autostart) {
 
                 $scope.PixellotWebSDK = $window['pixellot-web-sdk'];
+                const { TagCreateDecorator, TagDecorator } = $scope.PixellotWebSDK.Decorators;
                 $scope.playerContainer = document.getElementById($scope.id);
-                $scope.player = $scope.PixellotWebSDK.Player($scope.playerContainer) ;
+               
+                $scope.player = $scope.PixellotWebSDK.Player($scope.playerContainer)
+
+                $scope.player = TagDecorator($scope.player);
+
                 $scope.player.setSource(sources[0]);
                 $scope.videoUrl = sources[0];
 
@@ -87,6 +102,7 @@ uvodApp.directive('pixellotplayer', function() {
 
                     //Define Clip and Tag decorator
                     const { ClipCreateDecorator, TagDecorator } = $scope.PixellotWebSDK.Decorators;
+                    const TagService = $scope.PixellotWebSDK.TagService;
                     $scope.ClipService = $scope.PixellotWebSDK.ClipService;
                     //Apply Clip Decorator
                     $scope.clipDecorator = ClipCreateDecorator(
@@ -163,24 +179,31 @@ uvodApp.directive('pixellotplayer', function() {
     
                     //Apply Tag Decorator
                     if(User.Auth){
+                        $scope.player = TagCreateDecorator($scope.player ,
+                            {
+                                onTagCreateRequest: (currentTime) => { 
+                                    $scope.openTagList(currentTime);
+                                }
+                            });
+                        $scope.player.tagUI.show();
+                       
+                        Promise.all([
+                            TagFactory.getTags({global: "true{boolean}", targetId: $scope.video.referenceId}),
+                            TagFactory.getTags({global: "false{boolean}", userId: User._id, targetId: $scope.video.referenceId}),
+                            $scope.verifyPixellotToken()
+                        ]).then(  response => response[0].concat(response[1]) )
+                            .then(tags => {
+                                $scope.tags = tags;
+                                for(var i = 0; i < tags.length; i++){
+                                    tags[i].imageUrl =  window.location.origin+'/assets/common/images/tags/'+tags[i].type + '.svg'
+                                }
+                                if($scope.tags.length > 0){
+                                    $('#create_highlight_form_tags').show();
+                                }
+                                $scope.player.showTags( tags)  
+                            })
 
-                        //Don't remove. The player SKD fetch an Auth constant into the environment
-                        const Auth = User.Auth; 
-                        $scope.tagDecorat = TagDecorator($scope.player);
-                        var options = {
-                            targetId : $scope.video.referenceId,
-                            videoType: 'vod',
-                            streamName: 'hd',
-                            limit: 20
-                        };
-                        // $scope.PixellotWebSDK.TagService.getTags(options)
-                        // .then(response => response.json())
-                        // .then(res => {
-                        //     if(typeof(res.data.error) == 'undefined' || res.data.error.length == 0){
-                        //         const tags = res.data.result;
-                        //         $scope.tagDecorat.showTags(tags);
-                        //     }
-                        // });
+                    
                     }
                 }
                 
@@ -206,6 +229,10 @@ uvodApp.directive('pixellotplayer', function() {
                         }
                     });
                 });
+
+                $('#create_highlight_form_tags').on('click', function(){
+                    $scope.createHighlight();
+                  });
 
                 //google analytics play event (on setup end)
                 $scope.handleMediaEvents('Play', vid.title);
@@ -283,13 +310,124 @@ uvodApp.directive('pixellotplayer', function() {
                 });
             }
 
+            $scope.createHighlight = function(){
+                const ClipService = $scope.PixellotWebSDK.ClipService;
+
+                const inputSegments = [];
+
+                for(var i = 0; i < $scope.tags.length; i++){
+                    inputSegments.push({
+                        from: Math.floor($scope.tags[i].timePTS), 
+                        to:  Math.floor($scope.tags[i].timePTS) + 20, 
+                        externalVideoUrl: $scope.videoUrl
+                    })
+                }
+
+                const options = {
+                    inputSegments: inputSegments,
+                    streamName: 'hd',
+                    name: $scope.video.title + ' - User Highlight',
+                    targetId: $scope.video.referenceId,
+                    clipType: 'highlight',
+                    useMusic: true
+                }
+                console.log(JSON.stringify(options))
+                ClipService.createHighlight(options)
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .then(data => {
+                        console.log(data)
+                        alert('created');
+                    })
+            }
+
             $scope.resetLoadingTxt = function(){
                 $('.alert-success').hide(600);
                 $('.loading-txt').html('The clip is being created. Please wait...');
                 $('.process-complete-icon').hide(600);
                 $('.loader').show(600);
             }
+
+            $scope.getSportTags = function(){
+                if(!$scope.video) return [];
+                console.log($scope.video);
+                if(sportTags[$scope.video.sportType]){
+                    return sportTags[$scope.video.sportType];
+                }else {
+                    return otherSportTags;
+                }
+            }
+
+            $scope.createTag = function(tagTime, tagType){
+                const TagService = $scope.PixellotWebSDK.TagService;
+                const options = {
+                    targetId: $scope.video.referenceId,   //event ID
+                    type: tagType,  // tag type
+                    timePTS: Math.floor(tagTime * 1000),  //number: player timestamp (milliseconds)
+                    videoType:  $scope.video.media_type === 'event' ? 'live' : 'vod', //  string: vod or live
+                    streamName: 'hd', // strnig: hd or pano (for now we don't have pano)
+                    mode: 'sync'
+                };
+                 TagService.createTag(options)
+                 .then(response => response.json())
+                 .then(response => { 
+                    response.data['global'] = $scope.createglobal;
+                    console.log($scope.createglobal);
+                    TagFactory.createTag(response.data).then( tagResponse => {
+
+                        if(User.globalTags){
+                            $('#global-tag').prop('checked', true);
+                            $scope.createglobal = true;
+                        }else {
+                            $scope.createglobal = false;
+                        }
+
+                       tagResponse.imageUrl =  window.location.origin+'/assets/common/images/tags/'+tagResponse.type + '.svg'
+                       $scope.tags.push(tagResponse);
+                       $scope.player.showTags($scope.tags);
+                       if($scope.tags.length > 0){
+                            $('#create_highlight_form_tags').show();
+                        }
+                   });
+               });
+            }
+
+            $scope.openTagList = function (currentTime) {
+                setTimeout(function () {
+                    var currentTagList = document.getElementById($scope.taglistid+'Appened');
+                    if (currentTagList) currentTagList.remove();
+                    var tagList = document.getElementById($scope.taglistid).cloneNode(true);
+                    tagList.id = $scope.taglistid+"Appened"
+                    var parent = document.getElementsByClassName("theo-player-wrapper")[0];
+
+                    var firstChild = parent.firstChild;
+                    parent.insertBefore(tagList, firstChild);
+
+
+                    $('.tag-create-container').hide();
+                    $('#global-tag').on('click', function(){
+                        $scope.createglobal = !$scope.createglobal;
+                    });
+
+                    $('#close-tag-list').on('click', function(){
+                        var currentTagList = document.getElementById($scope.taglistid+'Appened');
+                        if (currentTagList) currentTagList.remove();
+                        $('.tag-create-container').show();
+                    });
+
+                    $('.tag-item').on('click', function(){
+                        const tagItem = $(this).data('tag')
+                        $scope.createTag(currentTime,tagItem )
+                        var currentTagList = document.getElementById($scope.taglistid+'Appened');
+                        if (currentTagList) currentTagList.remove();
+                        $('.tag-create-container').show();
+                    })
+
+
+                }, 500);
+            }
         }],
+        
         link: function(scope, element, attrs) {
             scope.$watch("video", function(newValue, oldValue) {
                 scope.setupVideo(newValue);

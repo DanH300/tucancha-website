@@ -177,11 +177,15 @@
     <!-- Customer attr-->
     <script type="text/javascript" src="<?php echo "/assets/theme/".UVOD_THEME."/js/customer.js"?>"></script>
 
+    <!-- Taglist-->
+    <script type="text/javascript" src="/assets/common/global-vars/sport-tags.js"></script>
+
     <!-- Angular Factories-->
     <script type="text/javascript" src="/assets/common/js/factories/user.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/vod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/tvod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/list.js"></script>
+    <script type="text/javascript" src="/assets/common/js/factories/tag.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/countries.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/sms.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/geolocation.js"></script>

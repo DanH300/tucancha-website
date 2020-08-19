@@ -1477,3 +1477,68 @@ div#mp3_player > canvas{ width:100%; height:60px; }
 #toast-container .toast{
     opacity: 1 !important;
 }
+
+.global-tag-li{
+	margin-bottom: 10px;
+	font-family: 'Roboto';
+	color: @secondaryColor;
+}
+
+.tag-list{
+	background-color: rgba(0,0,0,0.8);
+	padding: 0 0 0 30px;
+	height: 100%;
+	width: 40%;
+	z-index: 100;
+	position: absolute;
+	right: 0;
+	font-size: 22px;
+	opacity: 0.7;
+	overflow-y: scroll;
+
+	ul{
+		padding-left: 14px !important;
+	}
+}
+
+.close-tag-list{
+	align-content: end;
+	text-align: end;
+	padding-top: 3px;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+
+.tag-item{
+	padding-bottom: 3px;
+    text-transform: capitalize;
+    font-family: 'Roboto Condensed';
+    line-height: 2.5;
+    color: #fff;
+    font-size: 18px;
+	span{
+		cursor: pointer;
+	}
+
+}
+
+.sport-tag{
+	max-height: 30px;
+    max-width: 20px;
+	filter: invert(100%) sepia(24%) saturate(0%) hue-rotate(124deg) brightness(107%) contrast(101%);
+}
+
+.tag-wrapper{
+	max-height: 30px;
+    max-width: 25px;
+} 
+
+.tag-container .tag img {
+	width: 55%;
+}
+
+.close-tag-container{
+	padding: 0!important;
+	font-size: 20px;
+	font-weight: bold;
+}
