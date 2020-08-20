@@ -99,13 +99,13 @@ class Account_model extends CI_Model {
  
         $user = new stdClass();
         $user->id= $user_id;
-        if ($this->session->userdata('login_token')){
-            
-            $user->token = $this->session->userdata('login_token');
-        } else if($token != null){
-            
+
+        if($token){
             $user->token = $token;
+        }else{
+            $user->token = $this->session->userdata('login_token');
         }
+
         $data = apiPost("user/check_current_device", array("device_id" => $device_id, "device_name" => $device_name, "user" => json_encode($user)));
 
         return $data;
@@ -392,7 +392,7 @@ class Account_model extends CI_Model {
 
         if (isset($users->content->entryCount) && (intval($users->content->entryCount) > 0)) {
             $profile = $users->content->entries[0];
-            $mandrill = new Mandrill('lwISZr2Z9D-IoPggcDSaOQ');
+            $mandrill = new Mandrill($this->config->item('mandrill_key'));
             $new_password = array();
             $new_password['password'] = rand(10000000, getrandmax());
             if (isset($profile->displayName)) {
@@ -402,16 +402,17 @@ class Account_model extends CI_Model {
             }
             $to = $email;
             $message = new stdClass();
-            $message->html = $this->load->view( 'templates/email_forgot_password', $new_password, TRUE);
-            $message->subject = "Password Reset";
-            $message->from_email = "NO_RESPONSE@shoott.com";
-            $message->from_name = "Shoot Portal";
+            $template =  $this->config->item('spanish_lang') ? 'templates/email_forgot_password_spanish' : 'templates/email_forgot_password';
+            $message->html = $this->load->view( $template, $new_password, TRUE);
+            $message->subject = $this->config->item('spanish_lang') ? "Restablecimiento de contraseña" : "Password Reset";
+            $message->from_email = $this->config->item('support_address');
+            $message->from_name = $this->config->item('website_title');
             $message->to = array(array('email' => $to));
 
             $message->track_opens = true;
-            $mandrill->messages->send($message);
-
+            $resp = $mandrill->messages->send($message);
             $response = apiPost("user/save_password", array("email" => $email, "password" => $new_password['password']));
+            
             return true;
         }
         return false;

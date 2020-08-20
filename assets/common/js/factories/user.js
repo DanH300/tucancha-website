@@ -196,7 +196,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
 
     scope.checkDevices = function() {
         var deffered = $q.defer();
-        $http({ method: 'POST', url: 'index.php/api/account/check_devices', data: { device_id: navigator.userAgent, device_name: navigator.userAgent, userId: User._id } }).
+        $http({ method: 'POST', url: 'index.php/api/account/check_devices', data: { device_id: navigator.userAgent, device_name: navigator.userAgent, userId: User._id, token: User.token } }).
         then(function(data, status, headers, config) {
             if (data.data.content.enabled == false) {
                 scope.logout();
@@ -426,6 +426,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
         this.dni = user.dni;
         this.transactionalPlans = user.transactionalPlans;
         this.deviceId = user.current_device ? user.current_device.id : null;
+        this.globalTags =  user.profile ? user.profile.globalTags : false;
         notificationsFactroy.sendTags(this);
         notificationsFactroy.syncHashedEmail(this.email);
         $rootScope.$broadcast("auth-login-success");
@@ -489,6 +490,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
         this.devices = null;
         this.transactionalPlans = null;
         this.deviceId = null;
+        this.globalTags = null;
         $rootScope.$broadcast("auth-logout");
         this.Auth = null;
     };

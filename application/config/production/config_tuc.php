@@ -65,3 +65,6 @@ $config['available_subscription_prices'] = array(
 );
 
 $config['onesignal_app_id'] = 'b1663dbb-0858-466b-9b76-d391a89e427f';
+$config['spanish_lang'] = true;
+$config['support_address'] = 'admin@tucancha.ec';
+$config['mandrill_key'] = "znn6X3k0xAg6z0NpC11dWw";

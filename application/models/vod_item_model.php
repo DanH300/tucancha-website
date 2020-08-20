@@ -65,7 +65,8 @@ class Vod_item_model extends CI_Model {
                 "identities" => isset($content->identities)?$content->identities:null,
                 "referenceId" => isset($content->reference_id)?$content->reference_id:null,
                 "eventTeams" => isset($content->eventTeams) ? $content->eventTeams : null,
-                "products" => isset($content->products) ? $content->products : null
+                "products" => isset($content->products) ? $content->products : null,
+                "sportType" => isset($content->sportType) ? $content->sportType : null,
         );
 
         if($content->content){
@@ -134,7 +135,8 @@ class Vod_item_model extends CI_Model {
                 "adPolicyId" => isset($media->adPolicyId)?$media->adPolicyId:null,
                 "allowedCountries" => isset($media->allowedCountries)?$media->allowedCountries:null,
                 "countries" => $media->countries,
-                "eventTeams" => isset($media->eventTeams) ? $media->eventTeams : null
+                "eventTeams" => isset($media->eventTeams) ? $media->eventTeams : null,
+                "sportType" => isset($media->sportType) ? $media->sportType : null,
             );
             
             if($media->content){

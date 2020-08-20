@@ -5,3 +5,9 @@
 env.ini
 .DS_Store
 /composer.lock
+
+
+# keep folder and ignore files.
+/assets/cache/* 
+
+!/**/.gitkeep

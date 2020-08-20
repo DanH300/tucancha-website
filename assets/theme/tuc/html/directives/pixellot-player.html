@@ -1,9 +1,9 @@
 <div class="aspect-ratio-box">
-        <div class="aspect-ratio-box-inside">
+    <div class="aspect-ratio-box-inside">
         <div id="{{id}}"></div>
-        </div>
+    </div>
 </div>
-    
+
 <div class="alert alert-success" role="alert">
     <div class="loader"></div>
     <i class="fa fa-check-circle process-complete-icon"></i>
@@ -14,4 +14,23 @@
     <button type="button" class="close" aria-label="Close" ng-click="closeAlert('.alert-danger')">
         <span aria-hidden="true">&times;</span>
     </button>
+</div>
+
+<div style="opacity: 0;">
+    <div id="tagList" class="tag-list">
+        <div class="col-md-12 close-tag-list">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4 close-tag-container" style="text-align: right;">
+                <span id="close-tag-list">X</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <ul>
+                <li ng-show="user.globalTags" class="global-tag-li">   <input id="global-tag" type="checkbox"> <span>Make tag as global</span></li>
+                <li class="tag-item" data-tag="{{tag.id}}" ng-repeat="tag in getSportTags()"> <span> <img class="sport-tag" src="{{tag.icon}}" alt=""> {{tag.title}}</span> </li>
+            </ul>
+        </div>
+    </div>
 </div>

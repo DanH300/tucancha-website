@@ -235,6 +235,11 @@ class Vod_model extends CI_Model {
                       "activities" => isset($media->activity) ? $media->activity : null,
               
               );
+
+              if(isset($media->sportType)){
+                $tmp['sportType'] = $media->sportType;
+              }
+              
               if($media->content){
                 foreach ($media->content as $key => $file) {
                     $tmp[$key] = $file;
