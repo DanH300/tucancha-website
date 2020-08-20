@@ -375,17 +375,15 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
 
     $scope.buyWithWallet = function() {
         $scope.subscribing = true;
-        User.buyeWithWallet($scope.selectedTicket._id).then(
+        User.buyWithWallet($scope.selectedTicket._id).then(
             function(data) {
                 if (!data.data.error) {
-                    var subscription = [];
-                    subscription.push(data.data.content)
-                    AuthService.setSubscription(subscription);
-                    $scope.subscriptionSuccess = true;
-                    $scope.go("account/subscription");
-                    if (($scope.currentPlan.subscriptionLength == 12 || $scope.currentPlan.subscriptionLength == 6) && $scope.currentPlan.campaign_count < $scope.currentPlan.campaign_max_count && $scope.currentPlan.campaign_active) {
-                        $scope.campain = true;
-                    }
+                    AuthService.getOrders().then( function(){                        
+                        $scope.pay = false;
+                        $scope.paymentType = "none";
+                        $window.scroll(0, 0);
+                        $scope.selectedPurchases = [];
+                    });
                 } else {
                     ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'Subscribe', eventLabel: 'Subscription Error' });
                     $scope.subscriptionError = data.data.message;
