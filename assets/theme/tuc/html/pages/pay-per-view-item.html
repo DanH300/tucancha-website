@@ -1,14 +1,22 @@
 <div class="pay-per-view-item">
-  
-    <div class="main-image" style="background-image:url('{{mainImage | https}}')">
+
+    <div class="main-image">
         <div class="gradient">
             <!-- <div class="performer-about" ng-hide="userHasAccess() && eventIsLive">
                 <h1>{{event.title}}</h1>
                 <p>{{event.description}}</p>
             </div> -->
             <div class="info" ng-hide="userHasAccess() && eventIsLive">
-                <div class="title">{{event.title}}</div>
-                <div class="date">{{event.event_sessions[0].event_date | date: 'EEEE MMM d | h:mm a'}}</div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="{{mainImage | https}}" style="width: 800px; height: 200px;" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="title">{{event.title}}</div>
+                        <div class="date">{{event.event_sessions[0].event_date | date: 'EEEE MMM d | h:mm a'}}</div>
+                    </div>
+                </div>
+
                 <!-- <div class="ppv-live">LIVE VIA PAY-PER-VIEW</div> -->
                 <!-- <div class="venue">FROM THE NATIONAL STADIUM, KINGSTON, JAMAICA</div> -->
             </div>
@@ -16,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="event-player">
-                            <pixellotplayer ng-if="mainEvent._id" video="mainEvent"  data-id="video-player"></pixellotplayer>
+                            <pixellotplayer ng-if="mainEvent._id" video="mainEvent" data-id="video-player"></pixellotplayer>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -25,7 +33,7 @@
                             {{mainEvent.description}}
                         </div>
                         <div class="live-now">
-                            LIVE NOW
+                            VER AHORA
                         </div>
                     </div>
                 </div>
@@ -41,7 +49,7 @@
                             <a class="nav-link {{activeTab=='tickets'?'active':''}}" data-toggle="tab" href="pay-per-view#tickets" role="tab" ng-click="showActiveTab('tickets')">Tickets</a>
                         </li>
                         <li class="nav-item {{activeTab=='line-up'?'active':''}}">
-                            <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#line-up" role="tab" ng-click="showActiveTab('line-up')">Events Schedule</a>
+                            <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#line-up" role="tab" ng-click="showActiveTab('line-up')">Calendario</a>
                         </li>
                         <li ng-if="user.ppvTickets" class="nav-item {{activeTab=='videos'?'active':''}}">
                             <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#videos" role="tab" ng-click="showActiveTab('videos')">Videos</a>
@@ -54,7 +62,7 @@
                         <div ng-switch-when="tickets" class="tab-pane active" id="tickets" role="tabpanel">
                             <div class="tickets-container">
                                 <div class="row">
-                                    <div class="col-md-8 confirm-purchase" ng-hide="pay">
+                                    <div class="col-md-12 confirm-purchase" ng-hide="pay">
                                         <div class="table-container">
                                             <table class="table">
                                                 <thead>
@@ -69,7 +77,7 @@
                                                                 <span><strong>{{ticket.title}}</strong></span>
                                                                 <span class="date">{{ticket.date | date: 'MMMM dd - HH:mm'}}</span>
                                                                 <div class="sessions-included" ng-if="ticket.sessions_included.length > 1">
-                                                                    This ticket includes:
+                                                                    Tickets Incluidos:
                                                                     <ul>
                                                                         <li ng-repeat="session in ticket.sessions_included">
                                                                             {{session}}
@@ -85,9 +93,9 @@
                                                         </th>
                                                         <th>
                                                             <div class="{{userPurchased(ticket)?'purchased':'select'}} {{isInPurchases(ticket)?'focus':''}}" tabindex="{{$index}}" ng-click="select(ticket)">
-                                                                <span ng-show="userPurchased(ticket)">Already</br>Purchased</span>
+                                                                <span ng-show="userPurchased(ticket)">Evento</br>Comprado</span>
                                                                 <span ng-hide="userPurchased(ticket)">
-                                                                    <span ng-if="showSelect(ticket)">Select</span>
+                                                                    <span ng-if="showSelect(ticket)">Seleccionar</span>
                                                                 <span ng-if="!showSelect(ticket)">No disponible</span>
                                                                 </span>
                                                             </div>
@@ -101,31 +109,46 @@
                                             {{noSelected}}
                                         </div>
                                     </div>
-                                    <div class="col-md-8 billing-info" ng-show="pay && paymentType == 'none'">
-                                        
+                                    <div class="col-md-12 billing-info" ng-show="pay && paymentType == 'none'">
                                         <div class="subscription_background">
-                                            <div class="button_section">
-                                                <button class="btn payment_button"  ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
-                                                    Pagar con wallet
-                                                </button>
-                                    
-                                                <button class="btn payment_button"  ng-click="payWithCreditCard()">
-                                                    Pagar con Tarjeta de Credito
-                                                </button>
+                                            <div class="col-md-7">
+                                                <div class="button_section">
+                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
+                                                        Pagar con Wallet
+                                                    </button>
 
-                                                <button class="btn payment_button"  ng-click="changeTicket()">
-                                                    Cambiar ticket seleccionado
-                                                </button>
+                                                    <button class="btn payment_button" ng-click="payWithCreditCard()">
+                                                        Pagar con Tarjeta de Credito
+                                                    </button>
+
+                                                    <button class="btn payment_button" ng-click="changeTicket()">
+                                                        Cambiar Ticket seleccionado
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 dc-info-pago">
+                                                <a href="" data-toggle="modal" data-target="#dcPagoModal" id="myModalPago" class="myModalShower">
+                                                    <p class="dc-pago-text">¿Como Pagar en efectivo?</p>
+                                                </a>
+                                                <br/>
+                                                <a href="" data-toggle="modal" data-target="#dcPagoPCModal" id="myModalPago" class="myModalShower">
+                                                    <p class="dc-pago-text">¿Donde pagar en Pichincha?</p>
+                                                </a>
+                                                <br/>
+                                                <a href="" data-toggle="modal" data-target="#dcPagoLRModal" id="myModalPago" class="myModalShower">
+                                                    <p class="dc-pago-text">¿Donde pagar en Los Rios?</p>
+                                                </a>
+
                                             </div>
                                         </div>
-                                        
                                     </div>
                                     <div class="col-md-8 billing-info" ng-show="paymentType == 'wallet'">
-                                        
                                         <div class="wallet-payment">
                                             <div style="padding:0;">
                                                 <div ng-if="enoghCredits()">
-                                                    <div class="saldo"><h2>Saldo actual: u$s{{wallet.credits}}</h2></div>
+                                                    <div class="saldo">
+                                                        <h2>Saldo actual: u$s{{wallet.credits}}</h2>
+                                                    </div>
                                                     <p>Esta a punto de comprar {{selectedTicket.title}} por u$s{{selectedTicket.price}}</p>
                                                     <label class="accept-terms">
                                                         <input type="checkbox" ng-model="$parent.payment.accept" name="accept" required>
@@ -140,12 +163,12 @@
                                                     No tienes suficiente saldo para comprar este ticket.
                                                 </div>
                                                 <button type="submit" class="btn btn-primary" ng-click="buyWithWallet()" ng-disabled="!payment.accept" ng-hide="subscribing">COMPRAR</button>
-                                                <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')"  ng-hide="subscribing">Cambiar metodo de pago</button>
+                                                <button type="submit" class="btn btn-primary" ng-click="changePaymentType('none')" ng-hide="subscribing">Cambiar metodo de pago</button>
                                                 <img style="width: 100%; margin-top: 30px;" src="/assets/theme/tuc/images/p2p-logo-default.png">
                                                 <a target="_blank" href="/assets/theme/tuc/images/LISTADO DE PREGUNTAS FRECUENTES PlacetoPay.pdf">Ver preguntas frecuentes</a>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row purchased" ng-show="alreadyPurchased">
@@ -282,6 +305,432 @@
                             </div>
 
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- dcmodal pago -->
+<div class="modal dcPagoModal fade" id="dcPagoModal" tabindex="-1" role="dialog" aria-labelledby="dcPagoModal" ng-controller="PayController">
+    <div class="modal-dialog login-modal-dialog" style="width: 75%;">
+        <i class="fa fa-times" ng-click="dcCloseModal()" aria-hidden="true"></i>
+        <div class="modal-content">
+            <div class="dc-login-page">
+                <div class="row">
+                    <div class="col-md-12 dc-img-modal"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 dc-img-modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- dcmodal pago pi -->
+<div class="modal dcPagoModal fade" id="dcPagoPCModal" tabindex="-1" role="dialog" aria-labelledby="dcPagoPCModal" ng-controller="PayController">
+    <div class="modal-dialog login-modal-dialog" style="width: 85%;">
+        <i class="fa fa-times" ng-click="dcCloseModal()" aria-hidden="true"></i>
+        <div class="modal-content">
+            <div class="dc-login-page">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-hover table-striped text-left">
+                        <thead>
+                            <tr class="tableizer-firstrow">
+                                <th>CANTON</th>
+                                <th>Dirección</th>
+                                <th>No.</th>
+                                <th>Sector</th>
+                                <th>Referencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mejia</td>
+                                <td>VIA A SANTO DOMINGO KM 2 1/2</td>
+                                <td>S/N</td>
+                                <td>SUR</td>
+                                <td>JUNTO A LAS LETRAS DE ALOAG</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>FERNANDES DE RECALDE</td>
+                                <td>N-25-44</td>
+                                <td>NORTE</td>
+                                <td>FRENTE PARQUE DE PAMBA CHUPA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>LOS CEIBOS</td>
+                                <td>OE1_91</td>
+                                <td>NORTE</td>
+                                <td>MAS ABAJO DE LOS TANQUES BRISA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>CALLE N 88</td>
+                                <td>OE2/147</td>
+                                <td>CARCELEN</td>
+                                <td>DIAGONAL AL RETEN POLICIAL</td>
+                            </tr>
+                            <tr>
+                                <td>Cayambe</td>
+                                <td>BOLIVAR</td>
+                                <td>ISLA 2</td>
+                                <td>NORTE</td>
+                                <td>JUNTO A BANCO DEL PICHINCHA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>VENEZUELA</td>
+                                <td>N5-15</td>
+                                <td>PLAZA GRANDE </td>
+                                <td>DIAGONAL AL MUNICIPIO DE QUITO</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>RIO CONURIZ</td>
+                                <td>S18</td>
+                                <td>SUR</td>
+                                <td>FRENTE AL PARQUE MENA DOS</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>OE-6</td>
+                                <td>S41-180</td>
+                                <td>CDLA IBARRA - LA FLORIDA 2</td>
+                                <td>1CUADRA DEL COLEGIO ARTURO BOR</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>JORGE ENRIQUE GARCES</td>
+                                <td>N62-50</td>
+                                <td>NORTE</td>
+                                <td>JUNTO FARMACIA SANA SANA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>JOSE FERNANDEZ</td>
+                                <td>E 1390</td>
+                                <td>NORTE</td>
+                                <td>JUNTO ALMACEN DE COHOLCHONES</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>LUIS TUFIÑO</td>
+                                <td>OE1/80</td>
+                                <td>NORTE (LA RUMIÑAHUI)</td>
+                                <td>DIAGONAL AL SRI</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>OE 5 D</td>
+                                <td>N76-10</td>
+                                <td>NORTE</td>
+                                <td>JUNTO A FARMACIAS ECONOMICAS</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>N76</td>
+                                <td>OE17-170</td>
+                                <td>LA PLANADA</td>
+                                <td>DIAGONAL A LA CASA COMUNAL</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>LOS NOGALES</td>
+                                <td>N 50-138</td>
+                                <td>NORTE</td>
+                                <td>JUNTO A POLLO EL GIGANTE</td>
+                            </tr>
+                            <tr>
+                                <td>El Quinche</td>
+                                <td>AV. SUCRE</td>
+                                <td>S1-64</td>
+                                <td>VALLE</td>
+                                <td>EL QUINCHE</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>OE5</td>
+                                <td>S 60-50</td>
+                                <td>SUR</td>
+                                <td>A 3 CDRS DE LA FERIA DE CARROS</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>CALLE OE7</td>
+                                <td>S52-11</td>
+                                <td>BARRIO 18 DE OCTUBRE </td>
+                                <td>3CUA COLEGIO MARIA ANGEL RUILO</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>EL MORLAN</td>
+                                <td>N52-134</td>
+                                <td>NORTE</td>
+                                <td>A UNA CUADRA DEL SANA SANA</td>
+                            </tr>
+                            <tr>
+                                <td>Los Bancos</td>
+                                <td>LOS BANCOS</td>
+                                <td>S/N</td>
+                                <td>CENTRO</td>
+                                <td>RECINTO BERNABE</td>
+                            </tr>
+                            <tr>
+                                <td>Mejia</td>
+                                <td>ANTONIO JOSÉ DE SUCRE</td>
+                                <td>N1-52</td>
+                                <td>CENTRO</td>
+                                <td>A UNA CUADRA PARQUE CENTRAL</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>VICENTE RAMON ROCA</td>
+                                <td>N 21-167</td>
+                                <td>NORTE</td>
+                                <td>FRENTE AL CENTRO INTEGRAL</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>VIA NANEGAL</td>
+                                <td>ESQUINA</td>
+                                <td>VALLE</td>
+                                <td>FRENTPARQUE CENTRAL DE NANEGAL</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>AV. MANUEL CORDOVA GALARZA </td>
+                                <td>LC 6</td>
+                                <td>NORTE</td>
+                                <td>CONJ LAS MARGARITAS</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>AV. GENERAL GALLARDO</td>
+                                <td>OE-144</td>
+                                <td>CDLA. EJERCITO</td>
+                                <td>CERCA ESCUELA FE Y ALEGRIA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>GALO PLAZA LASSO</td>
+                                <td>N59-49</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL AL SRI</td>
+                            </tr>
+                            <tr>
+                                <td>Rumiñahui</td>
+                                <td>ANTONIO SINCHICO</td>
+                                <td>LOTE 2</td>
+                                <td>VALLE</td>
+                                <td>A UNA CUADRA DEL PARQUE DE SAN</td>
+                            </tr>
+                            <tr>
+                                <td>Rumiñahui</td>
+                                <td>AV,GENERAL ENRIQUEZ</td>
+                                <td>S/N</td>
+                                <td>VALLE</td>
+                                <td>DENTRO DE C.C RIBER MALL</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>AV. AMERICA</td>
+                                <td>N26-06</td>
+                                <td>SEMINARIO MAYOR</td>
+                                <td>FRENTE AL PARQUE ITALIA</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>E4B</td>
+                                <td>S51-261</td>
+                                <td>SUR</td>
+                                <td>A DOS CUADRAS ANTES DE LOS RIELES</td>
+                            </tr>
+                            <tr>
+                                <td>Quito</td>
+                                <td>EUGENIO ESPEJO</td>
+                                <td>N1-179</td>
+                                <td>VALLE</td>
+                                <td>DIAGONAL A ALA BRASA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row" align="center">
+                    <div class="col-md-12">
+                        <img src="/assets/theme/tuc/images/pago_efectivo_footer.png" style="width: 100%; height: 100px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- dcmodal pago lr -->
+<div class="modal dcPagoModal fade" id="dcPagoLRModal" tabindex="-1" role="dialog" aria-labelledby="dcPagoLRModal" ng-controller="PayController">
+    <div class="modal-dialog login-modal-dialog" style="width: 85%;">
+        <i class="fa fa-times" ng-click="dcCloseModal()" aria-hidden="true"></i>
+        <div class="modal-content">
+            <div class="dc-login-page">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-hover table-striped text-left">
+                        <thead>
+                            <tr class="tableizer-firstrow">
+                                <th>Nombre Local</th>
+                                <th>Dirección</th>
+                                <th>No.</th>
+                                <th>Sector</th>
+                                <th>Referencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BAZAR MYLU</td>
+                                <td>DAULE Y GENERAL BARONA</td>
+                                <td>&nbsp;</td>
+                                <td>SUR</td>
+                                <td>DIAGONAL ESCUELA EUGENIO ESPEJ</td>
+                            </tr>
+                            <tr>
+                                <td>TIENDA T-DIK</td>
+                                <td>BARRIO NARANJO</td>
+                                <td>&nbsp;</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE AL JAHER</td>
+                            </tr>
+                            <tr>
+                                <td>CYBER BRIT-MAT</td>
+                                <td>CALLE 6 DE OCTUBRE</td>
+                                <td>MZ 3741 SL</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL PARQUE 20 DE NOBIEMBR</td>
+                            </tr>
+                            <tr>
+                                <td>TALLER DE COSTURA</td>
+                                <td>AV. 2 DE AGOSTO</td>
+                                <td>S/N</td>
+                                <td>RECINTO PUEBLO NUEVO</td>
+                                <td>JUNTO A LA FUNERARIA</td>
+                            </tr>
+                            <tr>
+                                <td>CYBER CABINAS J.V.</td>
+                                <td>ROCAFUERTE</td>
+                                <td>&nbsp;</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL ASADERO POLLO FENIX</td>
+                            </tr>
+                            <tr>
+                                <td>CYBER BRITMAT</td>
+                                <td>CARACOL, CALLE 6 DE OCTUBRE</td>
+                                <td>&nbsp;</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL AL PARQUE CENTRAL</td>
+                            </tr>
+                            <tr>
+                                <td>CYBER NICOLE</td>
+                                <td>ABRHAN FREIRE</td>
+                                <td>&nbsp;</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE A LA FARMACIA LUISANITA</td>
+                            </tr>
+                            <tr>
+                                <td>RED FARMACY FUMISA</td>
+                                <td>ENTRADA AL RECINTO CAMARONES</td>
+                                <td>S/N</td>
+                                <td>CENTRO</td>
+                                <td>JUNTO CYBER ZONA TECNOLÓGICA</td>
+                            </tr>
+                            <tr>
+                                <td>MINI MARKET LA PREFE</td>
+                                <td>MARIANA RODRIGUEZ</td>
+                                <td>S/N</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE PLAZOLETA CENTENARIO</td>
+                            </tr>
+                            <tr>
+                                <td>MULTIPAGOS</td>
+                                <td>AV 7 DE AGOSTO</td>
+                                <td>MZ 20 SL11</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE AL RESTAURANTE FOGON</td>
+                            </tr>
+                            <tr>
+                                <td>COMERCIAL LITUMA JR</td>
+                                <td>CINCO DE JUNIO</td>
+                                <td>&nbsp;</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL LIBRERÍA OLAM</td>
+                            </tr>
+                            <tr>
+                                <td>BAZAR PAPELERÍA LUPITA</td>
+                                <td>CALLE QUITO</td>
+                                <td>301</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL RSTAURANT LA ESPAÑOLA</td>
+                            </tr>
+                            <tr>
+                                <td>CYBER VALENTINA</td>
+                                <td>AV. 12 DE OCTUBRE</td>
+                                <td>CASA #10</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE AL IESS</td>
+                            </tr>
+                            <tr>
+                                <td>TIENDA EL CHAVO</td>
+                                <td>AV GUAYAQUIL </td>
+                                <td>&nbsp;</td>
+                                <td>NORTE</td>
+                                <td>ATRAS DE LA FERRETERIA FON</td>
+                            </tr>
+                            <tr>
+                                <td>FARMACIA CARMITA</td>
+                                <td>AV. PINARGOTE</td>
+                                <td>427</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE AL MERCADO CENTRAL</td>
+                            </tr>
+                            <tr>
+                                <td>BAZAR ELOISA</td>
+                                <td>CALLE LEONIDAS ICAZA</td>
+                                <td>S/N</td>
+                                <td>CENTRO</td>
+                                <td>FRENTE A CYBER RENATA</td>
+                            </tr>
+                            <tr>
+                                <td>TIENDA MARTHITA</td>
+                                <td>10 DE NOVIEMBRE</td>
+                                <td>SN</td>
+                                <td>SUR</td>
+                                <td>ATRÁS DE LA IGLESIA LUZ DEL MU</td>
+                            </tr>
+                            <tr>
+                                <td>TIENDA ALEXIO</td>
+                                <td>CALLE 10 DE NOVIEMBRE</td>
+                                <td>613</td>
+                                <td>CENTRO</td>
+                                <td>DIAGONAL A CABLE 7</td>
+                            </tr>
+                            <tr>
+                                <td>MINI TIENDA VALESKA</td>
+                                <td>AV.CORDOVA </td>
+                                <td>&nbsp;</td>
+                                <td>CDLA.LOS MIRTOS </td>
+                                <td>A 2 CUADRS GASOLINERA DEL PIBE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row" align="center">
+                    <div class="col-md-12">
+                        <img src="/assets/theme/tuc/images/pago_efectivo_footer.png" style="width: 100%; height: 100px;" />
                     </div>
                 </div>
             </div>

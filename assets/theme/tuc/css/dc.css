@@ -45,9 +45,73 @@
 }
 
 .dc-login-modal-left {
-    padding: 0px 20px 0px 30px;
+    padding: 0px 20px 5px 30px;
 }
 
 .dc-footer-derechos {
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 1023px) {
+    .dc-login-modal-right {
+        border-right: 0px;
+    }
+}
+
+.dc-info-pago {
+    margin-top: 20px;
+}
+
+.dc-pago-text {
+    font-family: 'Roboto';
+    color: red;
+    margin: 0px;
+    text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+
+.dc-login-page {
+    text-align: center;
+    background-color: #eeeeee;
+    padding: 1% 2%;
+    color: #4a4a4a;
+    margin: auto;
+}
+
+.dc-img-modal {
+    background-image: url('/assets/theme/tuc/images/pago_efectivo.png');
+    background-size: contain;
+    background-repeat: no-repeat, repeat;
+    width: 98%;
+    height: 350px;
+}
+
+.dc-img-modal-footer {
+    background-image: url('/assets/theme/tuc/images/pago_efectivo_footer.png');
+    background-size: contain;
+    background-repeat: no-repeat, repeat;
+    width: 98%;
+    height: 150px;
+}
+
+@media only screen and (max-width: 900px) {
+    .dc-img-modal-footer {
+        background-image: url('/assets/theme/tuc/images/pago_efectivo_footer_movil.png');
+        background-size: contain;
+        background-repeat: no-repeat, repeat;
+        width: 98%;
+        height: 80px;
+    }
+    .dc-img-modal {
+        background-image: url('/assets/theme/tuc/images/pago_efectivo_movil.png');
+        background-size: contain;
+        background-repeat: no-repeat, repeat;
+        width: 98%;
+        height: 500px;
+    }
 }

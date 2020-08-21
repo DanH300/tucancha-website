@@ -71,8 +71,8 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         return Object.keys(obj).length;
     };
 
-       // Login model
-       $scope.fbLogin = function() {
+    // Login model
+    $scope.fbLogin = function() {
         $scope.fbLogging = true;
         FB.login(function(response) {
             if (response.authResponse) {
@@ -307,39 +307,39 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         if (!$scope.userRegister.email || !$scope.userRegister.email_verify || !$scope.userRegister.password || !$scope.userRegister.password_verify || !$scope.userRegister.first_name || !$scope.userRegister.last_name || !$scope.userRegister.dni) return true;
     };
 
-    $scope.updateDni = function(){
+    $scope.updateDni = function() {
         $scope.updatingDni = true;
-        AuthService.updateDni($scope.dniUpdate.dni).then(function(){
+        AuthService.updateDni($scope.dniUpdate.dni).then(function() {
             $scope.updatingDni = false;
         });
     }
 
-    $scope.validateDni = function () {
+    $scope.validateDni = function() {
         var cad = document.getElementById("dni").value.trim();
         var total = 0;
         var longitud = cad.length;
         var longcheck = longitud - 1;
 
-        if (cad !== "" && longitud === 10){
-          for(i = 0; i < longcheck; i++){
-            if (i%2 === 0) {
-              var aux = cad.charAt(i) * 2;
-              if (aux > 9) aux -= 9;
-              total += aux;
-            } else {
-              total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+        if (cad !== "" && longitud === 10) {
+            for (i = 0; i < longcheck; i++) {
+                if (i % 2 === 0) {
+                    var aux = cad.charAt(i) * 2;
+                    if (aux > 9) aux -= 9;
+                    total += aux;
+                } else {
+                    total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+                }
             }
-          }
 
-          total = total % 10 ? 10 - total % 10 : 0;
+            total = total % 10 ? 10 - total % 10 : 0;
 
-          if (cad.charAt(longitud-1) == total) {
-            $scope.validDni = true;
-          }else{
-            $scope.validDni = false;
-          }
+            if (cad.charAt(longitud - 1) == total) {
+                $scope.validDni = true;
+            } else {
+                $scope.validDni = false;
+            }
         }
-      }
+    }
 
     $scope.registerUser = function() {
         $scope.noTerms = false;
@@ -350,9 +350,9 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
 
         } else if ($scope.userRegister.password != $scope.userRegister.password_verify || $scope.userRegister.password.length < 8) {
             $scope.error = 'password';
-        } else if ( $scope.userRegister.dni != $scope.userRegister.dni_verify) {
+        } else if ($scope.userRegister.dni != $scope.userRegister.dni_verify) {
             $scope.error = 'cédula';
-        }else if (!$scope.userRegister.termsRegular) {
+        } else if (!$scope.userRegister.termsRegular) {
             $scope.noTerms = true;
         } else {
             $scope.registering = true;
