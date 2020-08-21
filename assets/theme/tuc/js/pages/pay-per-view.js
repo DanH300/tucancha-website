@@ -185,14 +185,14 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
     };
 
     $scope.userPurchasedFromEvent = function(singleEvent) {
-        if(!singleEvent || !singleEvent.tickets || singleEvent.tickets.length < 1 || 
+        if (!singleEvent || !singleEvent.tickets || singleEvent.tickets.length < 1 ||
             !$scope.user || !$scope.user.ppvTickets || $scope.user.ppvTickets.length < 1) return false;
-         for (i = 0; i < $scope.user.ppvTickets.length; i++) {
-             if($scope.user.ppvTickets[i].product.event_id === singleEvent._id){
-                 return true;
-             }
-         }
-         return false;
+        for (i = 0; i < $scope.user.ppvTickets.length; i++) {
+            if ($scope.user.ppvTickets[i].product.event_id === singleEvent._id) {
+                return true;
+            }
+        }
+        return false;
 
 
     };
@@ -298,6 +298,9 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
         $scope.wallet = data.data.content;
     });
 
+    angular.element('.myModalShower').trigger('click');
 
-
+    $scope.dcCloseModal = function() {
+        $('.dcPagoModal').modal('hide');
+    };
 });

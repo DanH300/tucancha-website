@@ -112,6 +112,7 @@
         </div>
     </nav>
 </div>
+
 <div ng-if="!user._id" class="modal loginModal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
     <div class="modal-dialog login-modal-dialog" style="width: 78%;">
         <i class="fa fa-times" aria-hidden="true" ng-click="closeModel()"></i>
@@ -124,7 +125,6 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-12 dc-login-modal-right">
-
                         <div class="col dc-header-fb">
                             <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
                                 Ingresar con Facebook
@@ -132,9 +132,7 @@
                         </div>
 
                         <div class="or-line">
-                            <span class="or-span">
-                                o
-                            </span>
+                            <span class="or-span">o</span>
                         </div>
 
                         <div class="credentials-span" ng-if="!isForgotPassword">
@@ -170,6 +168,9 @@
                     </div>
 
                     <div class="col-lg-7 col-md-7 col-sm-12 register-page dc-login-modal-left">
+                        <div class="login-information">
+                            Ingresa tu <span class="login-span">información</span>
+                        </div>
                         <form class="register-form">
                             <div class="row">
                                 <div class="single-input col-sm-6">
@@ -395,7 +396,7 @@
     <div class="modal-dialog login-modal-dialog">
         <div class="modal-content">
 
-            <div class="register-page">
+            <div class="register-page dc-login-modal-left">
                 <div class="register-header">
                     Ingresa tu Cédula de Identidad
                 </div>
@@ -408,13 +409,13 @@
                             <div class="input-label">
                                 Cédula de Identidad *
                             </div>
-                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="dniUpdate.dni">
+                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="dniUpdate.dni" class="form-control">
                         </div>
                         <div class="single-input col-sm-6">
                             <div class="input-label">
                                 Confirmar Cédula de Identidad *
                             </div>
-                            <input class="{{error=='cedula'?'input-error':''}}" type="text" onpaste="return false;" autocomplete="off" ng-model="dniUpdate.dni_verify">
+                            <input class="{{error=='cedula'?'input-error':''}} form-control" type="text" onpaste="return false;" autocomplete="off" ng-model="dniUpdate.dni_verify">
                         </div>
                     </div>
                     <div class="row submit">

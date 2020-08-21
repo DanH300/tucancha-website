@@ -26,9 +26,7 @@
     }
     .gradient{
         position: relative;
-        min-height: 60vh;
         overflow: overlay;
-        padding-top: 60px;
         @media (max-width: @screen-xs-max) {
           height: 100%;
         }
@@ -42,7 +40,7 @@
         }
         .info{
             color: white;
-            width: 45%;
+            width: 100%;
             padding: 4vh 0 0 6%;
             @media (max-width: @screen-xs-max) {
               width: 100%;
@@ -388,13 +386,13 @@
       &.active {
         a {
           color: #ffffff;
-          background-color: @mainColor;
+          background-color: @secondaryColor;
           border: 0px;
           border-radius: 3px;
         }
 
         a:hover{
-          background-color: @mainColor;
+          background-color: @secondaryColor;
         }
       }
     }
@@ -406,7 +404,7 @@
     }
   }
   .btn{
-    background-color: #666666;
+    background-color: @secondaryColor;
     color: #eeeeee;
     padding: 10px 12px 10px 12px;
     text-align: center;
@@ -1012,7 +1010,7 @@
   .table {
     .inner-table{
         padding: 12px;
-        background-color: #d9d9d9;
+        background-color: @secondaryColor;
         margin-right: 20px;
         &.ticket-price{
             color: #333333;
@@ -1032,6 +1030,7 @@
     }
     .select {
         color: #333333;
+        background-color: @secondaryColor;
         padding: 10px;
         text-align: center;
         border: 2px solid #333333;
@@ -1048,7 +1047,7 @@
       background-color: #d9d9d9;
     }
     .view-event{
-        background-color: #4e186d;
+        background-color: @secondaryColor;
         color: #eeeeee;
         padding: 10px 12px 10px 12px;
         text-align: center;
