@@ -4,7 +4,7 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
     $scope.user = User;
     $scope.filterList = {};
 
-    AuthService.getOrders().then( function(){})
+    AuthService.getOrders().then(function() {})
 
     $scope.getEvents = function() {
 
@@ -297,10 +297,4 @@ uvodApp.controller('PayController', function($scope, $interval, $location, globa
     AuthService.getWallet().then(function(data) {
         $scope.wallet = data.data.content;
     });
-
-    angular.element('.myModalShower').trigger('click');
-
-    $scope.dcCloseModal = function() {
-        $('.dcPagoModal').modal('hide');
-    };
 });

@@ -10,9 +10,9 @@ define('UVOD_API_ENDPOINT', read_config_var('UVOD_API_ENDPOINT'));
 define('UVOD_THEME', read_config_var('UVOD_THEME'));
 define('FACEBOOK_APP_ID', read_config_var('FACEBOOK_APP_ID'));
 define('FACEBOOK_APP_SECRET', read_config_var('FACEBOOK_APP_SECRET'));
-define('GA_CODE', read_config_var('GA_CODE'));
+//define('GA_CODE', read_config_var('GA_CODE'));
 // define('VERSION_NUMBER', read_config_var('VERSION_NUMBER'));
-define('AS_SPARX_URL', read_config_var('AS_SPARX_URL'));
+//define('AS_SPARX_URL', read_config_var('AS_SPARX_URL'));
 
 function read_config_var($variable) {
 
