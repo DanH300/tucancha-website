@@ -46,14 +46,14 @@
                 <div class="col-md-3">
                     <ul class="nav nav-tabs nav-stacked" role="tablist">
                         <li class="nav-item {{activeTab=='tickets'?'active':''}}">
-                            <a class="nav-link {{activeTab=='tickets'?'active':''}}" data-toggle="tab" href="pay-per-view#tickets" role="tab" ng-click="showActiveTab('tickets')">Tickets</a>
+                            <a class="nav-link {{activeTab=='tickets'?'active':''}}" data-toggle="tab" href="pay-per-view#tickets" role="tab" ng-click="showActiveTab('tickets')">Eventos PPV</a>
                         </li>
-                        <li class="nav-item {{activeTab=='line-up'?'active':''}}">
+                        <!--<li class="nav-item {{activeTab=='line-up'?'active':''}}">
                             <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#line-up" role="tab" ng-click="showActiveTab('line-up')">Calendario</a>
                         </li>
                         <li ng-if="user.ppvTickets" class="nav-item {{activeTab=='videos'?'active':''}}">
                             <a class="nav-link {{activeTab=='videos'?'active':''}}" data-toggle="tab" href="pay-per-view#videos" role="tab" ng-click="showActiveTab('videos')">Videos</a>
-                        </li>
+                        </li>-->
 
                     </ul>
                 </div>
@@ -64,11 +64,8 @@
                                 <div class="row">
                                     <div class="col-md-12 confirm-purchase" ng-hide="pay">
                                         <div class="table-container">
-                                            <table class="table">
+                                            <table class="table table-condensed">
                                                 <thead>
-                                                    <tr>
-                                                        <th>{{event.title}}</th>
-                                                    </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="ticket in event.tickets | filter: ticketIncluded" ng-show="offerHasStarted(ticket)">
@@ -100,7 +97,7 @@
                                                                 </span>
                                                             </div>
 
-                                                            <div ng-if="event.tickets.length == 1" ng-init="select(ticket); goToPayment();"></div>
+                                                            <div ng-if="event.tickets.length == 1" ng-init="select(ticket); goToPayment(); fbq('track', 'InitiateCheckout');"></div>
                                                         </th>
                                                     </tr>
                                                 </tbody>
@@ -114,18 +111,19 @@
 
                                     <div class="col-md-12 billing-info" ng-show="pay && event.tickets.length == 1 || paymentType == 'none'">
                                         <div class="subscription_background">
+                                            <h4 class="" style="margin: 0px;">ELIGE TU FORMA DE PAGO</h4>
                                             <div class="col-md-7">
                                                 <div class="button_section">
-                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet')" ng-disabled="wallet == null">
-                                                        Pagar con Wallet
+                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet'); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});" ng-disabled="wallet == null">
+                                                        Pagar con Efectivo
                                                     </button>
 
-                                                    <button class="btn payment_button" ng-click="payWithCreditCard()">
-                                                        Pagar con Tarjeta de Credito
+                                                    <button class="btn payment_button" ng-click="payWithCreditCard(); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});">
+                                                        Pagar con Tarjeta de Crédito
                                                     </button>
 
-                                                    <button class="btn payment_button" ng-click="changeTicket()">
-                                                        Cambiar Ticket seleccionado
+                                                     <button class="btn payment_button" ng-click="payWithCreditCard(); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});">
+                                                        Pagar con Tarjeta de Débito
                                                     </button>
                                                 </div>
                                             </div>

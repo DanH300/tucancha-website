@@ -126,7 +126,7 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-12 dc-login-modal-right">
                         <div class="col dc-header-fb">
-                            <div class="facebook-login-btn" ng-click="fbLogin()" ng-hide="fbLogging">
+                            <div class="facebook-login-btn" ng-click="fbLogin(); fbq('track', 'CompleteRegistration');" ng-hide="fbLogging">
                                 Ingresar con Facebook
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                                     <div class="register-error" ng-if="noTerms">Por favor, acepte los términos y condiciones</div>
                                     <div class="register-error" ng-if="RegisterError">{{RegisterError}}</div>
                                     <div class="" ng-hide="registering">
-                                        <input type="submit" ng-disabled="disableRegister()" ng-click="registerUser()" class="submit-btn" value="REGISTRARME">
+                                        <input type="submit" ng-disabled="disableRegister()" ng-click="registerUser(); fbq('track', 'CompleteRegistration');" class="submit-btn" value="REGISTRARME">
                                     </div>
                                     <div class="loader" ng-if="registering">
                                     </div>
