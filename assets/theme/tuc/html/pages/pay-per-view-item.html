@@ -7,9 +7,9 @@
                 <p>{{event.description}}</p>
             </div> -->
             <div class="info" ng-hide="userHasAccess() && eventIsLive">
-                <div class="col-md-12">
+                <div class="col-md-12 dc-ppv-banner">
                     <div class="col-md-8">
-                        <img src="{{mainImage | https}}" style="width: 100%; height: 200px;" />
+                        <img class="dc-ppv-img" src="{{mainImage | https}}" />
                     </div>
                     <div class="col-md-4">
                         <div class="title">{{event.title}}</div>
@@ -75,7 +75,7 @@
                                                         <th>
                                                             <div class="inner-table">
                                                                 <span><strong>{{ticket.title}}</strong></span>
-                                                                <span class="date">{{ticket.date | date: 'MMMM dd - HH:mm'}}</span>
+                                                                <span class="date">{{ticket.event_date | date: 'MMMM dd - HH:mm'}}</span>
                                                                 <div class="sessions-included" ng-if="ticket.sessions_included.length > 1">
                                                                     Tickets Incluidos:
                                                                     <ul>
@@ -92,24 +92,27 @@
                                                             </div>
                                                         </th>
                                                         <th>
-                                                            <div class="{{userPurchased(ticket)?'purchased':'select'}} {{isInPurchases(ticket)?'focus':''}}" tabindex="{{$index}}" ng-click="select(ticket)">
+                                                            <div class="{{userPurchased(ticket)?'purchased':'select'}} {{isInPurchases(ticket)?'focus':''}}" tabindex="{{$index}}" ng-click="select(ticket)" ng-if="event.tickets.length > 1">
                                                                 <span ng-show="userPurchased(ticket)">Evento</br>Comprado</span>
                                                                 <span ng-hide="userPurchased(ticket)">
                                                                     <span ng-if="showSelect(ticket)">Seleccionar</span>
                                                                 <span ng-if="!showSelect(ticket)">No disponible</span>
                                                                 </span>
                                                             </div>
+
+                                                            <div ng-if="event.tickets.length == 1" ng-init="select(ticket); goToPayment();"></div>
                                                         </th>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button class="btn" ng-if="selectedPurchases.length >0 " ng-click="goToPayment()">COMPRA TUS TICKETS AHORA</button>
+                                        <!--<button class="btn" ng-if="selectedPurchases.length > 0 && event.tickets.length > 1" ng-click="goToPayment()">COMPRA TUS TICKETS AHORA</button>
                                         <div class="no-selected" ng-if="noSelected">
                                             {{noSelected}}
-                                        </div>
+                                        </div>-->
                                     </div>
-                                    <div class="col-md-12 billing-info" ng-show="pay && paymentType == 'none'">
+
+                                    <div class="col-md-12 billing-info" ng-show="pay && event.tickets.length == 1 || paymentType == 'none'">
                                         <div class="subscription_background">
                                             <div class="col-md-7">
                                                 <div class="button_section">

@@ -13,7 +13,7 @@
     <br>
     <p>
         Gracias,<br>
-        The 1Spot Media Team<br>
+        Tu Cancha<br>
         <br>
 
         <span style="font-size: 12px">Por favor no responda a este mensaje. Se envió desde una dirección de correo electrónico automática.</span><br>

@@ -71,7 +71,7 @@
                         </div>
                         <ul class="dropdown-menu notifications-drop" ng-hide="!unreadNotifications()" aria-labelledby="notifications">
                             <span class="caret"></span>
-                            <h4>NOTIFICATION</h4>
+                            <h4>NOTIFICACIÓN</h4>
                             <li ng-repeat="notification in notifications | filter: {read:'false'}" ng-click="readNotification(notification, $event)"><span>{{notification.heading}}</span>
                                 <p>{{notification.content}}</p>
                             </li>
@@ -282,7 +282,7 @@
                     Por favor seleccione la opción que más le convenga,</br>
                     o salta para continuar con acceso limitado GRATIS
                 </div>
-                <div class="row flex-row">
+                <!--<div class="row flex-row">
                     <div class="col-sm-6">
                         <div class="options premium pr">
                             <div class="option-header yellow-bg">
@@ -344,7 +344,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <button type="button" class="rc-button skip" ng-click="closeRegistrationComplete()">OMITIR</button>
             </div>
         </div>

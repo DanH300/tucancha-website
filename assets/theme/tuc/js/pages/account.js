@@ -19,7 +19,7 @@ uvodApp.controller('AccountController',
             payment: false
         };
         $scope.phoneValidated = $scope.profile.phone;
-        $scope.subscription = User.subscriptionPlan && User.subscriptionPlan.length > 0 ? User.subscriptionPlan[0]: null ;
+        $scope.subscription = User.subscriptionPlan && User.subscriptionPlan.length > 0 ? User.subscriptionPlan[0] : null;
         $scope.payment = $scope.profile.billingInfo;
         $scope.pay = false;
         $scope.country = -1;
@@ -39,14 +39,14 @@ uvodApp.controller('AccountController',
 
         $scope.transactions;
 
-        
-        globalFactory.getAllP2PPay().then(function(data){
+
+        globalFactory.getAllP2PPay().then(function(data) {
             var transactions = data.content;
-            for(var i = 0; i < transactions.length ; i++){
+            for (var i = 0; i < transactions.length; i++) {
                 var transaction = transactions[i];
-                if(transaction.status != 'COLLECTING'){
+                if (transaction.status != 'COLLECTING') {
                     $scope.transactions.push(transaction);
-                }  
+                }
             }
             console.log($scope.transactions);
 
@@ -54,8 +54,8 @@ uvodApp.controller('AccountController',
 
         $scope.menu = [
             { name: "Perfil", id: "profile" },
-            { name: "Subscripcion", id: "subscription" },
-            { name: "Billing Information", id: "billing-information" },
+            //{ name: "Subscripcion", id: "subscription" },
+            { name: "Información Pagos", id: "billing-information" },
             { name: "Mi wallet", id: "wallet" },
             // { name: "Pay-Per-View Tickets", id: "tickets" },
             // { name: "My Tvod", id: "tvod" },
@@ -78,7 +78,7 @@ uvodApp.controller('AccountController',
                 url: 'index.php/api/account/upload_profile_pic',
                 data: { file: file, 'file-name': $scope.profile._id }
             }).then(function(resp) {
-                AuthService.getCurrentUser().then(function(user){
+                AuthService.getCurrentUser().then(function(user) {
                     user.avatar = resp.data.content.avatar;
                     user.profile.avatar = resp.data.content.avatar;
                     User.set(user);
@@ -97,21 +97,21 @@ uvodApp.controller('AccountController',
         $scope.printDiv = function(transaction) {
             var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
-            mywindow.document.write('<html><head><title>' + transaction.added  + '</title>');
+            mywindow.document.write('<html><head><title>' + transaction.added + '</title>');
             mywindow.document.write('</head><body >');
             mywindow.document.write('<h1>tucancha.ec | Comprobante de Pago</h1>');
-            mywindow.document.write('<h2>Pagado $' + transaction.value  + '</h2>');
-            mywindow.document.write('<h3>Estado del pago: ' + transaction.status  + '</h3>');
-            mywindow.document.write('<h3>Identificador: ' + transaction.paymentInfo.id  + '</h3>');
-            mywindow.document.write('<h3>Documento: ' + transaction.paymentInfo.document? transaction.paymentInfo.document : ""  + '</h3>');
+            mywindow.document.write('<h2>Pagado $' + transaction.value + '</h2>');
+            mywindow.document.write('<h3>Estado del pago: ' + transaction.status + '</h3>');
+            mywindow.document.write('<h3>Identificador: ' + transaction.paymentInfo.id + '</h3>');
+            mywindow.document.write('<h3>Documento: ' + transaction.paymentInfo.document ? transaction.paymentInfo.document : "" + '</h3>');
             mywindow.document.write('</body></html>');
-        
+
             mywindow.document.close(); // necessary for IE >= 10
             mywindow.focus(); // necessary for IE >= 10*/
-        
+
             mywindow.print();
             mywindow.close();
-        
+
             return true;
         }
 
@@ -278,12 +278,12 @@ uvodApp.controller('AccountController',
             User.deleteDevice(deviceId).then(function(data) {
                 if (data && data.data && data.data.content) {
                     var deletedId = data.data.content._id;
-                    AuthService.getCurrentUser().then(function(user){
+                    AuthService.getCurrentUser().then(function(user) {
                         var newUser = user;
                         var devices = user.devices;
-                        for (var i = 0; i <  devices.length; i++) {
+                        for (var i = 0; i < devices.length; i++) {
                             if (devices[i]._id == deletedId) {
-                                devices.splice(i,1);
+                                devices.splice(i, 1);
                                 break;
                             }
                         }
@@ -485,7 +485,7 @@ uvodApp.controller('AccountController',
             $scope.pay = false;
             $scope.paymentType = "none";
         };
-    
+
         $scope.changePaymentType = function(type) {
             $scope.paymentType = type;
         };
@@ -496,13 +496,13 @@ uvodApp.controller('AccountController',
 
             $scope.currentPlan = plan;
             $scope.pay = true;
-       
+
         };
 
         $scope.payWithCreditCard = function() {
             globalFactory.createRequest($scope.currentPlan).then(function(data) {
                 console.log(data)
-                if(data.message == 'ok'){
+                if (data.message == 'ok') {
                     window.location.href = data.content.processUrl;
                 }
             });
@@ -551,7 +551,7 @@ uvodApp.controller('AccountController',
             });
         };
 
-        globalFactory.getUserClips($scope.profile._id).then(function(clips){
+        globalFactory.getUserClips($scope.profile._id).then(function(clips) {
             $scope.clips = clips;
         })
 
@@ -589,14 +589,14 @@ uvodApp.controller('AccountController',
             $scope.getTransactionsPage(++$scope.transactionsPage);
         }
 
-        if($scope.wallet){
+        if ($scope.wallet) {
             $scope.getTransactionsPage(0);
         }
 
         $scope.enoghCredits = function() {
 
             return $scope.currentPlan.price <= $scope.wallet.credits;
-    
+
         }
 
         AuthService.getWallet().then(function(data) {
