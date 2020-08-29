@@ -14,17 +14,22 @@
     background-position: center;
 }
 
+.dc-home-div-banner {
+    margin-top: 10x;
+    padding: 0px;
+}
+
 .dc-home-banner {
-    margin: 15px 0px 0px 0px;
+    margin: 0xp;
     padding: 0px;
     text-align: right;
 }
 
 .dc-home-banner img {
-    margin: 10px 0px 0px 0px;
+    margin: 10px;
     padding: 0px;
-    width: 430px;
-    height: 315px;
+    width: 100%;
+    height: 158px;
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;

@@ -22,6 +22,7 @@ uvodApp.controller("PayItemController", function(
     $scope.loading = true;
     $scope.eventIsLive = false;
     $scope.paymentType = "none";
+    $scope.paymentValid = true;
     if ($scope.billingInfo) {
         $scope.billingInfo.exDate =
             $scope.billingInfo.expire_month + "/" + $scope.billingInfo.expire_year;
@@ -113,6 +114,9 @@ uvodApp.controller("PayItemController", function(
 
     $scope.changePaymentType = function(type) {
         $scope.paymentType = type;
+        if (type == "wallet") {
+            fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+        }
     };
 
     $scope.menu = {
@@ -137,6 +141,7 @@ uvodApp.controller("PayItemController", function(
     $scope.allEvents = [];
     $scope.newCard = false;
     $scope.billing = {};
+    $scope.loadPago = false;
 
     var timeinterval;
 
@@ -180,12 +185,16 @@ uvodApp.controller("PayItemController", function(
     };
 
     $scope.payWithCreditCard = function() {
-        globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-            console.log(data);
-            if (data.message == "ok") {
-                window.location.href = data.content.processUrl;
-            }
-        });
+        fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+        $scope.loadPago = true;
+        setTimeout(function() {
+            globalFactory.createRequest($scope.selectedTicket).then(function(data) {
+                console.log(data);
+                if (data.message == "ok") {
+                    window.location.href = data.content.processUrl;
+                }
+            });
+        }, 2000);
     };
 
     $scope.goToPayment = function() {
@@ -198,6 +207,8 @@ uvodApp.controller("PayItemController", function(
             return;
         } else {
             $scope.pay = true;
+            fbq("track", "InitiateCheckout");
+            $scope.loadPago = false;
         }
         $window.scroll(0, 0);
         $scope.noSelected = false;
@@ -206,6 +217,7 @@ uvodApp.controller("PayItemController", function(
     $scope.changeTicket = function() {
         $scope.pay = false;
         $scope.paymentType = "none";
+        $scope.loadPago = false;
     };
 
     $scope.buyTicket = function(form) {
@@ -414,6 +426,7 @@ uvodApp.controller("PayItemController", function(
         var i;
         for (i = 0; i < $scope.length($scope.user.ppvTickets); i++) {
             if ($scope.user.ppvTickets[i].originalProductId == ticket._id) {
+                $scope.paymentValid = false;
                 return true;
             }
         }
@@ -562,5 +575,4 @@ uvodApp.controller("PayItemController", function(
         if (!$scope.selectedTicket) return false;
         return $scope.selectedTicket.price <= $scope.wallet.credits;
     };
-
 });

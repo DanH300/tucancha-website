@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">{{event.title}}</div>
-                        <div class="date">{{event.event_sessions[0].event_date | date: 'EEEE MMM d | h:mm a'}}</div>
+                        <div class="date">{{event.event_date | date: 'MMM d | h:mm a'}}</div>
                     </div>
                 </div>
 
@@ -96,8 +96,7 @@
                                                                 <span ng-if="!showSelect(ticket)">No disponible</span>
                                                                 </span>
                                                             </div>
-
-                                                            <div ng-if="event.tickets.length == 1" ng-init="select(ticket); goToPayment(); fbq('track', 'InitiateCheckout');"></div>
+                                                            <div ng-if="event.tickets.length == 1 && !userPurchased(ticket)" ng-init="select(ticket); goToPayment();"></div>
                                                         </th>
                                                     </tr>
                                                 </tbody>
@@ -110,21 +109,26 @@
                                     </div>
 
                                     <div class="col-md-12 billing-info" ng-show="pay && event.tickets.length == 1 || paymentType == 'none'">
-                                        <div class="subscription_background">
+                                        <div class="subscription_background" ng-if="!paymentValid">
+                                            <h4>EVENTO COMPRADO</h4>
+                                        </div>
+                                        <div class="subscription_background" ng-if="paymentValid">
                                             <h4 class="" style="margin: 0px;">ELIGE TU FORMA DE PAGO</h4>
                                             <div class="col-md-7">
                                                 <div class="button_section">
-                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet'); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});" ng-disabled="wallet == null">
+                                                    <button class="btn payment_button" ng-click="changePaymentType('wallet');" ng-disabled="wallet == null">
                                                         Pagar con Efectivo
                                                     </button>
 
-                                                    <button class="btn payment_button" ng-click="payWithCreditCard(); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});">
+                                                    <button class="btn payment_button" ng-hide="loadPago" ng-click="payWithCreditCard();">
                                                         Pagar con Tarjeta de Crédito
                                                     </button>
 
-                                                     <button class="btn payment_button" ng-click="payWithCreditCard(); fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});">
+                                                    <button class="btn payment_button" ng-hide="loadPago" ng-click="payWithCreditCard();">
                                                         Pagar con Tarjeta de Débito
                                                     </button>
+                                                </div>
+                                                <div class="loader" ng-if="loadPago">
                                                 </div>
                                             </div>
                                             <div class="col-md-5 dc-info-pago">

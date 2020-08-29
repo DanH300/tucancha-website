@@ -355,6 +355,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         } else if (!$scope.userRegister.termsRegular) {
             $scope.noTerms = true;
         } else {
+            fbq('track', 'CompleteRegistration');
             $scope.registering = true;
             $scope.userRegister.country = $rootScope.geo ? $rootScope.geo.countryCode : null;
             $scope.data = angular.copy($scope.userRegister);
