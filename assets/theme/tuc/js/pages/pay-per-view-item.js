@@ -113,9 +113,19 @@ uvodApp.controller("PayItemController", function(
     };
 
     $scope.changePaymentType = function(type) {
-        $scope.paymentType = type;
-        if (type == "wallet") {
-            fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                $scope.paymentType = type;
+                if (type == "wallet") {
+                    fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                }
+            }
+        } else {
+            $scope.loadPago = false;
+            alert("Seleccione Ticket por favor");
         }
     };
 
@@ -185,19 +195,30 @@ uvodApp.controller("PayItemController", function(
     };
 
     $scope.payWithCreditCard = function() {
-        fbq("track", "Purchase", { value: 0.0, currency: "USD" });
-        $scope.loadPago = true;
-        globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-            console.log(data);
-            if (data.message == "ok") {
-                window.location.href = data.content.processUrl;
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                $scope.loadPago = true;
+                globalFactory.createRequest($scope.selectedTicket).then(function(data) {
+                    console.log(data);
+                    if (data.message == "ok") {
+                        window.location.href = data.content.processUrl;
+                    }
+                });
             }
-        });
+        } else {
+            $scope.loadPago = false;
+            //$scope.noSelected = "Seleccione Ticket por favor";
+            alert("Seleccione Ticket por favor");
+        }
     };
 
     $scope.goToPayment = function() {
         if ($scope.selectedPurchases.length == 0) {
-            $scope.noSelected = "Please select tickets";
+            $scope.noSelected = "Seleccione Ticket por favor";
             return;
         }
         if (!$scope.user._id) {
