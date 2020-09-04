@@ -219,7 +219,7 @@
                 <div class="col-sm-12 col-md-5  payment-form" ng-if="paymentType=='wallet'">
                     <div class="wallet-payment">
                         <div style="padding:0;">
-                            <div ng-if="enoghCredits()">
+                            <div ng-if="wallet != null && enoghCredits()">
                                 <div class="saldo"><h2>Saldo actual: u$s{{wallet.credits}}</h2></div>
                                 <p>Esta a punto de comprar {{currentPlan.title}} por u$s{{currentPlan.price}}</p>
                                 <label class="accept-terms">
@@ -231,7 +231,7 @@
                                     <img class="error-triangle" src="/assets/theme/sht/images/red-triangle.png"> {{subscriptionError}}
                                 </div>
                             </div>
-                            <div ng-if="enoghCredits() == false">
+                            <div ng-if="wallet != null && enoghCredits() == false">
                                 No tienes suficiente saldo para comprar este producto.
                             </div>
                             <button type="submit" class="btn btn-primary" ng-click="subscribeWithWallet()" ng-disabled="!payment.accept" ng-hide="subscribing">SUBSCRIBIRSE</button>
