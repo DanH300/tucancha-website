@@ -134,7 +134,7 @@
 
     <!-- Angular Controllers-->
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/category.js" ?>"></script>
-    <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/home.js" ?>"></script>
+    <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/home.js?rev=" . time() . "" ?>"></script>
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/header.js" ?>"></script>
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/live-stream.js" ?>"></script>
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/identity-item.js" ?>"></script>
@@ -145,7 +145,7 @@
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/tournament-item.js" ?>"></script>
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/pay-per-view.js" ?>"></script>
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/pay-per-view-item.js?rev=" . time() . "" ?>"></script>
-    <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/login.js" ?>"></script>
+    <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/login.js?rev=" . time() . "" ?>"></script>
     <!-- <script type="text/javascript" src="<?php //echo "/assets/theme/rjr/js/pages/devices.js"
                                                 ?>"></script> -->
     <script type="text/javascript" src="<?php echo "/assets/theme/" . UVOD_THEME . "/js/pages/tv-show.js" ?>"></script>
@@ -210,7 +210,7 @@
     <script type="text/javascript" src="/assets/common/global-vars/sport-tags.js"></script>
 
     <!-- Angular Factories-->
-    <script type="text/javascript" src="/assets/common/js/factories/user.js"></script>
+    <script type="text/javascript" src="<?php echo "/assets/common/js/factories/user.js?rev=" . time() . "" ?>"></script>
     <script type="text/javascript" src="/assets/common/js/factories/vod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/tvod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/list.js"></script>

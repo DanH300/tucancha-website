@@ -308,7 +308,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
     };
 
     $scope.updateDni = function() {
-        $scope.updatingDni = true;
+        //$scope.updatingDni = true;
         AuthService.updateDni($scope.dniUpdate.dni).then(function() {
             $scope.updatingDni = false;
         });
@@ -355,6 +355,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
         } else if (!$scope.userRegister.termsRegular) {
             $scope.noTerms = true;
         } else {
+            fbq('track', 'CompleteRegistration');
             $scope.registering = true;
             $scope.userRegister.country = $rootScope.geo ? $rootScope.geo.countryCode : null;
             $scope.data = angular.copy($scope.userRegister);

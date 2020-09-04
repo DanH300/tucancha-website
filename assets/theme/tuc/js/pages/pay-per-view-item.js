@@ -22,6 +22,7 @@ uvodApp.controller("PayItemController", function(
     $scope.loading = true;
     $scope.eventIsLive = false;
     $scope.paymentType = "none";
+    $scope.paymentValid = true;
     if ($scope.billingInfo) {
         $scope.billingInfo.exDate =
             $scope.billingInfo.expire_month + "/" + $scope.billingInfo.expire_year;
@@ -112,7 +113,20 @@ uvodApp.controller("PayItemController", function(
     };
 
     $scope.changePaymentType = function(type) {
-        $scope.paymentType = type;
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                $scope.paymentType = type;
+                if (type == "wallet") {
+                    fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                }
+            }
+        } else {
+            $scope.loadPago = false;
+            alert("Seleccione Ticket por favor");
+        }
     };
 
     $scope.menu = {
@@ -137,6 +151,7 @@ uvodApp.controller("PayItemController", function(
     $scope.allEvents = [];
     $scope.newCard = false;
     $scope.billing = {};
+    $scope.loadPago = false;
 
     var timeinterval;
 
@@ -180,17 +195,30 @@ uvodApp.controller("PayItemController", function(
     };
 
     $scope.payWithCreditCard = function() {
-        globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-            console.log(data);
-            if (data.message == "ok") {
-                window.location.href = data.content.processUrl;
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                $scope.loadPago = true;
+                globalFactory.createRequest($scope.selectedTicket).then(function(data) {
+                    console.log(data);
+                    if (data.message == "ok") {
+                        window.location.href = data.content.processUrl;
+                    }
+                });
             }
-        });
+        } else {
+            $scope.loadPago = false;
+            //$scope.noSelected = "Seleccione Ticket por favor";
+            alert("Seleccione Ticket por favor");
+        }
     };
 
     $scope.goToPayment = function() {
         if ($scope.selectedPurchases.length == 0) {
-            $scope.noSelected = "Please select tickets";
+            $scope.noSelected = "Seleccione Ticket por favor";
             return;
         }
         if (!$scope.user._id) {
@@ -198,6 +226,8 @@ uvodApp.controller("PayItemController", function(
             return;
         } else {
             $scope.pay = true;
+            fbq("track", "InitiateCheckout");
+            $scope.loadPago = false;
         }
         $window.scroll(0, 0);
         $scope.noSelected = false;
@@ -206,6 +236,7 @@ uvodApp.controller("PayItemController", function(
     $scope.changeTicket = function() {
         $scope.pay = false;
         $scope.paymentType = "none";
+        $scope.loadPago = false;
     };
 
     $scope.buyTicket = function(form) {
@@ -414,6 +445,7 @@ uvodApp.controller("PayItemController", function(
         var i;
         for (i = 0; i < $scope.length($scope.user.ppvTickets); i++) {
             if ($scope.user.ppvTickets[i].originalProductId == ticket._id) {
+                $scope.paymentValid = false;
                 return true;
             }
         }
@@ -562,5 +594,4 @@ uvodApp.controller("PayItemController", function(
         if (!$scope.selectedTicket) return false;
         return $scope.selectedTicket.price <= $scope.wallet.credits;
     };
-
 });
