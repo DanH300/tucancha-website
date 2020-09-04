@@ -210,7 +210,7 @@
     <script type="text/javascript" src="/assets/common/global-vars/sport-tags.js"></script>
 
     <!-- Angular Factories-->
-    <script type="text/javascript" src="/assets/common/js/factories/user.js"></script>
+    <script type="text/javascript" src="<?php echo "/assets/common/js/factories/user.js?rev=" . time() . "" ?>"></script>
     <script type="text/javascript" src="/assets/common/js/factories/vod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/tvod.js"></script>
     <script type="text/javascript" src="/assets/common/js/factories/list.js"></script>

@@ -1,17 +1,25 @@
 <div class="header_menu_bg" ng-controller="HeaderController">
     <nav class="navbar navbar-fixed-top">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-            <span class = "icon-bar"></span>
-            <span class = "icon-bar"></span>
-            <span class = "icon-bar"></span>
-        </button>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
         <div class="live-ppv-event" ng-if="isLiveEvent" ng-click="go('pay-per-view/'+liveEvent._id)">
-            {{liveEvent.title}} is LIVE NOW ON PAY-PER-VIEW <span class="close-ppv-event"> <i class="fa fa-times" aria-hidden="true" ng-click="hideLiveEvent()"></i></span>
+            {{liveEvent.title}} is LIVE NOW ON PAY-PER-VIEW
+            <span class="close-ppv-event">
+        <i class="fa fa-times" aria-hidden="true" ng-click="hideLiveEvent()"></i
+      ></span>
         </div>
         <div class="top-menu">
             <ul>
-                <li ng-if="user._id && !user.subscriptionPlan" style="padding:0;" ng-hide="true"><a href="" ng-click="go('account/subscription')">UPGRADE TO <span class="upgrade">PREMIUM</span></a></li>
-                <li ng-hide="true"><a class="subs-header" href="">SUBSCRIPCIONES</a></li>
+                <li ng-if="user._id && !user.subscriptionPlan" style="padding: 0" ng-hide="true">
+                    <a href="" ng-click="go('account/subscription')">UPGRADE TO <span class="upgrade">PREMIUM</span></a
+          >
+        </li>
+        <li ng-hide="true">
+          <a class="subs-header" href="">SUBSCRIPCIONES</a>
+                </li>
             </ul>
         </div>
         <div class="navbar-header">
@@ -25,7 +33,7 @@
         <li class="visible-xs">
             <form class="form mobile-search" role="form" ng-submit="search(searchText)">
                 <div class="form-group has-success has-feedback">
-                    <input type="text" class="form-control" placeholder="Buscar" ng-model="searchText" ng-blur="searchText=''">
+                    <input type="text" class="form-control" placeholder="Buscar" ng-model="searchText" ng-blur="searchText=''" />
                     <span class="glyphicon glyphicon-search form-control-feedback" ng-mousedown="search(searchText)"></span>
                 </div>
             </form>
@@ -33,20 +41,25 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <ul class="nav navbar-nav menu">
-
                 <li><a href="" ng-click="go('events')">En Vivo</a></li>
                 <li><a href="" ng-click="go('pay-per-view')">Eventos PPV</a></li>
-                <li ng-hide="true"><a href="" ng-click="go('tournaments')">Torneos</a></li>
-                <li ng-repeat="activity in activities"><a href="" ng-click="go('activity/'+ activity._id)">{{activity.title}}</a></li>
+                <li ng-hide="true">
+                    <a href="" ng-click="go('tournaments')">Torneos</a>
+                </li>
+                <li ng-repeat="activity in activities">
+                    <a href="" ng-click="go('activity/'+ activity._id)">{{activity.title}}</a>
+                </li>
                 <!--<li><a href="">Noticias</a></li>-->
-                <li ng-repeat="identity in identities"><a href="" ng-click="go('identity/'+ identity._id)">{{identity.title}}</a></li>
-
+                <li ng-repeat="identity in identities">
+                    <a href="" ng-click="go('identity/'+ identity._id)">{{identity.title}}</a>
+                </li>
+                <li><a href="" ng-click="go('support')"><i class="glyphicon glyphicon-question-sign"></i> Ayuda</a></li>
                 <li class="visible-xs">
                     <div class="login" ng-hide="user._id" ng-click="openLoginModel()">
                         <span class="login">Ingresar</span>
                     </div>
                     <ul>
-                        <li class="signin-div " ng-show="user._id">
+                        <li class="signin-div" ng-show="user._id">
                             <div class="logged-in">
                                 <ul class="">
                                     <li><a ng-click="go('account')">Mi Cuenta</a></li>
@@ -61,10 +74,10 @@
         </div>
         <div class="menu-right hidden-xs">
             <ul>
-                <li class="signin-div " ng-show="user._id">
+                <li class="signin-div" ng-show="user._id">
                     <div class="dropdown ib">
                         <div id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="ib dropdown-toggle notifications">
-                            <img class="" src="/assets/theme/tuc/images/bell.png" style="cursor: pointer; width:1.5vw; height:1.5vw;" />
+                            <img class="" src="/assets/theme/tuc/images/bell.png" style="cursor: pointer; width: 1.5vw; height: 1.5vw" />
                             <div class="notifications-amount" ng-hide="!unreadNotifications()">
                                 <span>{{unreadNotifications()}}</span>
                             </div>
@@ -72,7 +85,8 @@
                         <ul class="dropdown-menu notifications-drop" ng-hide="!unreadNotifications()" aria-labelledby="notifications">
                             <span class="caret"></span>
                             <h4>NOTIFICACIÓN</h4>
-                            <li ng-repeat="notification in notifications | filter: {read:'false'}" ng-click="readNotification(notification, $event)"><span>{{notification.heading}}</span>
+                            <li ng-repeat="notification in notifications | filter: {read:'false'}" ng-click="readNotification(notification, $event)">
+                                <span>{{notification.heading}}</span>
                                 <p>{{notification.content}}</p>
                             </li>
                         </ul>
@@ -80,7 +94,12 @@
                     <div class="logged-in ib">
                         <div class="dropdown ib">
                             <div id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="ib dropdown-toggle user-section">
-                                <img class="user-img" src="{{user.avatar?user.avatar:'/assets/theme/tuc/images/profile.png'}}" style="cursor: pointer;border-radius: 50px; width:2vw; height:2vw;" />
+                                <img class="user-img" src="{{user.avatar?user.avatar:'/assets/theme/tuc/images/profile.png'}}" style="
+                    cursor: pointer;
+                    border-radius: 50px;
+                    width: 2vw;
+                    height: 2vw;
+                  " />
                                 <span class="username">{{user.firstName}}</span>
                                 <!-- <span class="caret"></span> -->
                                 <span class="icon icon-arrow-down-white"></span>
@@ -103,8 +122,8 @@
                 <li class="hidden-xs">
                     <form class="search-form" role="form" ng-submit="search(searchText)">
                         <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" placeholder="Buscar" ng-model="searchText" ng-blur="searchText=''">
-                            <span class="glyphicon glyphicon-search form-control-feedback" style="cursor: pointer; pointer-events: initial;" ng-mousedown="search(searchText)"></span>
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="searchText" ng-blur="searchText=''" />
+                            <span class="glyphicon glyphicon-search form-control-feedback" style="cursor: pointer; pointer-events: initial" ng-mousedown="search(searchText)"></span>
                         </div>
                     </form>
                 </li>
@@ -114,14 +133,14 @@
 </div>
 
 <div ng-if="!user._id" class="modal loginModal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" ng-controller="LoginController">
-    <div class="modal-dialog login-modal-dialog" style="width: 78%;">
+    <div class="modal-dialog login-modal-dialog" style="width: 78%">
         <i class="fa fa-times" aria-hidden="true" ng-click="closeModel()"></i>
         <div class="modal-content">
             <div class="login-page" ng-hide="showRegister">
-                <div class="not-on-devices-error" ng-show="outOfDevicesList">Su dispositivo no está en la lista. Por favor inicie sesión</div>
-                <div class="login-header">
-                    Elige como registrarte
+                <div class="not-on-devices-error" ng-show="outOfDevicesList">
+                    Su dispositivo no está en la lista. Por favor inicie sesión
                 </div>
+                <div class="login-header">Elige como registrarte</div>
 
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-12 dc-login-modal-right">
@@ -140,149 +159,234 @@
                         </div>
 
                         <div class="inputs-cont">
-                            <form ng-if="!isForgotPassword" ng-submit="loginUser()" action='/' onsubmit="return false;" method='post'>
-                                <input type="email" name="email" class="form-control" autocomplete="email" ng-model="userLogin.email" placeholder="Email" required>
-                                <input type="password" name="password" class="form-control" autocomplete="on" ng-model="userLogin.password" placeholder="Contraseña" required>
-                                <div style="display: table;">
-                                    <input type="checkbox" id="remember-me" name="remember-me" style="width: 20px;float: left;" ng-model="userLogin.remember_me" /><label for="remember-me" class="remember-me">Recuérdame</label>
-                                </div>
-                                <div class="login-error" ng-show="loginError">{{loginError}}</div>
-                                <div class="pass-success" ng-show="passwordSuccess">{{passwordSuccess}}</div>
-                                <div class="loader" ng-if="logging">
-                                </div>
-                                <input type="submit" class="login-btn" value="INGRESAR" ng-hide="logging">
-                            </form>
-                            <form ng-submit="resetPassword()" ng-if="isForgotPassword">
-                                <span class="credentials-span forgot-title">Reestablecer contraseña</span>
-                                <label for="forgot-input" style="float: left;font-size: 20px;">Por favor escriba su correo electrónico:</label>
-                                <input type="email" class="form-control" name="forgot-input" ng-model="forgotInput.email" placeholder="Correo Electrónico" required>
-                                <div class="login-error" ng-show="forgotError">{{forgotError}}</div>
-                                <input type="submit" class="login-btn" value="Cambiar mi contraseña">
-                                <!--<span class="hand" ng-click="openLoginModel()">Regresar a inicio de sesión</span>-->
-                            </form>
-                        </div>
-
-                        <div class="forgot-span" ng-if="!isForgotPassword">
-                            ¿Olvidaste tu contraseña? <span class="hand" ng-click="enableForgot()">Click aquí</span>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-7 col-md-7 col-sm-12 register-page dc-login-modal-left">
-                        <div class="login-information">
-                            Ingresa tu <span class="login-span">información</span>
-                        </div>
-                        <form class="register-form">
-                            <div class="row">
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Nombre *
-                                    </div>
-                                    <input name="name" autocomplete="name first" type="text" ng-model="userRegister.first_name" class="form-control">
-                                </div>
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Apellido *
-                                    </div>
-                                    <input type="text" name="name" autocomplete="name last" ng-model="userRegister.last_name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Email *
-                                    </div>
-                                    <input class="{{error=='email'?'input-error':''}} form-control" type="email" name="email" autocomplete="email" ng-model="userRegister.email">
-                                </div>
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Confirmar Email *
-                                    </div>
-                                    <input class="{{error=='email'?'input-error':''}} form-control" type="email" onpaste="return false;" autocomplete="off" ng-model="userRegister.email_verify">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Contraseña * <span class="flr small-text">(mínimo 8 caracteres)</span>
-                                    </div>
-                                    <input class="{{error=='password'?'input-error':''}} form-control" type="password" name="password" autocomplete="password" ng-model="userRegister.password">
-                                </div>
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Confirmar Contraseña *
-                                    </div>
-                                    <input class="{{error=='password'?'input-error':''}} form-control" type="password" onpaste="return false;" autocomplete="off" ng-model="userRegister.password_verify">
-                                </div>
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Cédula de Identidad *
-                                    </div>
-                                    <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="userRegister.dni" class="form-control">
-                                </div>
-                                <div class="single-input col-sm-6">
-                                    <div class="input-label">
-                                        Confirmar Cédula de Identidad *
-                                    </div>
-                                    <input class="{{error=='cedula'?'input-error':''}} form-control" type="text" onpaste="return false;" autocomplete="off" ng-model="userRegister.dni_verify">
-                                </div>
-                            </div>
-                            <div class="row submit">
-                                <div class="col-sm-8 col-sm-offset-2">
-                                    <input class="chkbox_terms" type="checkbox" name="term-and" value="" ng-model="userRegister.termsRegular">
-                                    <label for="term-and">Aceptar <a ng-click="go('terms-and-conditions')">Términos y Condiciones *</a></label>
-                                    <div class="register-error" ng-if="error">Algo salió mal, revisa tu {{error}}</div>
-                                    <div class="register-error" ng-if="noTerms">Por favor, acepte los términos y condiciones</div>
-                                    <div class="register-error" ng-if="RegisterError">{{RegisterError}}</div>
-                                    <div class="" ng-hide="registering">
-                                        <input type="submit" ng-disabled="disableRegister()" ng-click="registerUser();" class="submit-btn" value="REGISTRARME">
-                                    </div>
-                                    <div class="loader" ng-if="registering">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                            <form ng-if="!isForgotPassword" ng-submit="loginUser()" action="/" onsubmit="return false;" method="post">
+                                <input type="email" name="email" class="form-control" autocomplete="email" ng-model="userLogin.email" placeholder="Email" required />
+                                <input type="password" name="password" class="form-control" autocomplete="on" ng-model="userLogin.password" placeholder="Contraseña" required />
+                                <div style="display: table">
+                                    <input type="checkbox" id="remember-me" name="remember-me" style="width: 20px; float: left" ng-model="userLogin.remember_me" /><label for="remember-me" class="remember-me">Recuérdame</label
+                  >
                 </div>
+                <div class="login-error" ng-show="loginError">
+                  {{loginError}}
+                </div>
+                <div class="pass-success" ng-show="passwordSuccess">
+                  {{passwordSuccess}}
+                </div>
+                <div class="loader" ng-if="logging"></div>
+                <input
+                  type="submit"
+                  class="login-btn"
+                  value="INGRESAR"
+                  ng-hide="logging"
+                />
+              </form>
+              <form ng-submit="resetPassword()" ng-if="isForgotPassword">
+                <span class="credentials-span forgot-title"
+                  >Reestablecer contraseña</span
+                >
+                <label for="forgot-input" style="float: left; font-size: 20px"
+                  >Por favor escriba su correo electrónico:</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  name="forgot-input"
+                  ng-model="forgotInput.email"
+                  placeholder="Correo Electrónico"
+                  required
+                />
+                <div class="login-error" ng-show="forgotError">
+                  {{forgotError}}
+                </div>
+                <input
+                  type="submit"
+                  class="login-btn"
+                  value="Cambiar mi contraseña"
+                />
+                <!--<span class="hand" ng-click="openLoginModel()">Regresar a inicio de sesión</span>-->
+              </form>
             </div>
-            <div class="register-page" ng-show="showRegister">
-                <!--<div class="disclaimer-span" ng-click="go('terms-and-conditions')">-->
-                <!--By registering you accept <span>terms and conditions</span>-->
-                <!--</div>-->
-                <!-- <input class="chkbox_terms" type="checkbox" name="term-and" value="" ng-model="userRegister.termsFacebook">
+
+            <div class="forgot-span" ng-if="!isForgotPassword">
+              ¿Olvidaste tu contraseña?
+              <span class="hand" ng-click="enableForgot()">Click aquí</span>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-7 col-md-7 col-sm-12 register-page dc-login-modal-left"
+          >
+            <div class="login-information">
+              Ingresa tu <span class="login-span">información</span>
+            </div>
+            <form class="register-form">
+              <div class="row">
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Nombre *</div>
+                  <input
+                    name="name"
+                    autocomplete="name first"
+                    type="text"
+                    ng-model="userRegister.first_name"
+                    class="form-control"
+                  />
+                </div>
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Apellido *</div>
+                  <input
+                    type="text"
+                    name="name"
+                    autocomplete="name last"
+                    ng-model="userRegister.last_name"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Email *</div>
+                  <input
+                    class="{{error=='email'?'input-error':''}} form-control"
+                    type="email"
+                    name="email"
+                    autocomplete="email"
+                    ng-model="userRegister.email"
+                  />
+                </div>
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Confirmar Email *</div>
+                  <input
+                    class="{{error=='email'?'input-error':''}} form-control"
+                    type="email"
+                    onpaste="return false;"
+                    autocomplete="off"
+                    ng-model="userRegister.email_verify"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="single-input col-sm-6">
+                  <div class="input-label">
+                    Contraseña *
+                    <span class="flr small-text">(mínimo 8 caracteres)</span>
+                  </div>
+                  <input
+                    class="{{error=='password'?'input-error':''}} form-control"
+                    type="password"
+                    name="password"
+                    autocomplete="password"
+                    ng-model="userRegister.password"
+                  />
+                </div>
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Confirmar Contraseña *</div>
+                  <input
+                    class="{{error=='password'?'input-error':''}} form-control"
+                    type="password"
+                    onpaste="return false;"
+                    autocomplete="off"
+                    ng-model="userRegister.password_verify"
+                  />
+                </div>
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Cédula de Identidad *</div>
+                  <input
+                    id="dni"
+                    name="dni"
+                    type="text"
+                    ng-change="validateDni()"
+                    ng-model="userRegister.dni"
+                    class="form-control"
+                  />
+                </div>
+                <div class="single-input col-sm-6">
+                  <div class="input-label">Confirmar Cédula de Identidad *</div>
+                  <input
+                    class="{{error=='cedula'?'input-error':''}} form-control"
+                    type="text"
+                    onpaste="return false;"
+                    autocomplete="off"
+                    ng-model="userRegister.dni_verify"
+                  />
+                </div>
+              </div>
+              <div class="row submit">
+                <div class="col-sm-8 col-sm-offset-2">
+                  <input
+                    class="chkbox_terms"
+                    type="checkbox"
+                    name="term-and"
+                    value=""
+                    ng-model="userRegister.termsRegular"
+                  />
+                  <label for="term-and"
+                    >Aceptar
+                    <a ng-click="go('terms-and-conditions')"
+                      >Términos y Condiciones *</a
+                    ></label
+                  >
+                  <div class="register-error" ng-if="error">
+                    Algo salió mal, revisa tu {{error}}
+                  </div>
+                  <div class="register-error" ng-if="noTerms">
+                    Por favor, acepte los términos y condiciones
+                  </div>
+                  <div class="register-error" ng-if="RegisterError">
+                    {{RegisterError}}
+                  </div>
+                  <div class="" ng-hide="registering">
+                    <input
+                      type="submit"
+                      ng-disabled="disableRegister()"
+                      ng-click="registerUser();"
+                      class="submit-btn"
+                      value="REGISTRARME"
+                    />
+                  </div>
+                  <div class="loader" ng-if="registering"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="register-page" ng-show="showRegister">
+        <!--<div class="disclaimer-span" ng-click="go('terms-and-conditions')">-->
+        <!--By registering you accept <span>terms and conditions</span>-->
+        <!--</div>-->
+        <!-- <input class="chkbox_terms" type="checkbox" name="term-and" value="" ng-model="userRegister.termsFacebook">
                 <label class="txtTermsSocial" for="term-and">
                     Accept <a ng-click="go('terms-and-conditions')">Terms and conditions *</a>
                 </label>
-                <div class="facebook-register {{userRegister.termsFacebook?'':'disabled'}}" ng-disabled="userRegister.termsFacebook" ng-click="socialRegister()">
-                    Register with Facebook
-                </div>
-                <div class="or-line">
-                    <span class="or-span">
+                                    <div class="facebook-register {{userRegister.termsFacebook?'':'disabled'}}" ng-disabled="userRegister.termsFacebook" ng-click="socialRegister()">
+                                        Register with Facebook
+                                    </div>
+                                    <div class="or-line">
+                                        <span class="or-span">
                         or
                     </span>
-                </div> -->
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal registrationComplete fade" id="registrationComplete" tabindex="-1" role="dialog" aria-labelledby="registrationComplete" ng-controller="registrationCompleteController" style="overflow-y:auto">
-    <div class="live-ppv-event" ng-if="isLive" ng-click="closeRegistrationComplete();go('pay-per-view/'+liveEvent._id)">
-        {{liveEvent.title}} is LIVE NOW ON PAY-PER-VIEW <span class="close-ppv-event"> <i class="fa fa-times" aria-hidden="true" ng-click="hideLiveEvent()"></i></span>
-    </div>
-    <div class="modal-dialog registration-complete-dialog">
-        <div class="modal-content">
-            <div class="registration-complete">
-                <div class="rc-header">
-                    ¡Registro completo!
+                                    </div> -->
+                                </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="rc-welcome">
-                    Bienvenido a TuCancha
-                </div>
-                <div class="rc-select">
+                <div class="modal registrationComplete fade" id="registrationComplete" tabindex="-1" role="dialog" aria-labelledby="registrationComplete" ng-controller="registrationCompleteController" style="overflow-y: auto">
+                    <div class="live-ppv-event" ng-if="isLive" ng-click="closeRegistrationComplete();go('pay-per-view/'+liveEvent._id)">
+                        {{liveEvent.title}} is LIVE NOW ON PAY-PER-VIEW
+                        <span class="close-ppv-event">
+      <i class="fa fa-times" aria-hidden="true" ng-click="hideLiveEvent()"></i
+    ></span>
+                    </div>
+                    <div class="modal-dialog registration-complete-dialog">
+                        <div class="modal-content">
+                            <div class="registration-complete">
+                                <div class="rc-header">¡Registro completo!</div>
+                                <div class="rc-welcome">Bienvenido a TuCancha</div>
+                                <!--<div class="rc-select">
                     Por favor seleccione la opción que más le convenga,</br>
                     o salta para continuar con acceso limitado GRATIS
                 </div>
-                <!--<div class="row flex-row">
+                <div class="row flex-row">
                     <div class="col-sm-6">
                         <div class="options premium pr">
                             <div class="option-header yellow-bg">
@@ -345,91 +449,82 @@
                         </div>
                     </div>
                 </div>-->
-                <button type="button" class="rc-button skip" ng-click="closeRegistrationComplete()">OMITIR</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div ng-if="!user._id" class="modal fade" id="devicesModal" tabindex="-1" role="dialog" aria-labelledby="devicesModal" ng-controller="LoginController">
-    <div class="devices modal-dialog devices-modal-dialog">
-        <i class="fa fa-times" aria-hidden="true" ng-click="closeDevicesModal()"></i>
-        <div class="row modal-content">
-            <div class="login-page devices" ng-if="!deletingDevice">
-                <h3>Límite de dispositivos alcanzado</h3>
-                <h4>Por favor, elimine uno para iniciar sesión</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="col-sm-6">Nombre del dispositivo</th>
-                            <th class="col-sm-4">Fecha de registro</th>
-                            <th class="col-sm-2">Retire el dispositivo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="device in devices">
-                            <th class="col-sm-6">
-                                <input type="text" value={{device.deviceName}} readonly/>
-                            </th>
-                            <th>
-                                <span>{{device.added | date: 'MMMM dd - HH:mm'}}</span>
-                            </th>
-                            <th>
-                                <i class="fa fa-trash" aria-hidden="true" ng-click="deleteDevice(device._id)"></i>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="loader-container" ng-if="deletingDevice">
-                <div class="loader-text">Por favor espere...</div>
-                <div class="loader"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal dniModal fade" id="dniModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="dniModal" ng-controller="LoginController">
-    <div class="modal-dialog login-modal-dialog">
-        <div class="modal-content">
-
-            <div class="register-page dc-login-modal-left">
-                <div class="register-header">
-                    Ingresa tu Cédula de Identidad
+                                <button type="button" class="rc-button skip" ng-click="closeRegistrationComplete()">
+          OMITIR
+        </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <form class="register-form">
-
-                    <div class="row">
-
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Cédula de Identidad *
+                <div ng-if="!user._id" class="modal fade" id="devicesModal" tabindex="-1" role="dialog" aria-labelledby="devicesModal" ng-controller="LoginController">
+                    <div class="devices modal-dialog devices-modal-dialog">
+                        <i class="fa fa-times" aria-hidden="true" ng-click="closeDevicesModal()"></i>
+                        <div class="row modal-content">
+                            <div class="login-page devices" ng-if="!deletingDevice">
+                                <h3>Límite de dispositivos alcanzado</h3>
+                                <h4>Por favor, elimine uno para iniciar sesión</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-6">Nombre del dispositivo</th>
+                                            <th class="col-sm-4">Fecha de registro</th>
+                                            <th class="col-sm-2">Retire el dispositivo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="device in devices">
+                                            <th class="col-sm-6">
+                                                <input type="text" value="{{device.deviceName}}" readonly />
+                                            </th>
+                                            <th>
+                                                <span>{{device.added | date: 'MMMM dd - HH:mm'}}</span>
+                                            </th>
+                                            <th>
+                                                <i class="fa fa-trash" aria-hidden="true" ng-click="deleteDevice(device._id)"></i>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="dniUpdate.dni" class="form-control">
-                        </div>
-                        <div class="single-input col-sm-6">
-                            <div class="input-label">
-                                Confirmar Cédula de Identidad *
+                            <div class="loader-container" ng-if="deletingDevice">
+                                <div class="loader-text">Por favor espere...</div>
+                                <div class="loader"></div>
                             </div>
-                            <input class="{{error=='cedula'?'input-error':''}} form-control" type="text" onpaste="return false;" autocomplete="off" ng-model="dniUpdate.dni_verify">
                         </div>
                     </div>
-                    <div class="row submit">
-                        <div class="col-sm-8 col-sm-offset-2">
-                            <div class="register-error" ng-if="dniError">Algo salió mal, {{dniError}}</div>
-                            <div class="" ng-hide="updatingDni">
-                                <input type="submit" ng-disabled="disableUpdateDni()" ng-click="updateDni()" class="submit-btn" value="ENVIAR">
-                            </div>
-                            <div class="loader" ng-if="updatingDni">
+                </div>
+
+                <div class="modal dniModal fade" id="dniModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="dniModal" ng-controller="LoginController">
+                    <div class="modal-dialog login-modal-dialog">
+                        <div class="modal-content">
+                            <div class="register-page dc-login-modal-left">
+                                <div class="register-header">Ingresa tu Cédula de Identidad</div>
+
+                                <form class="register-form">
+                                    <div class="row">
+                                        <div class="single-input col-sm-6">
+                                            <div class="input-label">Cédula de Identidad *</div>
+                                            <input id="dni" name="dni" type="text" ng-change="validateDni()" ng-model="dniUpdate.dni" class="form-control" />
+                                        </div>
+                                        <div class="single-input col-sm-6">
+                                            <div class="input-label">Confirmar Cédula de Identidad *</div>
+                                            <input class="{{error=='cedula'?'input-error':''}} form-control" type="text" onpaste="return false;" autocomplete="off" ng-model="dniUpdate.dni_verify" />
+                                        </div>
+                                    </div>
+                                    <div class="row submit">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <div class="register-error" ng-if="dniError">
+                                                Algo salió mal, {{dniError}}, vuelva a intentar!!
+                                            </div>
+                                            <div class="" ng-hide="updatingDni">
+                                                <input type="submit" ng-disabled="disableUpdateDni()" ng-click="updateDni()" class="submit-btn" value="ENVIAR" />
+                                            </div>
+                                            <div class="loader" ng-if="updatingDni"></div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>

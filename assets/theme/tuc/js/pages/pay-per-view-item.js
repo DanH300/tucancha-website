@@ -187,14 +187,12 @@ uvodApp.controller("PayItemController", function(
     $scope.payWithCreditCard = function() {
         fbq("track", "Purchase", { value: 0.0, currency: "USD" });
         $scope.loadPago = true;
-        setTimeout(function() {
-            globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-                console.log(data);
-                if (data.message == "ok") {
-                    window.location.href = data.content.processUrl;
-                }
-            });
-        }, 2000);
+        globalFactory.createRequest($scope.selectedTicket).then(function(data) {
+            console.log(data);
+            if (data.message == "ok") {
+                window.location.href = data.content.processUrl;
+            }
+        });
     };
 
     $scope.goToPayment = function() {

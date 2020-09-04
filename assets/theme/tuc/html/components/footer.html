@@ -13,15 +13,12 @@
                         <li><span ng-click="go('')">Home</span></li>
                         <li><span ng-click="go('events')">En vivo</span></li>
                         <li><span ng-click="go('ppv')">Eventos PPV</span></li>
-                        <!--<li><span ng-click="go('tournaments')">Torneos</span></li>-->
                         <li ng-repeat="activity in activities"><a href="" ng-click="go('activity/'+ activity._id)">{{activity.title}}</a></li>
-                        <!--<li><span>Noticias</span></li>-->
+                        <li><span ng-click="go('support')">Ayuda</span></li>
                     </ul>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-lg-6">
                     <ul class="right-nav">
-                        <!-- <li><span ng-click="go('support')">FAQ's</span></li> 
-                        <li><span ng-click="go('privacy-policy')">Privaciad</span></li> -->
                         <li><span ng-click="go('about')">Acerca de nosotros</span></li>
                         <li><span ng-click="go('terms-and-conditions')">Terminos y condiciones</span></li>
                         <li>

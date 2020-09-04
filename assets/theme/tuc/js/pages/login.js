@@ -308,7 +308,7 @@ uvodApp.controller('LoginController', function($scope, AuthService, User, $rootS
     };
 
     $scope.updateDni = function() {
-        $scope.updatingDni = true;
+        //$scope.updatingDni = true;
         AuthService.updateDni($scope.dniUpdate.dni).then(function() {
             $scope.updatingDni = false;
         });

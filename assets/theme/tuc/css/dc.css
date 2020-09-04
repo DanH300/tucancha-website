@@ -25,14 +25,61 @@
     text-align: right;
 }
 
-.dc-home-banner img {
-    margin: 10px;
-    padding: 0px;
-    width: 100%;
-    height: 158px;
+.dc-home-banner-a {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_1.png");
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
+    margin-top: 17px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-b {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-c {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-d {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-e {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_5.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 17px;
+    padding: 0px;
+    width: 100%;
+    height: 323px;
 }
 
 .dc-footer-logo {
@@ -152,4 +199,8 @@ a:active {
     background-position: center;
     width: 100%;
     max-height: max-content;
+}
+
+.dc-titulo-ayuda {
+    color: #d0dd28;
 }
