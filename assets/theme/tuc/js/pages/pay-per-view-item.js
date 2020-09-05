@@ -203,7 +203,11 @@ uvodApp.controller("PayItemController", function(
                 fbq("track", "Purchase", { value: 0.0, currency: "USD" });
                 $scope.loadPago = true;
                 globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-                    console.log(data);
+                    if(data.error){
+                        swal.fire(data.message).then(function(){
+                            window.location.href = '/';
+                        })
+                    }
                     if (data.message == "ok") {
                         window.location.href = data.content.processUrl;
                     }

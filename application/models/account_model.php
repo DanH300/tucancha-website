@@ -547,6 +547,10 @@ class Account_model extends CI_Model {
         
         $user_id = $this->session->userdata('profile_id');
         $token = $this->session->userdata('login_token');
+
+        if(!($token && $user_id)){
+            return ["error" => true, "message" => "Finalizó la sesión por inactividad, por favor ingrese nuevamente."];   
+        }
     
     
         $profile = $this->get_profile($token, $user_id)->content;

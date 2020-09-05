@@ -58,7 +58,13 @@ uvodApp.factory("globalFactory", function($http, $q, $rootScope) {
         createRequest: function(plan){
             
             return $http.get("index.php/api/account/createRequest?plan="+plan._id).then(function(result){
-                return result.data;
+                if(result.error){
+                    return result;
+                }
+                else{
+                    return result.data;
+                }
+             
                 
             }).catch(function(err) {
                 return $q.reject("Data not available");
