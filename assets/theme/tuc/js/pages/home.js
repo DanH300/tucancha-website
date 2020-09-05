@@ -20,7 +20,7 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
     $scope.loading['news'] = false;
     $scope.loading['most_popular'] = false;
     $scope.loading['highlight'] = false;
-    
+
     $scope.channelIndex = 0;
     $scope.channelCaruselPosition = 0;
     $scope.listCaruselPosition = 0;
@@ -32,78 +32,72 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
     };
 
 
-    var showTransactionStatus = function(data){
-         
+    var showTransactionStatus = function(data) {
+
         $scope.show_alert_pay_pending = 0;
         transactions = data.content;
-       
-        for(var i = 0; i < transactions.length ; i++){
+
+        for (var i = 0; i < transactions.length; i++) {
             var transaction = transactions[i];
 
             var today = new Date();
             var day = new Date(transaction.added);
 
-            if((today.getTime() - day.getTime()) <=  3600000 ){
-                if(transaction.status == 'PENDING'){
+            if ((today.getTime() - day.getTime()) <= 3600000) {
+                if (transaction.status == 'PENDING') {
                     $scope.show_alert_pay_pending = 1;
-                    toastr.warning('El pago #'+transaction._id+' está en espera aprobación',
-                    'Por favor, espere hasta 5 minutos hasta que su pago se procese. Si no realizó ningún pago desestime esta alerta.',
-                    {timeOut: 50000});
-                    
-                }
-                else if(transaction.status == 'APPROVED'){
+                    toastr.warning('El pago #' + transaction._id + ' está en espera aprobación',
+                        'Por favor, espere hasta 5 minutos hasta que su pago se procese. Si no realizó ningún pago desestime esta alerta.', { timeOut: 50000 });
+
+                } else if (transaction.status == 'APPROVED') {
                     $scope.show_alert_pay_pending = 1;
-                    toastr.success('El pago #'+transaction._id+' fue aprobado.',
-                    {timeOut: 50000});
-                }
-                else if(transaction.status == 'REJECTED'){
+                    toastr.success('El pago #' + transaction._id + ' fue aprobado.', { timeOut: 50000 });
+                } else if (transaction.status == 'REJECTED') {
                     $scope.show_alert_pay_pending = 1;
-                    toastr.error('El pago #'+transaction._id+' fue rechazado.',
-                    {timeOut: 50000});
-                }
-                else if(transaction.status == 'ERROR'){
+                    toastr.error('El pago #' + transaction._id + ' fue rechazado.', { timeOut: 50000 });
+                } else if (transaction.status == 'ERROR') {
                     $scope.show_alert_pay_pending = 1;
-                    toastr.error('El pago #'+transaction._id+' tuvo un error.',
-                    {timeOut: 50000});
-                }
-                else if(transaction.status == 'FAILED'){
+                    toastr.error('El pago #' + transaction._id + ' tuvo un error.', { timeOut: 50000 });
+                } else if (transaction.status == 'FAILED') {
                     $scope.show_alert_pay_pending = 1;
-                    toastr.error('El pago #'+transaction._id+' falló.',
-                    {timeOut: 50000});
+                    toastr.error('El pago #' + transaction._id + ' falló.', { timeOut: 50000 });
                 }
             }
         }
     }
 
-    var checkTransactions = function (){
-        globalFactory.getAllP2PPay().then(function(data){
-            globalFactory.getAllP2PPay().then(function(data){
+    var checkTransactions = function() {
+        globalFactory.getAllP2PPay().then(function(data) {
+            globalFactory.getAllP2PPay().then(function(data) {
                 showTransactionStatus(data);
             });
         });
     }
 
     /* traigo el profile */
-    if($scope.user){
-        globalFactory.getProfileCurrent().then(function(data){
+    if ($scope.user) {
+        globalFactory.getProfileCurrent().then(function(data) {
             payments = data.paymentData;
             var reqsId;
-            for(var i = 0 ; i < payments.length ; i++){
+            for (var i = 0; i < payments.length; i++) {
                 reqsId.push(payments[i].creditCardId);
             }
         })
-          
-        checkTransactions();
+
+
+        if ($scope.user.userid) {
+            checkTransactions();
+        }
 
         globalFactory.getLastContract().then(function(data) {
             $scope.plans = data.content.entries;
-            $scope.user.subscriptionPlan = data.content.entries[(data.content.entries.length-1)];
+            $scope.user.subscriptionPlan = data.content.entries[(data.content.entries.length - 1)];
             var subscription = [];
             subscription.push($scope.user.subscriptionPlan)
-            AuthService.setSubscription(subscription);  
+            AuthService.setSubscription(subscription);
             console.log(subscription)
         });
-        
+
     }
 
 
@@ -180,7 +174,7 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
 
     // //Get VOD with Featued Category "most_popular"
     // globalFactory.getByFeaturedCategory('most_popular', 0).then(function(data) {
-        
+
     //     $scope.featuredCategories['most_popular'] = data;
     //     if(data.length < 4){
     //         $scope.showMore['most_popular'] = false;
@@ -201,20 +195,20 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
 
     $scope.nextPage = function(category) {
         $scope.page[category]++;
-        $scope.nextFeaturedItems(category,$scope.page[category]);
+        $scope.nextFeaturedItems(category, $scope.page[category]);
     }
 
-    $scope.nextFeaturedItems = function(category,pageNum) {
+    $scope.nextFeaturedItems = function(category, pageNum) {
 
         $scope.showMore[category] = false;
         $scope.loading[category] = true;
-        globalFactory.getByFeaturedCategory(category,pageNum).then(function(data) {
-            
+        globalFactory.getByFeaturedCategory(category, pageNum).then(function(data) {
+
             $scope.featuredCategories[category] = $scope.featuredCategories[category].concat(data);
-            
-            if(data.length < 4){
+
+            if (data.length < 4) {
                 $scope.showMore[category] = false;
-            }else{
+            } else {
                 $scope.showMore[category] = true;
             }
             $scope.loading[category] = false;
@@ -231,25 +225,25 @@ uvodApp.controller('HomeController', function($scope, $rootScope, AuthService, t
 });
 
 
-uvodApp.config(["toastrConfig",function(toastrConfig) {
+uvodApp.config(["toastrConfig", function(toastrConfig) {
 
     var options = {
-          "closeButton": true,
-          "debug": false,
-          "newestOnTop": false,
-          "progressBar": true,
-          "positionClass": "toast-top-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };  
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 
-        angular.extend(toastrConfig, options);
+    angular.extend(toastrConfig, options);
 }]);

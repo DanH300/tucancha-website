@@ -3,7 +3,9 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner main-slider" role="listbox">
             <div ng-repeat="slide in slider" style="" class="item {{$first?'active':''}}">
-                <a ng-href="{{slide.link || ''}}" target="{{slide.target}}"><img ng-src="{{slide.image_url | https}}" alt="{{slide.text}}"></a>
+                <a ng-href="{{slide.link || ''}}" target="{{slide.target}}">
+                    <img class="dc-home-img-slider" ng-src="{{slide.image_url | https}}" alt="{{slide.text}}" />
+                </a>
             </div>
         </div>
         <a class="left carousel-control hidden-xs" onclick="$(this).closest('#HomeCarousel').carousel('prev');" role="button" data-slide="prev">
@@ -16,20 +18,38 @@
 
     <div class="single-category home-middle row">
         <sports-carousel data-carouse-id="sports" class="col-sm-4"></sports-carousel>
-        <div class="col-sm-8">
-            <div class="col-md-6 padding-0">
-                <div class="dc-home-banner">
-                    <img src="/assets/theme/tuc/images/banner_1.jpg">
+        <div class="col-sm-8 dc-home-div-banner">
+            <div class="col-sm-6">
+                <div class="col-md-12 padding-0">
+                    <div class="dc-home-banner">
+                        <div class="dc-home-banner-a" ng-click="go('identity/5de55be5fb0a2977282810f7/5f37627576131518fae2ac8f')"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 padding-0">
+                    <div class="dc-home-banner">
+                        <div class="dc-home-banner-b" ng-click="go('identity/5de55be5fb0a2977282810f7/5f37274c76131518fae2ab9f')"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 padding-0">
+                    <div class="dc-home-banner">
+                        <div class="dc-home-banner-c" ng-click="go('identity/5de55be5fb0a2977282810f7/5f4945bf5b77b759032fe947')"></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 padding-0">
-                <div class="dc-home-banner">
-                    <img src="/assets/theme/tuc/images/banner_2.jpg">
+            <div class="col-sm-6">
+                <div class="col-md-12 padding-0">
+                    <div class="dc-home-banner">
+                        <div class="dc-home-banner-e" ng-click="go('pay-per-view/5f52754f5b77b759033004cb')"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 padding-0">
+                    <div class="dc-home-banner">
+                        <div class="dc-home-banner-d" ng-click="go('identity/5de55be5fb0a2977282810f7/5f4945d65b77b759032fe948')"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="categories">
         <div class="single-category" ng-if="user._id && myList.length > 0" myList="myList">
@@ -40,12 +60,10 @@
                 <div class="watchlist-carousel-container">
                     <div ng-if="myList" class="watchlist-carousel">
                         <div class="arrow-right hidden-xs {{myList.length - listCaruselPosition > 4?'':'opacity0'}}" ng-click="moveListRight()">
-                            <div class="icon icon-arrow-right-32x83" ng-attr-style="right:20px;">
-                            </div>
+                            <div class="icon icon-arrow-right-32x83" ng-attr-style="right:20px;"></div>
                         </div>
                         <div class="arrow-left hidden-xs {{listCaruselPosition==0?'opacity0':''}}" ng-click="moveListLeft()">
-                            <div class="icon icon-arrow-left-32x83" ng-attr-style="left:20px;">
-                            </div>
+                            <div class="icon icon-arrow-left-32x83" ng-attr-style="left:20px;"></div>
                         </div>
                         <div class="row__inner recentInner" ng-attr-style="left: {{listMoveLeft}};">
                             <clip-block ng-repeat="video in myList" myList="myList" video="video" ng-if="isAllowed(video)"></clip-block>
@@ -75,11 +93,9 @@
                     <ppv-block class="col-xs-12 col-sm-6 col-lg-3" my-list="myList" ng-repeat="ppv in ppvEvents | limitTo:12" video="ppv"></ppv-block>
                 </div>
             </div>
-
         </div>
 
-        <div class="empty-space">
-        </div>
-
+        <div class="empty-space"></div>
     </div>
+</div>
 </div>

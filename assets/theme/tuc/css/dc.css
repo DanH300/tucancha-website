@@ -1,6 +1,6 @@
 /*!
  * Hoja de estilos Pixellec
- * Autor: Daniel Castro
+ * Autor: DC
  * VIII 2020
  */
 
@@ -8,20 +8,78 @@
     padding-left: 10px;
 }
 
+.dc-home-img-slider {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.dc-home-div-banner {
+    margin-top: 10x;
+    padding: 0px;
+}
+
 .dc-home-banner {
-    margin: 15px 0px 0px 0px;
+    margin: 0xp;
     padding: 0px;
     text-align: right;
 }
 
-.dc-home-banner img {
-    margin: 10px 0px 0px 0px;
-    padding: 0px;
-    width: 430px;
-    height: 315px;
+.dc-home-banner-a {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_1.png");
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
+    margin-top: 17px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-b {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-c {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-d {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    padding: 0px;
+    width: 100%;
+    height: 158px;
+}
+
+.dc-home-banner-e {
+    background-image: url("https://www.pixellec.com/img-tucancha/banner_5.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin-top: 17px;
+    padding: 0px;
+    width: 100%;
+    height: 323px;
 }
 
 .dc-footer-logo {
@@ -74,7 +132,7 @@
 }
 
 .dc-pago-text {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     color: red;
     margin: 0px;
     text-decoration: none;
@@ -87,7 +145,7 @@ a:active {
 }
 
 .dc-img-modal {
-    background-image: url('/assets/theme/tuc/images/pago_efectivo.png');
+    background-image: url("/assets/theme/tuc/images/pago_efectivo.png");
     background-size: contain;
     background-repeat: no-repeat, repeat;
     width: 98%;
@@ -96,7 +154,7 @@ a:active {
 }
 
 .dc-img-modal-footer {
-    background-image: url('/assets/theme/tuc/images/pago_efectivo_footer.png');
+    background-image: url("/assets/theme/tuc/images/pago_efectivo_footer.png");
     background-size: contain;
     background-repeat: no-repeat, repeat;
     width: 98%;
@@ -106,7 +164,7 @@ a:active {
 
 @media only screen and (max-width: 900px) {
     .dc-img-modal-footer {
-        background-image: url('/assets/theme/tuc/images/pago_efectivo_footer_movil.png');
+        background-image: url("/assets/theme/tuc/images/pago_efectivo_footer_movil.png");
         background-size: contain;
         background-repeat: no-repeat, repeat;
         background-position: center;
@@ -114,7 +172,7 @@ a:active {
         height: 80px;
     }
     .dc-img-modal {
-        background-image: url('/assets/theme/tuc/images/pago_efectivo_movil.png');
+        background-image: url("/assets/theme/tuc/images/pago_efectivo_movil.png");
         background-size: contain;
         background-repeat: no-repeat, repeat;
         background-position: center;
@@ -126,5 +184,23 @@ a:active {
 .dc-table-pago {
     color: black;
     size: 12px;
-    font-family: 'Roboto';
+    font-family: "Roboto";
+}
+
+.dc-ppv-banner {
+    width: 100%;
+    max-height: 40vh;
+    margin-bottom: 10px;
+}
+
+.dc-ppv-img {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 100%;
+    max-height: max-content;
+}
+
+.dc-titulo-ayuda {
+    color: #d0dd28;
 }

@@ -5,18 +5,18 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
 
 
     scope.getCurrentUser = function() {
-        
+
         var deffered = $q.defer();
         var user = scope.RestoreState();
-        if(!user){
+        if (!user) {
             $rootScope.$broadcast("auth-current-error");
-        }else{
-      
+        } else {
+
             User.set(user);
             scope.user = User;
             deffered.resolve(user);
         }
-        
+
         return deffered.promise;
     };
 
@@ -25,10 +25,10 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         var deffered = $q.defer();
         $http({ method: 'GET', url: 'index.php/api/account/get_current' }).
         then(function(data, status, headers, config) {
- 
-                User.set(data.data);
-                scope.user = User;
-            
+
+            User.set(data.data);
+            scope.user = User;
+
             deffered.resolve(data.data);
         }).
         catch(function(data, status, headers, config) {
@@ -58,49 +58,55 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
 
     scope.updateDni = function(dni) {
         var deffered = $q.defer();
-        $http({ method: 'POST', url: 'index.php/api/account/update_user', data: {data: {dni: dni}, id: User._id} }).
+        $rootScope.dniError = false;
+        $http({ method: 'POST', url: 'index.php/api/account/update_user', data: { data: { dni: dni }, id: User._id } }).
         then(function(data, status, headers, config) {
-
-            if(data.data.error){
-                if( data.data.message === 'dni_used'){
-                    var message = 'La cédula ya está en uso'
-                }else {
-                    var message = data.data.message;
+            if (data.data.error) {
+                var message = '';
+                if (data.data.message === 'dni_used') {
+                    message = 'La cédula ya está en uso';
+                } else {
+                    message = data.data.message;
                 }
+                $rootScope.updatingDni = false;
+                $rootScope.dniError = message;
+                //alert(message);
                 throw Error(message);
             }
+
             //Get user from the localstorage
             var user = scope.RestoreState();
             user.dni = data.data.content.dni;
             User.set(user);
+            $('.dniModal').modal('hide');
             //Save the updated profile into the localstorage
             scope.SaveState(user);
             deffered.resolve(data.data);
         }).
         catch(function(data, status, headers, config) {
-            deffered.reject(data)
+            deffered.reject(data);
         });
         return deffered.promise;
     }
 
     scope.getOrders = function() {
         var deffered = $q.defer();
-        $http({ method: 'POST', url: 'index.php/api/account/get_customer_orders', data: {token: User.token} }).
+        $http({ method: 'POST', url: 'index.php/api/account/get_customer_orders', data: { token: User.token } }).
         then(function(data, status, headers, config) {
             //Get user from the localstorage
-            if(data.data.content && data.data.content.entries){
- 
-            var user = scope.RestoreState();
-            user.ppvTickets = data.data.content.entries;
-            User.set(user);
-            //Save the updated profile into the localstorage
-            scope.SaveState(user);
-            deffered.resolve(data.data.content.entries);
-            }else{
+            if (data.data.content && data.data.content.entries) {
+
+                var user = scope.RestoreState();
+                user.ppvTickets = data.data.content.entries;
+                User.set(user);
+                //Save the updated profile into the localstorage
+                scope.SaveState(user);
+                deffered.resolve(data.data.content.entries);
+            } else {
                 effered.resolve([]);
             }
-    
-   
+
+
         }).
         catch(function(data, status, headers, config) {
             deffered.reject(data)
@@ -108,7 +114,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         return deffered.promise;
     }
 
-    
+
 
     scope.setLoginUser = function(user) {
         scope.loginUser = user;
@@ -158,7 +164,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
                 } else {
                     ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'Login', eventLabel: 'Login Success' });
                     scope.SaveState(data.data.content);
-                    User.set(data.data.content);        
+                    User.set(data.data.content);
                     $rootScope.$broadcast("auth-login-success");
                 }
             }).
@@ -282,7 +288,7 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         });
     }
 
-    scope.setSubscription = function(subscription){
+    scope.setSubscription = function(subscription) {
 
         var subscriptionObj = [];
         subscriptionObj['subscriptionPlan'] = subscription;
@@ -294,18 +300,18 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         $rootScope.$broadcast("auth-login-success");
     }
 
-    scope.setBillingInfo = function(billingInfo){
+    scope.setBillingInfo = function(billingInfo) {
 
         var billingObj = [];
         billingObj['billingInfo'] = billingInfo;
         User.setProperties(billingObj);
-       
+
         var user = scope.RestoreState();
         user.billingInfo = billingInfo;
         //Save the updated subscription into the localstorage
         scope.SaveState(user);
         $rootScope.$broadcast("auth-login-success");
-      
+
     }
 
     scope.googleLogin = function() {
@@ -338,11 +344,11 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
         return scope.devices;
     }
 
-    scope.refreshAuth = function(){
-        return $http({ method: 'GET', url: 'index.php/api/account/refresh_pixellot_token?token=' + User.token}).
+    scope.refreshAuth = function() {
+        return $http({ method: 'GET', url: 'index.php/api/account/refresh_pixellot_token?token=' + User.token }).
         then(function(resp, status, headers, config) {
             const signaturePayload = (resp.data.content.token) ? resp.data.content.token.authSignature : null;
-            if(signaturePayload){
+            if (signaturePayload) {
                 var Auth = $window['pixellot-web-sdk'].Auth;
                 Auth.setSession(signaturePayload.token, signaturePayload.signature);
                 User.Auth = Auth;
@@ -351,26 +357,26 @@ uvodApp.factory('AuthService', function($http, $rootScope, $window, User, $q, $i
                 user_tmp.Auth = Auth;
                 user_tmp.AuthExpire = signaturePayload.expire;
                 scope.SaveState(user_tmp);
-                
+
             }
             return signaturePayload;
         });
     }
 
-    scope.SaveState= function (user) {
-        $window.localStorage.setItem('userData',btoa(utf8_encode(angular.toJson(user))));
-    },
+    scope.SaveState = function(user) {
+            $window.localStorage.setItem('userData', btoa(utf8_encode(angular.toJson(user))));
+        },
 
-    scope.RestoreState = function () {
+        scope.RestoreState = function() {
 
-        var user = null;
-        if($window.localStorage.getItem('userData') !== null) {
-            user = angular.fromJson(atob(utf8_decode($window.localStorage.getItem("userData"))));
+            var user = null;
+            if ($window.localStorage.getItem('userData') !== null) {
+                user = angular.fromJson(atob(utf8_decode($window.localStorage.getItem("userData"))));
+            }
+            return user;
         }
-        return user;
-    }
 
-    scope.ClearState = function () {
+    scope.ClearState = function() {
         $window.localStorage.removeItem('userData');
     }
 
@@ -387,7 +393,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
     }
     this.set = function(user) {
         // console.log('Setting User',user);
-        this._id = user.id ;
+        this._id = user.id;
         this.token = user.token ? user.token : null;
         this.accountId = user.profile ? user.profile.accountId : user.accountId;
         this.avatar = user.profile.avatar ? user.profile.avatar : "/assets/theme/tuc/images/profile.png";
@@ -399,7 +405,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
         this.state = user.profile ? user.profile.state : user.state;
         this.countryCode = user.profile ? user.profile.countryCode : user.countryCode;
         this.phone = user.profile ? user.profile.phone : user.phone;
-        this.countryName = user.profile ? user.profile.countryName: user.countryName;
+        this.countryName = user.profile ? user.profile.countryName : user.countryName;
         this.email = user.profile ? user.profile.email : user.email;
         this.fbId = user.profile ? user.profile.fbId : user.fbId;
         this.firstName = user.profile ? user.profile.firstName : user.firstName;
@@ -426,16 +432,16 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
         this.dni = user.dni;
         this.transactionalPlans = user.transactionalPlans;
         this.deviceId = user.current_device ? user.current_device.id : null;
-        this.globalTags =  user.profile ? user.profile.globalTags : false;
+        this.globalTags = user.profile ? user.profile.globalTags : false;
         notificationsFactroy.sendTags(this);
         notificationsFactroy.syncHashedEmail(this.email);
         $rootScope.$broadcast("auth-login-success");
-        if(!user.dni){
+        if (!user.dni) {
             $('.dniModal').modal('show');
-        }else{
+        } else {
             $('.dniModal').modal('hide');
         }
-        if(user.authSignature){
+        if (user.authSignature) {
             var Auth = $window['pixellot-web-sdk'].Auth;
             Auth.setSession(user.authSignature.token, user.authSignature.signature);
             this.Auth = Auth;
@@ -444,7 +450,7 @@ uvodApp.service('User', function($rootScope, $location, $q, $http, notifications
 
     };
 
-    this.setProperties = function(val){
+    this.setProperties = function(val) {
         for (var key in val) {
             this[key] = val[key]
         }

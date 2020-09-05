@@ -1,6 +1,6 @@
 <div class="account">
     <div class="tabs-area" ng-hide="showConfirmation">
-        <h1 class="account-header">MY ACCOUNT</h1>
+        <h1 class="account-header">Mi Perfil</h1>
         <div class="row">
             <div class="col-sm-3">
                 <ul class="nav nav-tabs nav-stacked" role="tablist">
@@ -8,7 +8,7 @@
                         <a class="nav-link {{activeTab==menuItem.id?'active':''}}" data-toggle="tab" href="" role="tab" ng-click="showActiveTab(menuItem.id)">{{menuItem.name}}</a>
                     </li>
                     <li>
-                        <button type="button" class="logout hidden-xs" ng-click="logout()">LOGOUT</button>
+                        <button type="button" class="logout hidden-xs" ng-click="logout()">Cerrar Sesión</button>
                     </li>
                 </ul>
             </div>
@@ -19,7 +19,7 @@
                             <form name="profileForm">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="subscriptionType">Subscription</label>
+                                        <label for="subscriptionType">Acceso</label>
                                         <input type="text" class="form-control" id="subscriptionType" ng-model="subscription.title" ng-disabled="true">
                                     </div>
                                 </div>
@@ -32,9 +32,9 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="firstName">First Name</label>
+                                        <label for="firstName">Nombres</label>
                                         <input type="text" class="form-control" id="firstName" ng-model="profile.firstName" ng-disabled="!editing">
-                                        <label for="lastName">Last Name</label>
+                                        <label for="lastName">Apellidos</label>
                                         <input type="text" class="form-control" id="lastName" ng-model="profile.lastName" ng-disabled="!editing">
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                         <input type="email" class="form-control" id="email" ng-model="profile.email" disabled>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="phone">Phone</label>
+                                        <label for="phone">Teléfono</label>
                                         <input type="tel" class="form-control" id="phone" ng-model="profile.phone" ng-disabled="!editing">
                                     </div>
                                     <!-- <div class="error-message col-sm-4" ng-hide="profile.email">
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="row" style="margin-top:0;">
                                     <div class="col-sm-4">
-                                        <label for="countryName">Country</label>
+                                        <label for="countryName">País</label>
                                         <input type="text" class="form-control" id="countryName" ng-model="profile.countryName" ng-disabled="!editing">
                                     </div>
                                     <div class="col-sm-4">
@@ -68,11 +68,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-hide="editing">EDIT</button>
-                                        <button type="submit" class="btn btn-primary" ng-click="update(profile)" ng-show="editing">UPDATE</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-hide="editing">Editar</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="update(profile)" ng-show="editing">Modificar</button>
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-show="editing">CANCEL</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="edit()" ng-show="editing">Cancelar</button>
                                     </div>
                                 </div>
                             </form>
@@ -695,17 +695,17 @@
                             <form name="passwordForm">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="current">Current Password</label>
+                                        <label for="current">Password Actual</label>
                                         <input type="password" class="form-control" id="current" name="current" ng-model="changePasswordDetails.current" required>
-                                        <label for="newPassword">New Password</label>
+                                        <label for="newPassword">Nuevo Password</label>
                                         <input type="password" class="form-control" id="newPassword" name="newPassword" ng-model="changePasswordDetails.newPassword" required>
-                                        <label for="confirmNewPassword">Confirm New Password</label>
+                                        <label for="confirmNewPassword">Confirme Nuevo Password</label>
                                         <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" ng-model="changePasswordDetails.confirmNewPassword" required>
                                         <div class="pass-message error-message" ng-if="changePasswordError">{{changePasswordError}}</div>
                                         <div class="pass-message success-message" ng-if="changePasswordSuccess">{{changePasswordSuccess}}</div>
                                         <div class="loader" ng-if="loading"></div>
-                                        <button ng-if="changePasswordError" ng-hide="loading" type="submit" class="btn btn-primary" ng-click="resetPassword()">Reset Password By Email</button>
-                                        <button ng-hide="loading" type="submit" class="btn btn-primary" ng-click="changePassword(passwordForm)">Change Password</button>
+                                        <button ng-if="changePasswordError" ng-hide="loading" type="submit" class="btn btn-primary" ng-click="resetPassword()">Cambiar Password Email</button>
+                                        <button ng-hide="loading" type="submit" class="btn btn-primary" ng-click="changePassword(passwordForm)">Cambiar Password</button>
                                     </div>
                                 </div>
                             </form>
@@ -746,7 +746,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="logout visible-xs" ng-click="logout()">LOGOUT</button>
+                    <button type="button" class="logout visible-xs" ng-click="logout()">Cerrar Sesión</button>
                 </div>
             </div>
         </div>

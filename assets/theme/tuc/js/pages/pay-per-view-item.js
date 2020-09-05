@@ -1,5 +1,16 @@
 var payItem = null;
-uvodApp.controller('PayItemController', function($scope, $interval, $routeParams, globalFactory, User, AuthService, $window, $location, $log, $http) {
+uvodApp.controller("PayItemController", function(
+    $scope,
+    $interval,
+    $routeParams,
+    globalFactory,
+    User,
+    AuthService,
+    $window,
+    $location,
+    $log,
+    $http
+) {
     payItem = $scope;
     $scope.lineup = 1;
     $window.scroll(0, 0);
@@ -11,25 +22,30 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     $scope.loading = true;
     $scope.eventIsLive = false;
     $scope.paymentType = "none";
+    $scope.paymentValid = true;
     if ($scope.billingInfo) {
-        $scope.billingInfo.exDate = $scope.billingInfo.expire_month + '/' + $scope.billingInfo.expire_year;
+        $scope.billingInfo.exDate =
+            $scope.billingInfo.expire_month + "/" + $scope.billingInfo.expire_year;
         $scope.billingInfo.security = "XXX";
     }
     $scope.submitted = {
         billingForm: false,
-        payment: false
+        payment: false,
     };
     globalFactory.getPpvEventById($routeParams.ppvId).then(function(data) {
         $scope.event = data;
-        $scope.eventType = $scope.event.categories ? $scope.event.categories[0].name : 'commerce_free_media';
+        $scope.eventType = $scope.event.categories ?
+            $scope.event.categories[0].name :
+            "commerce_free_media";
         $http({
-            method: 'GET',
-            url: 'assets/theme/tuc/js/ppv-days.json'
-        }).then(function successCallback(response) {
-            $scope.ppvDays = response.data[$scope.event.title];
-        }, function errorCallback(response) {
-
-        });
+            method: "GET",
+            url: "assets/theme/tuc/js/ppv-days.json",
+        }).then(
+            function successCallback(response) {
+                $scope.ppvDays = response.data[$scope.event.title];
+            },
+            function errorCallback(response) {}
+        );
         $scope.activeVideo = $scope.event.event_videos[0];
         $scope.mainImage = $scope.getPosterF($scope.event.content);
         initializeClock($scope.event.event_date);
@@ -48,38 +64,48 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     $scope.backgroundGradient = "/assets/theme/tuc/images/rectangle.png";
     $scope.availablePerformances = {};
 
-
     $scope.hasAccess = function() {
         if ($scope.event) {
             if ($scope.event.categories && $scope.event.categories.length)
                 if ($scope.event.categories[0]) {
-                    if ($scope.event.categories[0].name == '' || $scope.event.categories[0].name == 'none' || $scope.event.categories[0].name == 'commerce_free_media')
+                    if (
+                        $scope.event.categories[0].name == "" ||
+                        $scope.event.categories[0].name == "none" ||
+                        $scope.event.categories[0].name == "commerce_free_media"
+                    )
                         return true;
                     else if ($scope.event.categories[0].name == "commerce_members_media")
                         return User._id;
-                    else if ($scope.event.categories[0].name == 'commerce_subscription_basic_media');
+                    else if (
+                        $scope.event.categories[0].name ==
+                        "commerce_subscription_basic_media"
+                    );
                     return User.subscriptionPlan;
                 }
         }
         return true;
-    }
+    };
 
     $scope.getPermissions = function() {
-        if ($scope.eventType == 'commerce_free_media' || $scope.eventType == '' || $scope.eventType == 'none') {
+        if (
+            $scope.eventType == "commerce_free_media" ||
+            $scope.eventType == "" ||
+            $scope.eventType == "none"
+        ) {
             $scope.allowAccess = true;
             return;
         }
-        if ($scope.eventType == 'commerce_subscription_basic_media') {
+        if ($scope.eventType == "commerce_subscription_basic_media") {
             if (!$scope.user.subscriptionPlan) {
-                $scope.permission = 'Subscribed';
+                $scope.permission = "Subscribed";
                 $scope.allowAccess = false;
                 return;
             } else {
-                $scope.permission = '';
+                $scope.permission = "";
             }
         }
         if (angular.isUndefined($scope.user._id)) {
-            $scope.permission = 'a Member';
+            $scope.permission = "a Member";
             $scope.allowAccess = false;
             return;
         }
@@ -87,19 +113,32 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     };
 
     $scope.changePaymentType = function(type) {
-        $scope.paymentType = type;
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                $scope.paymentType = type;
+                if (type == "wallet") {
+                    fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                }
+            }
+        } else {
+            $scope.loadPago = false;
+            alert("Seleccione Ticket por favor");
+        }
     };
 
     $scope.menu = {
         0: { name: "Tickets", id: "tickets" },
         // 1:{name:"Line Up", id:"line-up"}
         // 2:{name:"Performers", id:"performers", directive:"performers"},
-        1: { name: "Videos", id: "videos" }
+        1: { name: "Videos", id: "videos" },
     };
 
     $scope.playVideo = function(slide) {
         $scope.activeVideo = slide;
-    }
+    };
     $scope.performersPosition = 0;
     $scope.caruselPosition = 0;
     $scope.alreadyPurchased = false;
@@ -112,13 +151,17 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     $scope.allEvents = [];
     $scope.newCard = false;
     $scope.billing = {};
+    $scope.loadPago = false;
 
     var timeinterval;
 
     $scope.moveDown = function() {
         if ($scope.performersPosition == 0) {
             $scope.performersPosition = 1;
-        } else if ($scope.performersPosition == 1 && Object.keys($scope.performers).length > 8) {
+        } else if (
+            $scope.performersPosition == 1 &&
+            Object.keys($scope.performers).length > 8
+        ) {
             $scope.performersPosition = 2;
         } else {
             $scope.performersPosition = 0;
@@ -152,59 +195,91 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     };
 
     $scope.payWithCreditCard = function() {
-        globalFactory.createRequest($scope.selectedTicket).then(function(data) {
-            console.log(data)
-            if(data.message == 'ok'){
-                window.location.href = data.content.processUrl;
+        if ($scope.selectedTicket) {
+            if (!$scope.user._id) {
+                $(".loginModal").modal("show");
+                return;
+            } else {
+                fbq("track", "Purchase", { value: 0.0, currency: "USD" });
+                $scope.loadPago = true;
+                globalFactory.createRequest($scope.selectedTicket).then(function(data) {
+                    console.log(data);
+                    if (data.message == "ok") {
+                        window.location.href = data.content.processUrl;
+                    }
+                });
             }
-        });
+        } else {
+            $scope.loadPago = false;
+            //$scope.noSelected = "Seleccione Ticket por favor";
+            alert("Seleccione Ticket por favor");
+        }
     };
 
     $scope.goToPayment = function() {
         if ($scope.selectedPurchases.length == 0) {
-            $scope.noSelected = "Please select tickets";
+            $scope.noSelected = "Seleccione Ticket por favor";
             return;
         }
         if (!$scope.user._id) {
-            $('.loginModal').modal('show');
+            $(".loginModal").modal("show");
             return;
         } else {
             $scope.pay = true;
+            fbq("track", "InitiateCheckout");
+            $scope.loadPago = false;
         }
         $window.scroll(0, 0);
         $scope.noSelected = false;
     };
 
     $scope.changeTicket = function() {
-
-            $scope.pay = false;
-            $scope.paymentType = "none";
-
+        $scope.pay = false;
+        $scope.paymentType = "none";
+        $scope.loadPago = false;
     };
 
     $scope.buyTicket = function(form) {
         $scope.successfulPurchase = false;
         $scope.submitted.billingForm = true;
         if (form.$invalid) {
-            return
+            return;
         }
         $scope.buying = true;
         $scope.purchasingError = false;
-        $scope.billing.pi_year = $scope.billing.pi_month + '/' + $scope.billing.pi_year;
-        $scope.billing.pi_number = $scope.billing.pi_number.replace(/\s+/g, '');
+        $scope.billing.pi_year =
+            $scope.billing.pi_month + "/" + $scope.billing.pi_year;
+        $scope.billing.pi_number = $scope.billing.pi_number.replace(/\s+/g, "");
         for (var i = 0; i < $scope.selectedPurchases.length; i++) {
-            ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Start' });
-            User.purchaseEvent($scope.billing, $scope.selectedPurchases[i],
+            ga("send", {
+                hitType: "event",
+                eventCategory: "User Type",
+                eventAction: "PPV",
+                eventLabel: "Subscription Start",
+            });
+            User.purchaseEvent(
+                $scope.billing,
+                $scope.selectedPurchases[i],
                 function(response) {
                     $scope.buying = false;
                     $scope.submitted.billingForm = false;
                     if (response.data.error) {
-                        ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Error' });
+                        ga("send", {
+                            hitType: "event",
+                            eventCategory: "User Type",
+                            eventAction: "PPV",
+                            eventLabel: "Subscription Error",
+                        });
                         $scope.buying = false;
                         $scope.purchasingError = true;
                         $scope.errorMessage = response.data.message;
                     } else {
-                        ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Success' });
+                        ga("send", {
+                            hitType: "event",
+                            eventCategory: "User Type",
+                            eventAction: "PPV",
+                            eventLabel: "Subscription Success",
+                        });
                         User.sendConfirmation(response.data);
                         AuthService.getCurrentUser();
                         $scope.buying = false;
@@ -214,9 +289,14 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
                     }
                 },
                 function(err) {
-                    ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Server Error' });
-
-                });
+                    ga("send", {
+                        hitType: "event",
+                        eventCategory: "User Type",
+                        eventAction: "PPV",
+                        eventLabel: "Subscription Server Error",
+                    });
+                }
+            );
         }
     };
 
@@ -225,11 +305,22 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         $scope.successfulPurchase = false;
         $scope.purchasingError = false;
         for (var i = 0; i < $scope.selectedPurchases.length; i++) {
-            ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Start' });
-            User.purchaseEventByStoredCC($scope.selectedPurchases[i],
+            ga("send", {
+                hitType: "event",
+                eventCategory: "User Type",
+                eventAction: "PPV",
+                eventLabel: "Subscription Start",
+            });
+            User.purchaseEventByStoredCC(
+                $scope.selectedPurchases[i],
                 function(response) {
                     if (response.data.error) {
-                        ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Error' });
+                        ga("send", {
+                            hitType: "event",
+                            eventCategory: "User Type",
+                            eventAction: "PPV",
+                            eventLabel: "Subscription Error",
+                        });
                         $scope.buying = false;
                         $scope.purchasingError = true;
                         $scope.errorMessage = response.data.message;
@@ -237,7 +328,12 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
                         $scope.submitted.billingForm = false;
                         $scope.successfulPurchase = false;
                     } else {
-                        ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Success' });
+                        ga("send", {
+                            hitType: "event",
+                            eventCategory: "User Type",
+                            eventAction: "PPV",
+                            eventLabel: "Subscription Success",
+                        });
                         User.sendConfirmation(response.data);
                         AuthService.getCurrentUser();
                         $scope.buying = false;
@@ -247,8 +343,14 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
                     }
                 },
                 function() {
-                    ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'PPV', eventLabel: 'Subscription Server Error' });
-                });
+                    ga("send", {
+                        hitType: "event",
+                        eventCategory: "User Type",
+                        eventAction: "PPV",
+                        eventLabel: "Subscription Server Error",
+                    });
+                }
+            );
         }
     };
 
@@ -258,11 +360,11 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
             cardInformation.lastName = $scope.user.lastName;
             cardInformation.email = $scope.user.email;
         } else {
-            cardInformation.firstName = '';
-            cardInformation.lastName = '';
-            cardInformation.email = '';
+            cardInformation.firstName = "";
+            cardInformation.lastName = "";
+            cardInformation.email = "";
         }
-    }
+    };
 
     $scope.changeCard = function(form) {
         $scope.billing = {};
@@ -296,19 +398,28 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         if (ticket.offerEndDate - Date.now() > 0) {
             return true;
         } else return false;
-    }
+    };
+
     $scope.select = function(ticket) {
         $scope.selectedTicket = ticket;
+        console.log(ticket);
         if (ticket.offerEndDate - Date.now() < 0) {
             return;
         }
         if (!$scope.userPurchased(ticket)) {
             if ($scope.isInPurchases(ticket)) {
-                $scope.selectedPurchases.splice($scope.selectedPurchases.indexOf(ticket), 1);
+                $scope.selectedPurchases.splice(
+                    $scope.selectedPurchases.indexOf(ticket),
+                    1
+                );
             } else {
                 for (var i = 0; i < $scope.selectedPurchases.length; i++) {
                     for (var j = 0; j < ticket.sessions_included.length; j++) {
-                        if ($scope.selectedPurchases[i].sessions_included.indexOf(ticket.sessions_included[j]) != -1) {
+                        if (
+                            $scope.selectedPurchases[i].sessions_included.indexOf(
+                                ticket.sessions_included[j]
+                            ) != -1
+                        ) {
                             $scope.selectedPurchases.splice(i, 1);
                             i--;
                             break;
@@ -334,33 +445,49 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         var i;
         for (i = 0; i < $scope.length($scope.user.ppvTickets); i++) {
             if ($scope.user.ppvTickets[i].originalProductId == ticket._id) {
-                return true;
-            }
-        }
-        return false
-    };
-
-    $scope.userHasAccess = function() {
-        if(!$scope.event || !$scope.event.tickets || $scope.event.tickets.length < 1 || 
-           !$scope.user || !$scope.user.ppvTickets || $scope.user.ppvTickets.length < 1) return false;
-        for (i = 0; i < $scope.user.ppvTickets.length; i++) {
-            if($scope.user.ppvTickets[i].product.event_id === $scope.event._id){
+                $scope.paymentValid = false;
                 return true;
             }
         }
         return false;
-    }
+    };
+
+    $scope.userHasAccess = function() {
+        if (!$scope.event ||
+            !$scope.event.tickets ||
+            $scope.event.tickets.length < 1 ||
+            !$scope.user ||
+            !$scope.user.ppvTickets ||
+            $scope.user.ppvTickets.length < 1
+        )
+            return false;
+        for (i = 0; i < $scope.user.ppvTickets.length; i++) {
+            if ($scope.user.ppvTickets[i].product.event_id === $scope.event._id) {
+                return true;
+            }
+        }
+        return false;
+    };
     $scope.offerHasStarted = function(ticket) {
         if (ticket.offerStartDate < Date.now()) return true;
         else return false;
-    }
+    };
     $scope.ticketIncluded = function(item) {
         if (!$scope.userPurchased(item)) {
             var count = 0;
             for (var i = 0; i < $scope.event.tickets.length; i++) {
-                if ($scope.event.tickets[i]._id != item._id && $scope.userPurchased($scope.event.tickets[i])) {
-                    for (var j = 0; j < $scope.event.tickets[i].event_session_id.length; j++) {
-                        if (item.event_session_id.indexOf($scope.event.tickets[i].event_session_id[j]) != -1) {
+                if (
+                    $scope.event.tickets[i]._id != item._id &&
+                    $scope.userPurchased($scope.event.tickets[i])
+                ) {
+                    for (
+                        var j = 0; j < $scope.event.tickets[i].event_session_id.length; j++
+                    ) {
+                        if (
+                            item.event_session_id.indexOf(
+                                $scope.event.tickets[i].event_session_id[j]
+                            ) != -1
+                        ) {
                             count++;
                         }
                     }
@@ -371,26 +498,29 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
             }
         }
         return item;
-    }
+    };
 
     $scope.buyWithWallet = function() {
         $scope.subscribing = true;
-        User.buyWithWallet($scope.selectedTicket._id).then(
-            function(data) {
-                if (!data.data.error) {
-                    AuthService.getOrders().then( function(){                        
-                        $scope.pay = false;
-                        $scope.paymentType = "none";
-                        $window.scroll(0, 0);
-                        $scope.selectedPurchases = [];
-                    });
-                } else {
-                    ga('send', { hitType: 'event', eventCategory: 'User Type', eventAction: 'Subscribe', eventLabel: 'Subscription Error' });
-                    $scope.subscriptionError = data.data.message;
-                }
-                $scope.subscribing = false;
+        User.buyWithWallet($scope.selectedTicket._id).then(function(data) {
+            if (!data.data.error) {
+                AuthService.getOrders().then(function() {
+                    $scope.pay = false;
+                    $scope.paymentType = "none";
+                    $window.scroll(0, 0);
+                    $scope.selectedPurchases = [];
+                });
+            } else {
+                ga("send", {
+                    hitType: "event",
+                    eventCategory: "User Type",
+                    eventAction: "Subscribe",
+                    eventLabel: "Subscription Error",
+                });
+                $scope.subscriptionError = data.data.message;
             }
-        );
+            $scope.subscribing = false;
+        });
     };
 
     $scope.getPosterH = function(content) {
@@ -403,10 +533,9 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
             }
             return "";
         }
-
     };
 
-    $scope.getPosterF = function(content){
+    $scope.getPosterF = function(content) {
         if (content) {
             var i;
             for (i = 0; i < Object.keys(content).length; i++) {
@@ -416,7 +545,6 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
             }
             return "";
         }
-
     };
 
     function getTimeRemaining(endtime) {
@@ -425,15 +553,14 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         var minutes = Math.floor((t / 1000 / 60) % 60);
         var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
         var days = Math.floor(t / (1000 * 60 * 60 * 24));
-        $scope.remainingTime.days = (days >= 10) ? days : '0' + days;
-        $scope.remainingTime.hours = (hours >= 10) ? hours : '0' + hours;
-        $scope.remainingTime.minutes = (minutes >= 10) ? minutes : '0' + minutes;
-        $scope.remainingTime.seconds = (seconds >= 10) ? seconds : '0' + seconds;
+        $scope.remainingTime.days = days >= 10 ? days : "0" + days;
+        $scope.remainingTime.hours = hours >= 10 ? hours : "0" + hours;
+        $scope.remainingTime.minutes = minutes >= 10 ? minutes : "0" + minutes;
+        $scope.remainingTime.seconds = seconds >= 10 ? seconds : "0" + seconds;
         $scope.remainingTime.total = t;
     }
 
     function initializeClock(endtime) {
-
         function updateClock() {
             getTimeRemaining(endtime);
 
@@ -453,7 +580,8 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
         $scope.submitted.billingForm = false;
         $scope.billingInfo = $scope.user.billingInfo;
         if ($scope.billingInfo) {
-            $scope.billingInfo.exDate = $scope.billingInfo.expire_month + '/' + $scope.billingInfo.expire_year;
+            $scope.billingInfo.exDate =
+                $scope.billingInfo.expire_month + "/" + $scope.billingInfo.expire_year;
             $scope.billingInfo.security = "XXX";
         }
     });
@@ -463,11 +591,7 @@ uvodApp.controller('PayItemController', function($scope, $interval, $routeParams
     };
 
     $scope.enoghCredits = function() {
-        if(!$scope.selectedTicket) return false;
+        if (!$scope.selectedTicket) return false;
         return $scope.selectedTicket.price <= $scope.wallet.credits;
-
-    }
-
-
-
+    };
 });
