@@ -68,7 +68,7 @@
                                                 <thead>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="ticket in event.tickets | filter: ticketIncluded" ng-show="offerHasStarted(ticket)">
+                                                    <tr ng-repeat="ticket in event.tickets | filter: ticketIncluded" ng-show="offerHasStarted(ticket) && allowedCountry(ticket)">
                                                         <th>
                                                             <div class="inner-table">
                                                                 <span><strong>{{ticket.title}}</strong></span>

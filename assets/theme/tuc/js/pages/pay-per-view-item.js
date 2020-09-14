@@ -2,10 +2,12 @@ var payItem = null;
 uvodApp.controller("PayItemController", function(
     $scope,
     $interval,
+    $rootScope,
     $routeParams,
     globalFactory,
     User,
     AuthService,
+    GeoService,
     $window,
     $location,
     $log,
@@ -23,6 +25,11 @@ uvodApp.controller("PayItemController", function(
     $scope.eventIsLive = false;
     $scope.paymentType = "none";
     $scope.paymentValid = true;
+    GeoService.getLocationData()
+    .then(function(data) {
+        $rootScope.geo = data;
+    });
+
     if ($scope.billingInfo) {
         $scope.billingInfo.exDate =
             $scope.billingInfo.expire_month + "/" + $scope.billingInfo.expire_year;
@@ -34,6 +41,14 @@ uvodApp.controller("PayItemController", function(
     };
     globalFactory.getPpvEventById($routeParams.ppvId).then(function(data) {
         $scope.event = data;
+        if($scope.event.tickets){
+            for (i = $scope.event.tickets.length - 1; i >= 0; --i) {
+                if (!$scope.allowedCountry($scope.event.tickets[i])) {
+                    $scope.event.tickets.splice(i, 1); // Remove even numbers
+                }
+            }
+        }
+        
         $scope.eventType = $scope.event.categories ?
             $scope.event.categories[0].name :
             "commerce_free_media";
@@ -63,6 +78,25 @@ uvodApp.controller("PayItemController", function(
 
     $scope.backgroundGradient = "/assets/theme/tuc/images/rectangle.png";
     $scope.availablePerformances = {};
+
+    $scope.allowedCountry = function(ticket){
+        var allowed = true;
+
+        var userCountry = $rootScope.geo.countryCode;
+
+        if (ticket.allowedCountries && ticket.allowedCountries.length > 0){
+            if (ticket.allowedCountries.indexOf(userCountry) == -1){
+                allowed = false;
+            }
+        } else if (ticket.disallowedCountries && ticket.disallowedCountries.length > 0){
+            if (ticket.disallowedCountries.indexOf(userCountry) != -1){
+                allowed = false;
+            }
+        }
+
+        return allowed;
+
+    };
 
     $scope.hasAccess = function() {
         if ($scope.event) {
