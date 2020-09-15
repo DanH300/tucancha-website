@@ -12,7 +12,9 @@ $config['ig_url'] = 'https://www.instagram.com/Mysoccerplayer2019/';
 
 $config['streams_md5_shared_secret'] = '900P@rkCenter456';
 
-$config['pixellot_sdk_url'] = 'https://pixellot-web-sdk.stage.pixellot.tv/5dd3ec03fc43890010c3d342/v1.2.1/pixellot-web-sdk.js';
+$config['website_title'] = 'Tu Cancha';
+$config['website_description'] = 'Tu Cancha OTT';
+$config['pixellot_sdk_url'] = 'https://pixellot-web-sdk.pixellot.tv/5dd3ecb332241f006c115de3/v1.4.2/pixellot-web-sdk.js';
 
 $config['logo_file'] = 'tvj_logo.png';
 $config['logo_width'] = '127px';
@@ -61,3 +63,8 @@ $config['available_subscription_prices'] = array(
 	'19441019' => '49.95',
 	'19441020' => '99.9'
 );
+
+$config['onesignal_app_id'] = 'b1663dbb-0858-466b-9b76-d391a89e427f';
+$config['spanish_lang'] = true;
+$config['support_address'] = 'admin@tucancha.ec';
+$config['mandrill_key'] = "znn6X3k0xAg6z0NpC11dWw";
